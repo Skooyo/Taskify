@@ -18,9 +18,9 @@ const TaskCard = () => {
                             <p>Not Started</p>
                         </div>
                     </div>
-                    <div className="flex-col gap-6 mt-4">
+                    <div className="flex-col gap-4 mt-4">
                         <p className="font-semibold text-lg">Tags</p>
-                        <div className="flex my-4 gap-4 text-md">
+                        <div className="grid grid-cols-3 my-4 gap-1 gap-y-6 text-md">
                             <div className="flex bg-[#FFD400] opacity-80 w-fit px-2 h-full pt-1 items-center justify-center rounded-lg">
                                 <p>Backend</p>
                             </div>
@@ -30,10 +30,8 @@ const TaskCard = () => {
                             <div className="flex bg-[#FFD400] opacity-80 w-fit px-2 h-full pt-1 items-center justify-center rounded-lg">
                                 <p>Framework</p>
                             </div>
-                        </div>
-                        <div className="flex my-4 gap-4 text-md">
                             <div className="flex bg-[#FFD400] opacity-80 w-fit px-2 h-full pt-1 items-center justify-center rounded-lg">
-                                <p>API</p>
+                                <p>Test</p>
                             </div>
                         </div>
                     </div>
