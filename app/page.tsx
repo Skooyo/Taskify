@@ -1,6 +1,6 @@
 "use client"
 
-import { getAllProductBacklogItems } from "@/lib/actions/product_backlog.actions";
+import { getAllProductBacklogItems } from "@/lib/actions/product_backlog_item.actions";
 import Image from "next/image";
 import { useEffect } from "react";
 
