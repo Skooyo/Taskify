@@ -2,8 +2,21 @@ import TaskButton from "@/components/TaskButton";
 import FilterButton from "@/components/FilterButton";
 import SortButton from "@/components/SortButton";
 import TaskCard from "@/components/TaskCard";
+"use client"
+
+import { getAllProductBacklogItems } from "@/lib/actions/product_backlog_item.actions";
+import { useEffect } from "react";
 
 export default function Home() {
+  useEffect(() => {
+    const fetchData = async () => {
+      const a = await getAllProductBacklogItems();
+      console.log(a);
+    }
+    
+    fetchData();
+  }, [])
+
   return (
     <main>
       <div className="h-screen w-full flex gap-8 pt-5">
