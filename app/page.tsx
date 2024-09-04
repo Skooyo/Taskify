@@ -1,8 +1,9 @@
+"use client"
+
 import TaskButton from "@/components/TaskButton";
 import FilterButton from "@/components/FilterButton";
 import SortButton from "@/components/SortButton";
 import TaskCard from "@/components/TaskCard";
-"use client"
 
 import { getAllProductBacklogItems } from "@/lib/actions/product_backlog_item.actions";
 import { useEffect } from "react";
