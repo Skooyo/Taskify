@@ -69,7 +69,7 @@ const ProductBacklogItemSchema = new Schema<IProductBacklogItem>({
     type: Schema.Types.ObjectId,
     ref: "Tag",
   },
-})
+}, { collection: "product_backlog_items" })
 
 const ProductBacklogItem = models.ProductBacklogItem || model<IProductBacklogItem>("ProductBacklogItem", ProductBacklogItemSchema);
 

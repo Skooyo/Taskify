@@ -11,7 +11,7 @@ const TagSchema = new Schema<ITag>({
     required: true,
     unique: true,
   },
-});
+}, { collection: "tags" });
 
 const Tag = models.Tag || model<ITag>("Tag", TagSchema);
 

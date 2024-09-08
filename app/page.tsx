@@ -11,8 +11,9 @@ import { useEffect } from "react";
 export default function Home() {
   useEffect(() => {
     const fetchData = async () => {
-      const a = await getAllProductBacklogItems();
-      console.log(a);
+      console.log("test")
+      const backlogItems = await getAllProductBacklogItems();
+      console.log(backlogItems);
     }
     
     fetchData();
