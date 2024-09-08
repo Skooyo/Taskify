@@ -20,7 +20,7 @@ const Task = {
     developmentPhase: "Integration",
     totalLoggedHours: "0",
     loggedHours: ["Member 1"],
-    taskType: "Bug",
+    taskType: "Story",
     createdAt: new Date(),
     assignee: {
         _id: "1",

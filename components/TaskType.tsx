@@ -12,7 +12,7 @@ const TaskType = ({taskType} : {taskType: string}) => {
     return(
         <>
             <div className={`flex ${bgColor()} w-[95%] px-2 h-fit py-2 rounded-md drop-shadow-xl justify-center items-center text-black gap-2`}>
-                {taskType == "Story" && <MdHistoryEdu size={32}/>}
+                {taskType == "Story" && <MdHistoryEdu size={24}/>}
                 {taskType == "Bug" && <FaBug size={24}/>}
                 <p className="items-center justify-center text-xl font-semibold">{taskType}</p>
             </div>
