@@ -173,8 +173,8 @@ const FocusedTaskView = ({ isOpen, setIsOpen }: ModalProps) => {
                             {/* Description */}
                             <div className="flex-col w-full mt-4 p-2 px-6 pr-8">
                                 <div className="border border-black p-2 rounded-lg">
-                                    <p className="font-semibold text-lg">Task Description</p>
-                                    <div className="border border-black p-2 m-2 rounded-lg bg-[#D9D9D9]">
+                                    <p className="font-semibold text-lg pl-1">Task Description</p>
+                                    <div className="m-2 rounded-lg">
                                         <p className="text-md">{Task.description}</p>
                                     </div>
                                 </div>
