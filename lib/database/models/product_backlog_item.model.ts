@@ -66,7 +66,7 @@ const ProductBacklogItemSchema = new Schema<IProductBacklogItem>({
     ref: "User",
   },
   tags: {
-    type: Schema.Types.ObjectId,
+    type: [Schema.Types.ObjectId],
     ref: "Tag",
   },
 }, { collection: "product_backlog_items" })
