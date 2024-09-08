@@ -1,8 +1,10 @@
 import React from 'react';
 import Modal from 'react-modal';
 import { Styles } from 'react-modal';
-import { MdHistoryEdu } from "react-icons/md";
-import { FaGear } from "react-icons/fa6";
+import DevelopmentStage from './DevelopmentStage';
+import TaskStatus from './TaskStatus';
+import TaskType from './TaskType';
+import TaskPriority from './TaskPriority';
 
 type ModalProps = {
   isOpen: boolean;
@@ -14,11 +16,11 @@ const Task = {
     description: "very very very very very very very very very very very very very very very very very very very very very very very very this is a short task this is a short task this is a short taskthis is a short task this is a short task this is a short taskthis is a short task very very very very very very very very very very very very very very very very very very very very very very very very very very very very ",
     priority: "Urgent",
     storyPoints: 1,
-    status: "In Progress",
-    developmentPhase: "Development",
+    status: "Not Started",
+    developmentPhase: "Integration",
     totalLoggedHours: "0",
     loggedHours: ["Member 1"],
-    taskType: "Story",
+    taskType: "Bug",
     createdAt: new Date(),
     assignee: {
         _id: "1",
@@ -112,30 +114,25 @@ const FocusedTaskView = ({ isOpen, setIsOpen }: ModalProps) => {
                             {/* Collection of sub-components (below tags) */}
                             <div className="grid grid-cols-3 w-full h-full py-8 gap-10">
 
+                                    {/* TODO add conditional rendering for "hours worked" when card is opened in sprint board */}
                                     {/* Assigned Member */}
                                     <div className="w-full">
                                         <p className="pl-1">Assigned Member:</p>
-                                        <div className="flex bg-[#FFD400] opacity-80 w-[95%] px-2 h-fit pt-1 items-center justify-center rounded-md drop-shadow-xl">
-                                            <p className="p-3 items-center justify-center w-full h-fit">{Task.assignee.name}</p>
+                                        <div className="flex bg-[#FFD400] opacity-80 w-[95%] h-[70%] items-center justify-center rounded-md drop-shadow-xl">
+                                            <p className="pl-2 items-center justify-center font-semibold">{Task.assignee.name}</p>
                                         </div>
                                     </div>
 
-                                    {/* TODO add conditional rendering based on the "development stage" the task is in (check figma for colors) */}
                                     {/* Development Stage */}
                                     <div className="w-full">
                                         <p className="pl-1">Development Stage</p>
-                                        <div className="flex bg-[#639BE0] opacity-80 w-[95%] px-2 h-fit pt-1 items-center justify-center rounded-md drop-shadow-xl">
-                                            <p className="p-3 items-center justify-center text-xl font-semibold text-white">{Task.developmentPhase}</p>
-                                        </div>
+                                        <DevelopmentStage developmentPhase = {`${Task.developmentPhase}`} />
                                     </div>
 
                                     {/* Task Status */}
                                     <div className="w-full">
                                         <p className="pl-1">Task Status:</p>
-                                        <div className="flex bg-[#FF8C00] opacity-80 w-[95%] px-2 h-fit pt-1 items-center justify-center rounded-md drop-shadow-xl text-white">
-                                            <FaGear size={24}/>
-                                            <p className="p-3 items-center justify-center text-xl font-semibold">{Task.status}</p>
-                                        </div>
+                                        <TaskStatus status = {`${Task.status}`} />
                                     </div>
 
                                     {/* Story Points */}
@@ -149,23 +146,16 @@ const FocusedTaskView = ({ isOpen, setIsOpen }: ModalProps) => {
                                         </div>
                                     </div>
 
-                                    {/* TODO conditional rendering per priority also, should i make a different component? */}
                                     {/* Priority */}
                                     <div className="w-full">
                                         <p className="pl-1">Priority:</p>
-                                        <div className="flex bg-[#FF0000] opacity-80 w-[95%] px-2 h-fit py-2 rounded-md drop-shadow-xl justify-center items-center text-white gap-4">
-                                        <p className="font-semibold text-lg">{Task.priority}</p>
-                                        </div>
+                                        <TaskPriority priority = {Task.priority} />
                                     </div>
 
-                                    {/* TODO, once again conditional rendering, i think this one should be a different component */}
                                     {/* Task Type */}
                                     <div className="w-full">
                                         <p className="pl-1">Task Type:</p>
-                                        <div className="flex bg-green-400 w-[95%] px-2 h-fit py-2 rounded-md drop-shadow-xl justify-center items-center text-black gap-1">
-                                            <p className="items-center justify-center text-xl font-semibold">{Task.taskType}</p>
-                                            <MdHistoryEdu size={32}/>
-                                        </div>
+                                        <TaskType taskType = {Task.taskType} />
                                     </div>
 
                             </div>
