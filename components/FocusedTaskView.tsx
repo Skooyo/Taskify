@@ -5,6 +5,8 @@ import DevelopmentStage from './DevelopmentStage';
 import TaskStatus from './TaskStatus';
 import TaskType from './TaskType';
 import TaskPriority from './TaskPriority';
+import { FaRegTrashAlt } from "react-icons/fa";
+import { FaEdit } from "react-icons/fa";
 
 type ModalProps = {
   isOpen: boolean;
@@ -161,13 +163,33 @@ const FocusedTaskView = ({ isOpen, setIsOpen }: ModalProps) => {
                             </div>
 
                             {/* Description */}
-                            <div className="flex-col w-full mt-4 p-2 px-6 pr-8">
+                            <div className="flex-col w-full mt-4">
                                 <div className="border border-black p-2 rounded-lg">
                                     <p className="font-semibold text-lg pl-1">Task Description</p>
                                     <div className="m-2 rounded-lg">
                                         <p className="text-md">{Task.description}</p>
                                     </div>
                                 </div>
+
+                            <div className="w-full mt-4 py-4 flex justify-between">
+                                <button
+                                    type="button"
+                                    className="items-center justify-center py-2 px-6 bg-red-500
+                                    text-background rounded-lg flex gap-2 text-white opacity-80"
+                                    >
+                                    <FaRegTrashAlt size={16} />
+                                    <p>Delete</p>
+                                </button>
+
+                                <button
+                                    type="button"
+                                    className="items-center justify-center py-2 px-6 bg-[#2fd42a]
+                                    text-background rounded-lg flex gap-2 text-white opacity-80"
+                                    >
+                                    <FaEdit size={24} />
+                                    <p>Edit</p>
+                                </button>
+                            </div>
 
 
                         </div>
