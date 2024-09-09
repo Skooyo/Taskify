@@ -35,7 +35,6 @@ export const createProductBacklogItem = async ({
   try {
     await connectToDatabase();
 
-    // TODO: tags
     const newProductBacklogItem = await ProductBacklogItem.create({
       ...productBacklogItem,
       assignee: userId,

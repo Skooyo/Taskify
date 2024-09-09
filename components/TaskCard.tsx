@@ -8,8 +8,6 @@ import { IProductBacklogItem } from "@/lib/database/models/product_backlog_item.
 import { ITag } from "@/lib/database/models/tag.model";
 import { getTagById } from "@/lib/actions/tag.actions";
 
-const tags = ["Backend", "Database", "Framework", "API", "Frontend", "Bugfix"];
-
 const TaskCard = ({ pbItem }: { pbItem: IProductBacklogItem }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -66,7 +64,11 @@ const TaskCard = ({ pbItem }: { pbItem: IProductBacklogItem }) => {
             </div>
           </div>
         </div>
-        <FocusedTaskView isOpen={isModalOpen} setIsOpen={setIsModalOpen} />
+        <FocusedTaskView
+          isOpen={isModalOpen}
+          setIsOpen={setIsModalOpen}
+          pbItem={pbItem}
+        />
       </div>
     </>
   );
