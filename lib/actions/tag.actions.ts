@@ -1,11 +1,11 @@
-"use server"
+"use server";
 
-import { handleError } from "../utils"
-import { connectToDatabase } from "../database"
-import Tag from "../database/models/tag.model"
-import { createTagParams } from "@/types"
+import { handleError } from "../utils";
+import { connectToDatabase } from "../database";
+import Tag from "../database/models/tag.model";
+import { CreateTagParams } from "@/types";
 
-export const createTag = async ({ tagName }: createTagParams) => {
+export const createTag = async ({ name: tagName }: CreateTagParams) => {
   try {
     await connectToDatabase();
 
@@ -15,7 +15,7 @@ export const createTag = async ({ tagName }: createTagParams) => {
   } catch (error) {
     handleError(error);
   }
-}
+};
 
 export const getAllTags = async () => {
   try {
@@ -27,4 +27,4 @@ export const getAllTags = async () => {
   } catch (error) {
     handleError(error);
   }
-}
+};

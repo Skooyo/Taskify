@@ -1,5 +1,4 @@
-import { IProductBacklogItem } from "@/lib/database/models/product_backlog_item.model"
-
+import { IProductBacklogItem } from "@/lib/database/models/product_backlog_item.model";
 
 // Product Backlog Params
 export type CreateProductBacklogItemProps = {
@@ -14,20 +13,23 @@ export type CreateProductBacklogItemProps = {
     loggedHours: string[];
     taskType: string;
     createdAt: Date;
-  },
-  tags: string[],
-  userId: string
-}
-
+  };
+  tags: string[];
+  userId: string;
+};
 
 // User Params
 export type CreateUserParams = {
-  name: string,
-  isAdmin: boolean
-}
-
+  name: string;
+  isAdmin: boolean;
+};
 
 // Tag Params
-export type createTagParams = {
-  tagName: string
-}
+export type CreateTagParams = {
+  name: string;
+};
+
+export type Tag = {
+  _id?: string;
+  name: string;
+};
