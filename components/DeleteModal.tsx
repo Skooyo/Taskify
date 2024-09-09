@@ -49,7 +49,7 @@ const UserModal = ({ isOpen, setIsOpen }: ModalProps) => {
                 type="button"
                 className="items-center justify-center py-2 px-6 bg-red-500
                 text-background rounded-lg flex gap-2 text-white opacity-80"
-                onClick={() => setIsOpen(true)}
+                onClick={() => setIsOpen(false)}
                 >
                 <FaRegTrashAlt size={16} />
                 <p>Delete</p>
