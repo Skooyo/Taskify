@@ -51,11 +51,11 @@ const TaskCard = ({ pbItem }: { pbItem: IProductBacklogItem }) => {
             </div>
             <div className="flex-col gap-4 mt-4">
               <p className="font-semibold text-lg">Tags</p>
-              <div className="grid grid-cols-3 my-4 gap-2 gap-y-6 text-md items-center justify-center">
+              <div className="flex my-4 gap-2 gap-y-6 text-md items-center justify-start">
                 {tags.map((tag) => (
                   <div
                     key={tag._id}
-                    className="flex text-sm bg-[#FFD400] opacity-80 w-full px-2 h-full pt-1 items-center justify-center rounded-2xl"
+                    className="flex text-sm bg-[#FFD400] opacity-80 h-full w-fit px-4 py-2 items-center justify-center rounded-2xl"
                   >
                     <p>{tag.name}</p>
                   </div>

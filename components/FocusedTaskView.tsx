@@ -8,7 +8,7 @@ import TaskPriority from "./TaskPriority";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { FaEdit } from "react-icons/fa";
 import { IProductBacklogItem } from "@/lib/database/models/product_backlog_item.model";
-import { defaultProductBacklogItemState } from "@/types";
+import DeleteModal from "./DeleteModal";
 
 type ModalProps = {
   isOpen: boolean;
@@ -17,6 +17,8 @@ type ModalProps = {
 };
 
 const FocusedTaskView = ({ isOpen, setIsOpen, pbItem }: ModalProps) => {
+  const [isDeleteModalOpen, setDeleteModalIsOpen] = useState(false);
+
   const customStyles = {
     overlay: {
       backgroundColor: "rgba(0, 0, 0, 0.6)",
@@ -61,11 +63,12 @@ const FocusedTaskView = ({ isOpen, setIsOpen, pbItem }: ModalProps) => {
               {/* Task Tags */}
               <div>
                 <div
-                  className={`grid grid-cols-4 my-4 gap-y-6 text-md w-full justify-between items-center`}
+                  className={`flex flex-wrap my-4 gap-y-6 gap-4 text-md w-full justify-start items-center`}
                 >
                   {pbItem.tags.map((tag) => (
                     <div
-                      className={`flex bg-[#FFD400] opacity-80 w-[90%] px-2 py-1 h-fit items-center justify-center rounded-full text-sm`}
+                      key={tag._id}
+                      className={`flex bg-[#FFD400] opacity-80 px-4 py-2 w-fit h-fit items-center justify-center rounded-full text-sm`}
                     >
                       <p>{tag.name}</p>
                     </div>
@@ -75,7 +78,7 @@ const FocusedTaskView = ({ isOpen, setIsOpen, pbItem }: ModalProps) => {
 
               {/* Collection of sub-components (below tags) */}
               <div className="grid grid-cols-3 w-full h-full py-8 gap-10">
-                {/* TODO: add conditional rendering for "hours worked" when card is opened in sprint board */}
+                {/* TODO add conditional rendering for "hours worked" when card is opened in sprint board */}
                 {/* Assigned Member */}
                 <div className="w-full">
                   <p className="pl-1">Assigned Member:</p>
@@ -142,6 +145,7 @@ const FocusedTaskView = ({ isOpen, setIsOpen, pbItem }: ModalProps) => {
                     type="button"
                     className="items-center justify-center py-2 px-6 bg-red-500
                                     text-background rounded-lg flex gap-2 text-white opacity-80"
+                    onClick={() => setDeleteModalIsOpen(true)}
                   >
                     <FaRegTrashAlt size={16} />
                     <p>Delete</p>
@@ -161,6 +165,10 @@ const FocusedTaskView = ({ isOpen, setIsOpen, pbItem }: ModalProps) => {
           </div>
         </div>
       </Modal>
+      <DeleteModal
+        isOpen={isDeleteModalOpen}
+        setIsOpen={setDeleteModalIsOpen}
+      />
     </div>
   );
 };
