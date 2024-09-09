@@ -7,6 +7,8 @@ import TaskType from './TaskType';
 import TaskPriority from './TaskPriority';
 import { FaRegTrashAlt } from "react-icons/fa";
 import { FaEdit } from "react-icons/fa";
+import DeleteModal from './DeleteModal';
+import { useState } from 'react';
 
 type ModalProps = {
   isOpen: boolean;
@@ -63,6 +65,8 @@ const Task = {
 };
 
 const FocusedTaskView = ({ isOpen, setIsOpen }: ModalProps) => {
+    const [isDeleteModalOpen, setDeleteModalIsOpen] = useState(false);
+
     const customStyles = {
         overlay: {
             backgroundColor: 'rgba(0, 0, 0, 0.6)',
@@ -176,6 +180,7 @@ const FocusedTaskView = ({ isOpen, setIsOpen }: ModalProps) => {
                                     type="button"
                                     className="items-center justify-center py-2 px-6 bg-red-500
                                     text-background rounded-lg flex gap-2 text-white opacity-80"
+                                    onClick={() => setDeleteModalIsOpen(true)}
                                     >
                                     <FaRegTrashAlt size={16} />
                                     <p>Delete</p>
@@ -197,6 +202,7 @@ const FocusedTaskView = ({ isOpen, setIsOpen }: ModalProps) => {
                 </div>
             </div>
             </Modal>
+            <DeleteModal isOpen={isDeleteModalOpen} setIsOpen={setDeleteModalIsOpen} />
         </div>
     );
 };
