@@ -33,11 +33,12 @@ export const getTagById = async (tagId: string) => {
   try {
     await connectToDatabase();
 
-    const tag = Tag.findById(tagId);
+    const tag = await Tag.findById(tagId);
     if (!tag) throw new Error("Tag not found");
 
     return JSON.parse(JSON.stringify(tag));
   } catch (error) {
+    console.error(error);
     handleError(error);
   }
 };

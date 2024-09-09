@@ -7,45 +7,32 @@ import { useState } from "react";
 import CreateForm from "./CreateForm";
 import { handleError } from "@/lib/utils";
 import { createTag } from "@/lib/actions/tag.actions";
+import { IProductBacklogItem } from "@/lib/database/models/product_backlog_item.model";
 
-const TaskButton = () => {
+type TaskButtonProps = {
+  tasks: IProductBacklogItem[];
+  setTasks: (tasks: IProductBacklogItem[]) => void;
+};
+
+const TaskButton = ({ tasks, setTasks }: TaskButtonProps) => {
   const [createModalOpen, setCreateModalOpen] = useState(false);
 
   const handleClick = async () => {
     try {
       setCreateModalOpen(true);
-
-      // const newItem = await createTag({
-      //   tagName: "New Tag Test",
-      // })
-      // const newItem = await createProductBacklogItem({
-      // productBacklogItem: {
-      //     title: "New Task",
-      //     description: "New Task Description",
-      //     priority: "Urgent",
-      //     storyPoints: 1,
-      //     status: "In Progress",
-      //     developmentPhase: "Development",
-      //     totalLoggedHours: "0",
-      //     loggedHours: ["24/08/2024 18:00 - 19:00"],
-      //     taskType: "Story",
-      //     createdAt: new Date(),
-      //   },
-      //   tags: ["66d8f907523e0b15c2ecc787", "66d900fe8f4f270af7b71ccc", "66d9014d8f4f270af7b71ccf"],
-      //   userId: "66d8f8e7523e0b15c2ecc785",
-      // })
-
-      // console.log(newItem);
-      console.log("Add Card Button Clicked");
     } catch (error) {
-      console.error(error);
-      // handleError(error);
+      handleError(error);
     }
   };
 
   return (
     <>
-      <CreateForm isOpen={createModalOpen} setIsOpen={setCreateModalOpen} />
+      <CreateForm
+        isOpen={createModalOpen}
+        setIsOpen={setCreateModalOpen}
+        tasks={tasks}
+        setTasks={setTasks}
+      />
       <div className="bg-[#FFD400] rounded-lg drop-shadow-xl">
         <button
           type="button"

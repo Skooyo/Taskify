@@ -1,4 +1,16 @@
-import { IProductBacklogItem } from "@/lib/database/models/product_backlog_item.model";
+// Constants
+export const taskPriority = ["Low", "Medium", "High", "Urgent"];
+
+export const taskDevelopmentStage = [
+  "Planning",
+  "Development",
+  "Testing",
+  "Integration",
+];
+
+export const taskStatus = ["Not Started", "In Progress", "Completed"];
+
+export const taskType = ["Story", "Bug"];
 
 // Product Backlog Params
 export type CreateProductBacklogItemProps = {

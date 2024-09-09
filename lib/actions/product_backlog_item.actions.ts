@@ -13,7 +13,6 @@ import { getTagById } from "./tag.actions";
 
 /** Gets all the product backlog items */
 export const getAllProductBacklogItems = async () => {
-  console.log("Fetching product backlog items");
   try {
     await connectToDatabase();
 
@@ -45,9 +44,7 @@ export const createProductBacklogItem = async ({
 
     return JSON.parse(JSON.stringify(newProductBacklogItem));
   } catch (error) {
-    console.error(error);
-    console.log(error);
-    // console.error("Error creating product backlog item:", error);
-    // handleError(error);
+    console.error("Error creating product backlog item:", error);
+    handleError(error);
   }
 };

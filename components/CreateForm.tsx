@@ -26,20 +26,29 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
-import { Styles } from "react-modal";
-import { ProductBacklogItem, Tag, User } from "@/types";
-import { getAllTags } from "@/lib/actions/tag.actions";
+import {
+  Tag,
+  taskDevelopmentStage,
+  taskPriority,
+  taskStatus,
+  taskType,
+  User,
+} from "@/types";
+import { getAllTags, getTagById } from "@/lib/actions/tag.actions";
 import TagCheckBox from "./TagCheckBox";
-import { getAllUsers } from "@/lib/actions/user.actions";
+import { getAllUsers, getUserById } from "@/lib/actions/user.actions";
 import { createProductBacklogItem } from "@/lib/actions/product_backlog_item.actions";
-import mongoose from "mongoose";
+import { useRouter } from "next/navigation";
+import { IProductBacklogItem } from "@/lib/database/models/product_backlog_item.model";
 
 type ModalProps = {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  tasks: IProductBacklogItem[];
+  setTasks: (tasks: IProductBacklogItem[]) => void;
 };
 
-const CreateForm = ({ isOpen, setIsOpen }: ModalProps) => {
+const CreateForm = ({ isOpen, setIsOpen, tasks, setTasks }: ModalProps) => {
   const formSchema = z.object({
     title: z.string(),
     description: z.string(),
@@ -92,26 +101,11 @@ const CreateForm = ({ isOpen, setIsOpen }: ModalProps) => {
     form.reset(); // Reset the form values
   };
 
-  const taskPriority = ["Low", "Medium", "High", "Urgent"];
-
-  const taskDevelopmentStage = [
-    "Planning",
-    "Development",
-    "Testing",
-    "Integration",
-  ];
-
-  const taskStatus = ["Not Started", "In Progress", "Completed"];
-
-  const taskType = ["Story", "Bug"];
-
   const [tags, setTags] = useState<Tag[]>([]);
   const [users, setUsers] = useState<User[]>([]);
   const [checkedTags, setCheckedTags] = useState<Tag[]>([]);
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-
     const item = await createProductBacklogItem({
       productBacklogItem: {
         title: values.title,
@@ -128,15 +122,25 @@ const CreateForm = ({ isOpen, setIsOpen }: ModalProps) => {
       tags: values.tagIds,
       userId: values.assigneeId,
     });
-    console.log(item);
 
+    const newTags = await Promise.all(
+      item.tags.map((tagId: string) => getTagById(tagId)),
+    );
+    const newUser = await getUserById(item.assignee);
+
+    const newProductBacklogItem = {
+      ...item,
+      tags: newTags,
+      assignee: newUser,
+    };
+
+    setTasks([...tasks, newProductBacklogItem]);
     setCheckedTags([]);
     setIsOpen(false);
     form.reset();
   }
 
   useEffect(() => {
-    console.log(checkedTags);
     form.setValue(
       "tagIds",
       checkedTags.map((tag) => tag._id),

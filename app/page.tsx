@@ -9,96 +9,15 @@ import { useState } from "react";
 import { getAllProductBacklogItems } from "@/lib/actions/product_backlog_item.actions";
 import { useEffect } from "react";
 import FocusedTaskView from "@/components/FocusedTaskView";
-
-const Task = [
-  {
-    title: "short task",
-    description:
-      "this is a short task this is a short task this is a short taskthis is a short task this is a short task this is a short taskthis is a short task",
-    priority: "Urgent",
-    storyPoints: 1,
-    status: "In Progress",
-    developmentPhase: "Development",
-    totalLoggedHours: "0",
-    loggedHours: ["Member 1"],
-    taskType: "Story",
-    createdAt: new Date(),
-    assignee: {
-      _id: "1",
-      name: "Member 1",
-    },
-    tags: [
-      {
-        _id: "1",
-        name: "Frontend",
-      },
-      {
-        _id: "2",
-        name: "Framework",
-      },
-      {
-        _id: "3",
-        name: "Database",
-      },
-      {
-        _id: "4",
-        name: "API",
-      },
-      {
-        _id: "5",
-        name: "UI",
-      },
-      {
-        _id: "6",
-        name: "Backend",
-      },
-      {
-        _id: "7",
-        name: "UI/UX",
-      },
-      {
-        _id: "8",
-        name: "Testing",
-      },
-    ],
-  },
-  {
-    title: "long task",
-    description:
-      "this is a long task this is a long task this is a long taskthis is a long task this is a long task this is a long taskthis is a long task",
-    priority: "High",
-    storyPoints: 3,
-    status: "To Do",
-    developmentPhase: "Design",
-    totalLoggedHours: "2",
-    loggedHours: ["Member 2", "Member 3"],
-    taskType: "Bug",
-    createdAt: new Date(),
-    assignee: {
-      _id: "2",
-      name: "Member 2",
-    },
-    tags: [
-      {
-        _id: "2",
-        name: "Framework",
-      },
-      {
-        _id: "3",
-        name: "Database",
-      },
-      {
-        _id: "4",
-        name: "API",
-      },
-    ],
-  },
-];
+import { IProductBacklogItem } from "@/lib/database/models/product_backlog_item.model";
 
 export default function Home() {
+  const [tasks, setTasks] = useState<IProductBacklogItem[]>([]);
+
   useEffect(() => {
     const fetchData = async () => {
-      const backlogItems = await getAllProductBacklogItems();
+      const data = await getAllProductBacklogItems();
+      setTasks(data);
     };
 
     fetchData();
@@ -116,18 +35,16 @@ export default function Home() {
         <div className="h-full w-full mr-4 flex-col">
           <div className="p-4 m-4 flex w-full h-fit gap-6 items-center">
             <h1 className="text-4xl font-bold">Product Backlog</h1>
-            <TaskButton />
+            <TaskButton tasks={tasks} setTasks={setTasks} />
             <FilterButton />
             <SortButton />
           </div>
 
           {/* Task Cards */}
           <div className="w-full h-fit p-4 grid grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-10">
-            <TaskCard />
-            <TaskCard />
-            <TaskCard />
-            <TaskCard />
-            <TaskCard />
+            {tasks.map((task) => (
+              <TaskCard key={task._id} pbItem={task} />
+            ))}
           </div>
         </div>
       </div>
