@@ -28,3 +28,16 @@ export const getAllTags = async () => {
     handleError(error);
   }
 };
+
+export const getTagById = async (tagId: string) => {
+  try {
+    await connectToDatabase();
+
+    const tag = Tag.findById(tagId);
+    if (!tag) throw new Error("Tag not found");
+
+    return JSON.parse(JSON.stringify(tag));
+  } catch (error) {
+    handleError(error);
+  }
+};

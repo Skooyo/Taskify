@@ -59,26 +59,26 @@ const TagCheckBox = ({
           <FormItem>
             {tags.map((tag) => (
               <FormField
-                key={tag.name}
+                key={tag._id}
                 control={form.control}
                 name="items"
                 render={({ field }) => {
                   return (
                     <FormItem
-                      key={tag.name}
+                      key={tag._id}
                       className="flex flex-row items-start space-x-3 space-y-0"
                     >
                       <label className="flex flex-row items-center space-x-3 cursor-pointer w-full">
                         <FormControl>
                           <Checkbox
-                            checked={field.value?.includes(tag.name)}
+                            checked={field.value?.includes(tag._id)}
                             onCheckedChange={(checked) => {
                               handleCheckedChange(tag, checked);
                               return checked
-                                ? field.onChange([...field.value, tag.name])
+                                ? field.onChange([...field.value, tag._id])
                                 : field.onChange(
                                     field.value?.filter(
-                                      (value) => value !== tag.name,
+                                      (value) => value !== tag._id,
                                     ),
                                   );
                             }}

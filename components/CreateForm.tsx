@@ -27,9 +27,12 @@ import {
   SelectValue,
 } from "./ui/select";
 import { Styles } from "react-modal";
-import { Tag } from "@/types";
+import { ProductBacklogItem, Tag, User } from "@/types";
 import { getAllTags } from "@/lib/actions/tag.actions";
 import TagCheckBox from "./TagCheckBox";
+import { getAllUsers } from "@/lib/actions/user.actions";
+import { createProductBacklogItem } from "@/lib/actions/product_backlog_item.actions";
+import mongoose from "mongoose";
 
 type ModalProps = {
   isOpen: boolean;
@@ -45,8 +48,8 @@ const CreateForm = ({ isOpen, setIsOpen }: ModalProps) => {
     status: z.string(),
     developmentPhase: z.string(),
     taskType: z.string(),
-    assignee: z.string(),
-    tags: z.array(z.string()).min(1),
+    assigneeId: z.string(),
+    tagIds: z.array(z.string()).min(1),
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -59,8 +62,8 @@ const CreateForm = ({ isOpen, setIsOpen }: ModalProps) => {
       status: "",
       developmentPhase: "",
       taskType: "",
-      assignee: "",
-      tags: [],
+      assigneeId: "",
+      tagIds: [],
     },
   });
 
@@ -102,33 +105,59 @@ const CreateForm = ({ isOpen, setIsOpen }: ModalProps) => {
 
   const taskType = ["Story", "Bug"];
 
+  const [tags, setTags] = useState<Tag[]>([]);
+  const [users, setUsers] = useState<User[]>([]);
+  const [checkedTags, setCheckedTags] = useState<Tag[]>([]);
+
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    values.tags = checkedTags.map((tag) => tag.name);
-    setIsOpen(false);
     console.log(values);
+
+    const item = await createProductBacklogItem({
+      productBacklogItem: {
+        title: values.title,
+        description: values.description,
+        priority: values.priority,
+        storyPoints: values.storyPoints,
+        status: values.status,
+        developmentPhase: values.developmentPhase,
+        totalLoggedHours: "0 Hours",
+        loggedHours: [""],
+        taskType: values.taskType,
+        createdAt: new Date(),
+      },
+      tags: values.tagIds,
+      userId: values.assigneeId,
+    });
+    console.log(item);
+
+    setCheckedTags([]);
+    setIsOpen(false);
     form.reset();
   }
 
-  const [tags, setTags] = useState<Tag[]>([]);
-  const [checkedTags, setCheckedTags] = useState<Tag[]>([]);
-
   useEffect(() => {
     console.log(checkedTags);
+    form.setValue(
+      "tagIds",
+      checkedTags.map((tag) => tag._id),
+    );
   }, [checkedTags]);
 
+  /** Gets called on page load */
   useEffect(() => {
     // Fetch tags from the database
-    const fetchTags = async () => {
+    const fetchTagsAndUsers = async () => {
       try {
-        const res = await getAllTags();
-        console.log(res);
-        setTags(res);
+        const gottenTags = await getAllTags();
+        const gottenUsers = await getAllUsers();
+        setUsers(gottenUsers);
+        setTags(gottenTags);
       } catch (error) {
         console.error(error);
       }
     };
 
-    fetchTags();
+    fetchTagsAndUsers();
   }, []);
 
   return (
@@ -198,7 +227,7 @@ const CreateForm = ({ isOpen, setIsOpen }: ModalProps) => {
                   {/* Assigned Member */}
                   <FormField
                     control={form.control}
-                    name="priority"
+                    name="assigneeId"
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>Assigned Member</FormLabel>
@@ -210,9 +239,9 @@ const CreateForm = ({ isOpen, setIsOpen }: ModalProps) => {
                               <SelectValue placeholder="Member" />
                             </SelectTrigger>
                             <SelectContent>
-                              {taskPriority.map((priority) => (
-                                <SelectItem value={priority}>
-                                  {priority}
+                              {users.map((user) => (
+                                <SelectItem key={user._id} value={user._id}>
+                                  {user.name}
                                 </SelectItem>
                               ))}
                             </SelectContent>
@@ -239,7 +268,9 @@ const CreateForm = ({ isOpen, setIsOpen }: ModalProps) => {
                             </SelectTrigger>
                             <SelectContent>
                               {taskDevelopmentStage.map((stage) => (
-                                <SelectItem value={stage}>{stage}</SelectItem>
+                                <SelectItem key={stage} value={stage}>
+                                  {stage}
+                                </SelectItem>
                               ))}
                             </SelectContent>
                           </Select>
@@ -265,7 +296,9 @@ const CreateForm = ({ isOpen, setIsOpen }: ModalProps) => {
                             </SelectTrigger>
                             <SelectContent>
                               {taskStatus.map((status) => (
-                                <SelectItem value={status}>{status}</SelectItem>
+                                <SelectItem key={status} value={status}>
+                                  {status}
+                                </SelectItem>
                               ))}
                             </SelectContent>
                           </Select>
@@ -314,7 +347,7 @@ const CreateForm = ({ isOpen, setIsOpen }: ModalProps) => {
                             </SelectTrigger>
                             <SelectContent>
                               {taskPriority.map((priority) => (
-                                <SelectItem value={priority}>
+                                <SelectItem key={priority} value={priority}>
                                   {priority}
                                 </SelectItem>
                               ))}
@@ -342,7 +375,9 @@ const CreateForm = ({ isOpen, setIsOpen }: ModalProps) => {
                             </SelectTrigger>
                             <SelectContent>
                               {taskType.map((type) => (
-                                <SelectItem value={type}>{type}</SelectItem>
+                                <SelectItem key={type} value={type}>
+                                  {type}
+                                </SelectItem>
                               ))}
                             </SelectContent>
                           </Select>
@@ -361,7 +396,7 @@ const CreateForm = ({ isOpen, setIsOpen }: ModalProps) => {
               <div>
                 <FormField
                   control={form.control}
-                  name="tags"
+                  name="tagIds"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Task Tags</FormLabel>
