@@ -31,3 +31,7 @@ body {
     --radius: 0.5rem;
   }
 }
+
+.remove-ring {
+  @apply focus-visible:ring-transparent focus:ring-transparent !important;
+}
