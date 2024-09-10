@@ -9,31 +9,22 @@ import { getTagById } from "@/lib/actions/tag.actions";
 const TaskCard = ({ pbItem }: { pbItem: IProductBacklogItem }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [visibleTags, setVisibleTags] = useState<ITag[]>([]);
-  const [tags, setTags] = useState<ITag[]>([]);
+
+  console.log("in task card", pbItem);
 
   const updateVisibleTags = () => {
     if (window.innerWidth >= 1536) {
-      setVisibleTags(tags.slice(0, 2));
+      setVisibleTags(pbItem.tags.slice(0, 2));
     } else {
-      setVisibleTags(tags.slice(0, 3));
+      setVisibleTags(pbItem.tags.slice(0, 3));
     }
   };
 
   useEffect(() => {
-    const fetchTags = async () => {
-      const tagIds = pbItem.tags.map((tag) => tag._id);
-      const res = await Promise.all(tagIds.map((id) => getTagById(id)));
-      setTags(res);
-    };
-
-    fetchTags();
     updateVisibleTags();
-  }, [pbItem.tags]);
-
-  useEffect(() => {
     window.addEventListener("resize", updateVisibleTags);
     return () => window.removeEventListener("resize", updateVisibleTags);
-  }, [tags]);
+  }, [pbItem.tags]);
 
   return (
     <>
@@ -72,8 +63,8 @@ const TaskCard = ({ pbItem }: { pbItem: IProductBacklogItem }) => {
                     <p>{tag.name}</p>
                   </div>
                 ))}
-                {tags.length > visibleTags.length && (
-                  <div>+{tags.length - visibleTags.length}</div>
+                {pbItem.tags.length > visibleTags.length && (
+                  <div>+{pbItem.tags.length - visibleTags.length}</div>
                 )}
               </div>
             </div>
