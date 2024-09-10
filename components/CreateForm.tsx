@@ -1,13 +1,12 @@
 "use client";
 
-import { set, z } from "zod";
+import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -16,7 +15,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import React from "react";
 import Modal from "react-modal";
 import {
@@ -38,17 +36,14 @@ import { getAllTags, getTagById } from "@/lib/actions/tag.actions";
 import TagCheckBox from "./TagCheckBox";
 import { getAllUsers, getUserById } from "@/lib/actions/user.actions";
 import { createProductBacklogItem } from "@/lib/actions/product_backlog_item.actions";
-import { useRouter } from "next/navigation";
-import { IProductBacklogItem } from "@/lib/database/models/product_backlog_item.model";
+import { usePathname } from "next/navigation";
 
 type ModalProps = {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  tasks: IProductBacklogItem[];
-  setTasks: (tasks: IProductBacklogItem[]) => void;
 };
 
-const CreateForm = ({ isOpen, setIsOpen, tasks, setTasks }: ModalProps) => {
+const CreateForm = ({ isOpen, setIsOpen }: ModalProps) => {
   const formSchema = z.object({
     title: z.string(),
     description: z.string(),
@@ -105,6 +100,8 @@ const CreateForm = ({ isOpen, setIsOpen, tasks, setTasks }: ModalProps) => {
   const [users, setUsers] = useState<User[]>([]);
   const [checkedTags, setCheckedTags] = useState<Tag[]>([]);
 
+  const pathname = usePathname();
+
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const item = await createProductBacklogItem({
       productBacklogItem: {
@@ -121,6 +118,7 @@ const CreateForm = ({ isOpen, setIsOpen, tasks, setTasks }: ModalProps) => {
       },
       tags: values.tagIds,
       userId: values.assigneeId,
+      pathname,
     });
 
     const newTags = await Promise.all(
@@ -134,7 +132,7 @@ const CreateForm = ({ isOpen, setIsOpen, tasks, setTasks }: ModalProps) => {
       assignee: newUser,
     };
 
-    setTasks([...tasks, newProductBacklogItem]);
+    // setTasks([...tasks, newProductBacklogItem]);
     setCheckedTags([]);
     setIsOpen(false);
     form.reset();

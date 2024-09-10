@@ -1,27 +1,13 @@
-"use client";
+"use server";
 
-import TaskButton from "@/components/TaskButton";
-import FilterButton from "@/components/FilterButton";
-import SortButton from "@/components/SortButton";
 import TaskCard from "@/components/TaskCard";
-import { useState } from "react";
+import ProductBacklogButtons from "@/components/ProductBacklogButtons";
 
 import { getAllProductBacklogItems } from "@/lib/actions/product_backlog_item.actions";
-import { useEffect } from "react";
-import FocusedTaskView from "@/components/FocusedTaskView";
 import { IProductBacklogItem } from "@/lib/database/models/product_backlog_item.model";
 
-export default function Home() {
-  const [tasks, setTasks] = useState<IProductBacklogItem[]>([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await getAllProductBacklogItems();
-      setTasks(data);
-    };
-
-    fetchData();
-  }, []);
+export default async function Home() {
+  const tasks: IProductBacklogItem[] = await getAllProductBacklogItems();
 
   return (
     <main>
@@ -34,10 +20,7 @@ export default function Home() {
         {/* Page Header */}
         <div className="h-full w-full mr-4 flex-col">
           <div className="p-4 m-4 flex w-full h-fit gap-6 items-center">
-            <h1 className="text-4xl font-bold">Product Backlog</h1>
-            <TaskButton tasks={tasks} setTasks={setTasks} />
-            <FilterButton />
-            <SortButton />
+            <ProductBacklogButtons />
           </div>
 
           {/* Task Cards */}

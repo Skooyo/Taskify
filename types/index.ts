@@ -12,6 +12,15 @@ export const taskStatus = ["Not Started", "In Progress", "Completed"];
 
 export const taskType = ["Story", "Bug"];
 
+export const tags = [
+  "Backend",
+  "Database",
+  "Framework",
+  "API",
+  "Frontend",
+  "Bugfix",
+];
+
 // Product Backlog Params
 export type CreateProductBacklogItemProps = {
   productBacklogItem: {
@@ -28,6 +37,7 @@ export type CreateProductBacklogItemProps = {
   };
   tags: string[];
   userId: string;
+  pathname: string;
 };
 
 export type ProductBacklogItem = {
@@ -43,6 +53,30 @@ export type ProductBacklogItem = {
   createdAt: Date;
   assignee: string;
   tags: string[];
+};
+
+export type DeleteProductBacklogItemByIdParams = {
+  productBacklogItemId: string;
+  pathname: string;
+};
+
+export const defaultProductBacklogItemState = {
+  _id: "",
+  title: "",
+  description: "",
+  priority: "Low",
+  storyPoints: 0,
+  status: "Not Started",
+  developmentPhase: "Planning",
+  totalLoggedHours: "0",
+  loggedHours: [],
+  taskType: "Story",
+  createdAt: new Date(),
+  assignee: {
+    _id: "",
+    name: "",
+  },
+  tags: [],
 };
 
 // User Params
