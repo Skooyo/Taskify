@@ -167,10 +167,10 @@ const UpdateForm = ({
     // Fetch tags from the database
     const fetchTagsAndUsers = async () => {
       try {
-        // const gottenTags = await getAllTags();
+        const gottenTags = await getAllTags();
         const gottenUsers = await getAllUsers();
         setUsers(gottenUsers);
-        // setTags(gottenTags);
+        setTags(gottenTags);
       } catch (error) {
         console.error(error);
       }
