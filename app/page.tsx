@@ -16,7 +16,7 @@ export default async function Home() {
       <div className="h-screen w-full flex gap-8 pt-5">
         {/* navbar place holder */}
         <div className="h-[98%] justify-start items-start w-1/6 rounded-xl p-5 bg-[#FAFAFF] drop-shadow-2xl">
-          <p className="text-xl font-semibold">Navigation</p>
+          {/* <p className="text-xl font-semibold">Navigation</p> */}
         </div>
 
         {/* Page Header */}

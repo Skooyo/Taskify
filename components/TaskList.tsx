@@ -63,7 +63,7 @@ const TaskList = ({ tasks }: { tasks: IProductBacklogItem[] }) => {
 
     console.log(filteredTasks);
     setNewTasks(filteredTasks);
-  }, [pathname, searchParams]);
+  }, [pathname, searchParams, tasks]);
 
   return (
     <div className="w-full h-fit p-4 grid grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-10">
