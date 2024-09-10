@@ -8,8 +8,16 @@ import { getTagById } from "@/lib/actions/tag.actions";
 
 const TaskCard = ({ pbItem }: { pbItem: IProductBacklogItem }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const [visibleTags, setVisibleTags] = useState<ITag[]>([]);
   const [tags, setTags] = useState<ITag[]>([]);
+
+  const updateVisibleTags = () => {
+    if (window.innerWidth >= 1536) {
+      setVisibleTags(tags.slice(0, 2));
+    } else {
+      setVisibleTags(tags.slice(0, 3));
+    }
+  };
 
   useEffect(() => {
     const fetchTags = async () => {
@@ -19,7 +27,13 @@ const TaskCard = ({ pbItem }: { pbItem: IProductBacklogItem }) => {
     };
 
     fetchTags();
+    updateVisibleTags();
   }, [pbItem.tags]);
+
+  useEffect(() => {
+    window.addEventListener("resize", updateVisibleTags);
+    return () => window.removeEventListener("resize", updateVisibleTags);
+  }, [tags]);
 
   return (
     <>
@@ -41,7 +55,7 @@ const TaskCard = ({ pbItem }: { pbItem: IProductBacklogItem }) => {
                 <p className="font-semibold text-lg">{pbItem.storyPoints}</p>
               </div>
               <div className="flex bg-[#FF0000] w-fit px-2 h-full pt-[6px] pb-[6px] items-center justify-center text-sm text-white rounded-lg">
-                <p>{"Urgent {!}"}</p>
+                <p>{pbItem.priority}</p>
               </div>
               <div className="flex bg-[#FF0000] w-fit px-2 h-full pt-[6px] pb-[6px] items-center justify-center text-sm text-white rounded-lg">
                 <p>{pbItem.status}</p>
@@ -49,8 +63,8 @@ const TaskCard = ({ pbItem }: { pbItem: IProductBacklogItem }) => {
             </div>
             <div className="flex-col gap-4 mt-4">
               <p className="font-semibold text-lg">Tags</p>
-              <div className="flex flex-wrap my-4 gap-2 gap-y-6 text-md items-center justify-start">
-                {tags.slice(0, 3).map((tag) => (
+              <div className="flex gap-2 my-4 gap-y-6 text-md items-center justify-start">
+                {visibleTags.map((tag) => (
                   <div
                     key={tag._id}
                     className="flex text-sm bg-[#FFD400] opacity-80 h-full w-fit px-4 py-2 items-center justify-center rounded-2xl"
@@ -58,7 +72,9 @@ const TaskCard = ({ pbItem }: { pbItem: IProductBacklogItem }) => {
                     <p>{tag.name}</p>
                   </div>
                 ))}
-                {tags.length > 3 && <div>+{tags.length - 3}</div>}
+                {tags.length > visibleTags.length && (
+                  <div>+{tags.length - visibleTags.length}</div>
+                )}
               </div>
             </div>
           </div>
