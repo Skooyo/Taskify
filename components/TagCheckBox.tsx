@@ -43,10 +43,6 @@ const TagCheckBox = ({
     },
   });
 
-  useEffect(() => {
-    console.log("in tagcheckbox.tsx", checkedTags);
-  }, [checkedTags]);
-
   const handleCheckedChange = (tag: Tag, checked: string | boolean) => {
     setCheckedTags(
       checked

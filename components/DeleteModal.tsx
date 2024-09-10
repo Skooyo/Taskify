@@ -44,12 +44,10 @@ const UserModal = ({
   const handleDelete = async () => {
     setIsOpen(false);
     setIsFocusedTaskOpen(false);
-    console.log("in handle delete before delete");
     await deleteProductBacklogItemById({
       productBacklogItemId: pbItem._id,
       pathname,
     });
-    console.log("in handle delete after delete");
   };
 
   return (

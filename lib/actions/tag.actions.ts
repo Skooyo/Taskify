@@ -21,9 +21,9 @@ export const getAllTags = async () => {
   try {
     await connectToDatabase();
 
-    const categories = await Tag.find();
+    const tags = await Tag.find();
 
-    return JSON.parse(JSON.stringify(categories));
+    return JSON.parse(JSON.stringify(tags));
   } catch (error) {
     handleError(error);
   }
