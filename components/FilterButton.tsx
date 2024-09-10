@@ -8,15 +8,15 @@ import {
 } from "@/components/ui/dropdown-menu";
 import TagCheckBox from "./TagCheckBox";
 import { useEffect, useState } from "react";
-import { getAllTags } from "@/lib/actions/tag.actions";
 import { Tag } from "@/types";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const FilterButton = () => {
   const [tags, setTags] = useState<Tag[]>([]);
   const [checkedTags, setCheckedTags] = useState<Tag[]>([]);
   const router = useRouter();
-  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const sortByParams = searchParams.get("sortBy");
 
   useEffect(() => {
     const fetchTags = async () => {
@@ -33,12 +33,18 @@ const FilterButton = () => {
   }, []);
 
   useEffect(() => {
+    const params = new URLSearchParams(searchParams.toString());
     if (checkedTags.length > 0) {
-      const newUrl =
-        pathname + "?tags=" + checkedTags.map((tag) => tag._id).join("+");
+      const filters = checkedTags.map((tag) => tag._id).join("+");
+      params.set("filter", filters);
+      const newUrl = `${window.location.pathname}?${params.toString()}`;
       router.push(newUrl);
     } else {
-      router.push(pathname);
+      if (sortByParams) {
+        router.push(`${window.location.pathname}?${sortByParams.toString()}`);
+      } else {
+        router.push(window.location.pathname);
+      }
     }
   }, [checkedTags]);
 
