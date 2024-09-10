@@ -1,8 +1,14 @@
 import React from 'react';
 import Modal from 'react-modal';
 import { Styles } from 'react-modal';
-import { MdHistoryEdu } from "react-icons/md";
-import { FaGear } from "react-icons/fa6";
+import DevelopmentStage from './DevelopmentStage';
+import TaskStatus from './TaskStatus';
+import TaskType from './TaskType';
+import TaskPriority from './TaskPriority';
+import { FaRegTrashAlt } from "react-icons/fa";
+import { FaEdit } from "react-icons/fa";
+import DeleteModal from './DeleteModal';
+import { useState } from 'react';
 
 type ModalProps = {
   isOpen: boolean;
@@ -14,8 +20,8 @@ const Task = {
     description: "very very very very very very very very very very very very very very very very very very very very very very very very this is a short task this is a short task this is a short taskthis is a short task this is a short task this is a short taskthis is a short task very very very very very very very very very very very very very very very very very very very very very very very very very very very very ",
     priority: "Urgent",
     storyPoints: 1,
-    status: "In Progress",
-    developmentPhase: "Development",
+    status: "Not Started",
+    developmentPhase: "Integration",
     totalLoggedHours: "0",
     loggedHours: ["Member 1"],
     taskType: "Story",
@@ -59,6 +65,8 @@ const Task = {
 };
 
 const FocusedTaskView = ({ isOpen, setIsOpen }: ModalProps) => {
+    const [isDeleteModalOpen, setDeleteModalIsOpen] = useState(false);
+
     const customStyles = {
         overlay: {
             backgroundColor: 'rgba(0, 0, 0, 0.6)',
@@ -112,30 +120,25 @@ const FocusedTaskView = ({ isOpen, setIsOpen }: ModalProps) => {
                             {/* Collection of sub-components (below tags) */}
                             <div className="grid grid-cols-3 w-full h-full py-8 gap-10">
 
+                                    {/* TODO add conditional rendering for "hours worked" when card is opened in sprint board */}
                                     {/* Assigned Member */}
                                     <div className="w-full">
                                         <p className="pl-1">Assigned Member:</p>
-                                        <div className="flex bg-[#FFD400] opacity-80 w-[95%] px-2 h-fit pt-1 items-center justify-center rounded-md drop-shadow-xl">
-                                            <p className="p-3 items-center justify-center w-full h-fit">{Task.assignee.name}</p>
+                                        <div className="flex bg-[#FFD400] opacity-80 w-[95%] h-[70%] items-center justify-center rounded-md drop-shadow-xl">
+                                            <p className="pl-2 items-center justify-center font-semibold">{Task.assignee.name}</p>
                                         </div>
                                     </div>
 
-                                    {/* TODO add conditional rendering based on the "development stage" the task is in (check figma for colors) */}
                                     {/* Development Stage */}
                                     <div className="w-full">
                                         <p className="pl-1">Development Stage</p>
-                                        <div className="flex bg-[#639BE0] opacity-80 w-[95%] px-2 h-fit pt-1 items-center justify-center rounded-md drop-shadow-xl">
-                                            <p className="p-3 items-center justify-center text-xl font-semibold text-white">{Task.developmentPhase}</p>
-                                        </div>
+                                        <DevelopmentStage developmentPhase = {`${Task.developmentPhase}`} />
                                     </div>
 
                                     {/* Task Status */}
                                     <div className="w-full">
                                         <p className="pl-1">Task Status:</p>
-                                        <div className="flex bg-[#FF8C00] opacity-80 w-[95%] px-2 h-fit pt-1 items-center justify-center rounded-md drop-shadow-xl text-white">
-                                            <FaGear size={24}/>
-                                            <p className="p-3 items-center justify-center text-xl font-semibold">{Task.status}</p>
-                                        </div>
+                                        <TaskStatus status = {`${Task.status}`} />
                                     </div>
 
                                     {/* Story Points */}
@@ -149,29 +152,22 @@ const FocusedTaskView = ({ isOpen, setIsOpen }: ModalProps) => {
                                         </div>
                                     </div>
 
-                                    {/* TODO conditional rendering per priority also, should i make a different component? */}
                                     {/* Priority */}
                                     <div className="w-full">
                                         <p className="pl-1">Priority:</p>
-                                        <div className="flex bg-[#FF0000] opacity-80 w-[95%] px-2 h-fit py-2 rounded-md drop-shadow-xl justify-center items-center text-white gap-4">
-                                        <p className="font-semibold text-lg">{Task.priority}</p>
-                                        </div>
+                                        <TaskPriority priority = {Task.priority} />
                                     </div>
 
-                                    {/* TODO, once again conditional rendering, i think this one should be a different component */}
                                     {/* Task Type */}
                                     <div className="w-full">
                                         <p className="pl-1">Task Type:</p>
-                                        <div className="flex bg-green-400 w-[95%] px-2 h-fit py-2 rounded-md drop-shadow-xl justify-center items-center text-black gap-1">
-                                            <p className="items-center justify-center text-xl font-semibold">{Task.taskType}</p>
-                                            <MdHistoryEdu size={32}/>
-                                        </div>
+                                        <TaskType taskType = {Task.taskType} />
                                     </div>
 
                             </div>
 
                             {/* Description */}
-                            <div className="flex-col w-full mt-4 p-2 px-6 pr-8">
+                            <div className="flex-col w-full mt-4">
                                 <div className="border border-black p-2 rounded-lg">
                                     <p className="font-semibold text-lg pl-1">Task Description</p>
                                     <div className="m-2 rounded-lg">
@@ -179,12 +175,34 @@ const FocusedTaskView = ({ isOpen, setIsOpen }: ModalProps) => {
                                     </div>
                                 </div>
 
+                            <div className="w-full mt-4 py-4 flex justify-between">
+                                <button
+                                    type="button"
+                                    className="items-center justify-center py-2 px-6 bg-red-500
+                                    text-background rounded-lg flex gap-2 text-white opacity-80"
+                                    onClick={() => setDeleteModalIsOpen(true)}
+                                    >
+                                    <FaRegTrashAlt size={16} />
+                                    <p>Delete</p>
+                                </button>
+
+                                <button
+                                    type="button"
+                                    className="items-center justify-center py-2 px-6 bg-[#2fd42a]
+                                    text-background rounded-lg flex gap-2 text-white opacity-80"
+                                    >
+                                    <FaEdit size={24} />
+                                    <p>Edit</p>
+                                </button>
+                            </div>
+
 
                         </div>
                     </div>
                 </div>
             </div>
             </Modal>
+            <DeleteModal isOpen={isDeleteModalOpen} setIsOpen={setDeleteModalIsOpen} />
         </div>
     );
 };
