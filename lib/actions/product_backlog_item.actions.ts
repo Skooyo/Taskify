@@ -62,11 +62,9 @@ export const deleteProductBacklogItemById = async ({
   try {
     await connectToDatabase();
 
-    console.log("got here in actions");
     const deletedItem = await ProductBacklogItem.findByIdAndDelete(
       productBacklogItemId,
     );
-    console.log("and here in actions after db delete");
 
     if (deletedItem) revalidatePath(pathname);
   } catch (error) {

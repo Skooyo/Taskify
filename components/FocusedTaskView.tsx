@@ -45,10 +45,6 @@ const FocusedTaskView = ({
     },
   };
 
-  useEffect(() => {
-    console.log("update form open", isUpdateFormOpen);
-  }, [isUpdateFormOpen]);
-
   return (
     <div className="gap-4 flex-col">
       <Modal
