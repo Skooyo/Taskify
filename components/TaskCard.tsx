@@ -26,6 +26,28 @@ const TaskCard = ({ pbItem }: { pbItem: IProductBacklogItem }) => {
     return () => window.removeEventListener("resize", updateVisibleTags);
   }, [pbItem.tags]);
 
+  const priorityBGColor = () => {
+    if (pbItem.priority == "Urgent") {
+      return "bg-red-500";
+    } else if (pbItem.priority == "High") {
+      return "bg-[#FF8C00]";
+    } else if (pbItem.priority == "Medium") {
+      return "bg-[#FFC300]";
+    } else {
+      return "bg-[#52b322]";
+    }
+  }
+
+  const statusBGColor = () => {
+    if(pbItem.status == "Completed") {
+      return "bg-[#7EFE40]"
+  } else if (pbItem.status == "In Progress") {
+      return "bg-[#FF8C00]"
+  } else if (pbItem.status == "Not Started") {
+      return "bg-[#BEBEBF]"
+  }
+  }
+
   return (
     <>
       <div>
@@ -45,10 +67,10 @@ const TaskCard = ({ pbItem }: { pbItem: IProductBacklogItem }) => {
                 </div>
                 <p className="font-semibold text-lg">{pbItem.storyPoints}</p>
               </div>
-              <div className="flex bg-[#FF0000] w-fit px-2 h-full pt-[6px] pb-[6px] items-center justify-center text-sm text-white rounded-lg">
+              <div className={`flex ${priorityBGColor()} w-fit px-2 h-full pt-[6px] pb-[6px] items-center justify-center text-sm text-white rounded-lg`}>
                 <p>{pbItem.priority}</p>
               </div>
-              <div className="flex bg-[#FF0000] w-fit px-2 h-full pt-[6px] pb-[6px] items-center justify-center text-sm text-white rounded-lg">
+              <div className={`flex ${statusBGColor()} w-fit px-2 h-full pt-[6px] pb-[6px] items-center justify-center text-sm text-white rounded-lg`}>
                 <p>{pbItem.status}</p>
               </div>
             </div>
