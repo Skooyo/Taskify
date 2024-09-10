@@ -3,6 +3,7 @@
 import {
   CreateProductBacklogItemProps,
   DeleteProductBacklogItemByIdParams,
+  UpdateProductBacklogItemParams,
 } from "@/types";
 import { connectToDatabase } from "../database";
 import ProductBacklogItem, {
@@ -68,6 +69,28 @@ export const deleteProductBacklogItemById = async ({
     console.log("and here in actions after db delete");
 
     if (deletedItem) revalidatePath(pathname);
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+export const updateProductBacklogItem = async ({
+  productBacklogItem,
+  tags,
+  userId,
+  pathname,
+}: UpdateProductBacklogItemParams) => {
+  try {
+    await connectToDatabase();
+
+    const updatedItem = await ProductBacklogItem.findByIdAndUpdate(
+      productBacklogItem._id,
+      { ...productBacklogItem, tags, assignee: userId },
+      { new: true },
+    );
+
+    if (updatedItem) revalidatePath(pathname);
+    return JSON.parse(JSON.stringify(updatedItem));
   } catch (error) {
     handleError(error);
   }

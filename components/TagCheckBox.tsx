@@ -17,6 +17,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Tag } from "@/types";
+import { useEffect } from "react";
 
 const FormSchema = z.object({
   items: z.array(z.string()).refine((value) => value.some((item) => item), {
@@ -38,9 +39,13 @@ const TagCheckBox = ({
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      items: [],
+      items: checkedTags.map((tag) => tag._id),
     },
   });
+
+  useEffect(() => {
+    console.log("in tagcheckbox.tsx", checkedTags);
+  }, [checkedTags]);
 
   const handleCheckedChange = (tag: Tag, checked: string | boolean) => {
     setCheckedTags(
