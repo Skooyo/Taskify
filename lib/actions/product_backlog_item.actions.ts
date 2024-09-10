@@ -1,6 +1,9 @@
 "use server";
 
-import { CreateProductBacklogItemProps } from "@/types";
+import {
+  CreateProductBacklogItemProps,
+  DeleteProductBacklogItemByIdParams,
+} from "@/types";
 import { connectToDatabase } from "../database";
 import ProductBacklogItem, {
   IProductBacklogItem,
@@ -10,6 +13,7 @@ import User from "../database/models/user.model";
 import { handleError } from "../utils";
 import mongoose from "mongoose";
 import { getTagById } from "./tag.actions";
+import { revalidatePath } from "next/cache";
 
 /** Gets all the product backlog items */
 export const getAllProductBacklogItems = async () => {
@@ -31,6 +35,7 @@ export const createProductBacklogItem = async ({
   productBacklogItem,
   tags,
   userId,
+  pathname,
 }: CreateProductBacklogItemProps) => {
   try {
     await connectToDatabase();
@@ -41,9 +46,29 @@ export const createProductBacklogItem = async ({
       tags,
     });
 
+    if (newProductBacklogItem) revalidatePath(pathname);
     return JSON.parse(JSON.stringify(newProductBacklogItem));
   } catch (error) {
     console.error("Error creating product backlog item:", error);
+    handleError(error);
+  }
+};
+
+export const deleteProductBacklogItemById = async ({
+  productBacklogItemId,
+  pathname,
+}: DeleteProductBacklogItemByIdParams) => {
+  try {
+    await connectToDatabase();
+
+    console.log("got here in actions");
+    const deletedItem = await ProductBacklogItem.findByIdAndDelete(
+      productBacklogItemId,
+    );
+    console.log("and here in actions after db delete");
+
+    if (deletedItem) revalidatePath(pathname);
+  } catch (error) {
     handleError(error);
   }
 };

@@ -1,20 +1,11 @@
-"use effect";
+"use client";
 
-import { createProductBacklogItem } from "@/lib/actions/product_backlog_item.actions";
-import Link from "next/link";
 import { FaPlus } from "react-icons/fa";
 import { useState } from "react";
 import CreateForm from "./CreateForm";
 import { handleError } from "@/lib/utils";
-import { createTag } from "@/lib/actions/tag.actions";
-import { IProductBacklogItem } from "@/lib/database/models/product_backlog_item.model";
 
-type TaskButtonProps = {
-  tasks: IProductBacklogItem[];
-  setTasks: (tasks: IProductBacklogItem[]) => void;
-};
-
-const TaskButton = ({ tasks, setTasks }: TaskButtonProps) => {
+const TaskButton = () => {
   const [createModalOpen, setCreateModalOpen] = useState(false);
 
   const handleClick = async () => {
@@ -27,12 +18,7 @@ const TaskButton = ({ tasks, setTasks }: TaskButtonProps) => {
 
   return (
     <>
-      <CreateForm
-        isOpen={createModalOpen}
-        setIsOpen={setCreateModalOpen}
-        tasks={tasks}
-        setTasks={setTasks}
-      />
+      <CreateForm isOpen={createModalOpen} setIsOpen={setCreateModalOpen} />
       <div className="bg-[#FFD400] rounded-lg drop-shadow-xl">
         <button
           type="button"

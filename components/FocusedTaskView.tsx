@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Modal from "react-modal";
 import { Styles } from "react-modal";
 import DevelopmentStage from "./DevelopmentStage";
@@ -11,12 +11,16 @@ import { IProductBacklogItem } from "@/lib/database/models/product_backlog_item.
 import DeleteModal from "./DeleteModal";
 
 type ModalProps = {
-  isOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  isFocusedTaskOpen: boolean;
+  setIsFocusedTaskOpen: React.Dispatch<React.SetStateAction<boolean>>;
   pbItem: IProductBacklogItem;
 };
 
-const FocusedTaskView = ({ isOpen, setIsOpen, pbItem }: ModalProps) => {
+const FocusedTaskView = ({
+  isFocusedTaskOpen,
+  setIsFocusedTaskOpen,
+  pbItem,
+}: ModalProps) => {
   const [isDeleteModalOpen, setDeleteModalIsOpen] = useState(false);
 
   const customStyles = {
@@ -42,9 +46,9 @@ const FocusedTaskView = ({ isOpen, setIsOpen, pbItem }: ModalProps) => {
   return (
     <div className="gap-4 flex-col">
       <Modal
-        isOpen={isOpen}
+        isOpen={isFocusedTaskOpen}
         ariaHideApp={false}
-        onRequestClose={() => setIsOpen(false)}
+        onRequestClose={() => setIsFocusedTaskOpen(false)}
         style={customStyles as Styles}
       >
         <div className="shadow-xl w-full h-fit bg-[#BA0000] rounded-xl">
@@ -166,8 +170,11 @@ const FocusedTaskView = ({ isOpen, setIsOpen, pbItem }: ModalProps) => {
         </div>
       </Modal>
       <DeleteModal
+        isFocusedTaskOpen={isFocusedTaskOpen}
+        setIsFocusedTaskOpen={setIsFocusedTaskOpen}
         isOpen={isDeleteModalOpen}
         setIsOpen={setDeleteModalIsOpen}
+        pbItem={pbItem}
       />
     </div>
   );

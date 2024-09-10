@@ -2,8 +2,6 @@
 
 import { useEffect, useState } from "react";
 import FocusedTaskView from "./FocusedTaskView";
-import { getAllProductBacklogItems } from "@/lib/actions/product_backlog_item.actions";
-import { ProductBacklogItem } from "@/types";
 import { IProductBacklogItem } from "@/lib/database/models/product_backlog_item.model";
 import { ITag } from "@/lib/database/models/tag.model";
 import { getTagById } from "@/lib/actions/tag.actions";
@@ -51,8 +49,8 @@ const TaskCard = ({ pbItem }: { pbItem: IProductBacklogItem }) => {
             </div>
             <div className="flex-col gap-4 mt-4">
               <p className="font-semibold text-lg">Tags</p>
-              <div className="flex my-4 gap-2 gap-y-6 text-md items-center justify-start">
-                {tags.map((tag) => (
+              <div className="flex flex-wrap my-4 gap-2 gap-y-6 text-md items-center justify-start">
+                {tags.slice(0, 3).map((tag) => (
                   <div
                     key={tag._id}
                     className="flex text-sm bg-[#FFD400] opacity-80 h-full w-fit px-4 py-2 items-center justify-center rounded-2xl"
@@ -60,13 +58,14 @@ const TaskCard = ({ pbItem }: { pbItem: IProductBacklogItem }) => {
                     <p>{tag.name}</p>
                   </div>
                 ))}
+                {tags.length > 3 && <div>+{tags.length - 3}</div>}
               </div>
             </div>
           </div>
         </div>
         <FocusedTaskView
-          isOpen={isModalOpen}
-          setIsOpen={setIsModalOpen}
+          isFocusedTaskOpen={isModalOpen}
+          setIsFocusedTaskOpen={setIsModalOpen}
           pbItem={pbItem}
         />
       </div>

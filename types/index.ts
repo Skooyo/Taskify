@@ -37,6 +37,7 @@ export type CreateProductBacklogItemProps = {
   };
   tags: string[];
   userId: string;
+  pathname: string;
 };
 
 export type ProductBacklogItem = {
@@ -52,6 +53,11 @@ export type ProductBacklogItem = {
   createdAt: Date;
   assignee: string;
   tags: string[];
+};
+
+export type DeleteProductBacklogItemByIdParams = {
+  productBacklogItemId: string;
+  pathname: string;
 };
 
 export const defaultProductBacklogItemState = {
