@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
 import { Styles } from "react-modal";
 import DevelopmentStage from "./DevelopmentStage";
@@ -9,6 +9,7 @@ import { FaRegTrashAlt } from "react-icons/fa";
 import { FaEdit } from "react-icons/fa";
 import { IProductBacklogItem } from "@/lib/database/models/product_backlog_item.model";
 import DeleteModal from "./DeleteModal";
+import UpdateForm from "./UpdateForm";
 
 type ModalProps = {
   isFocusedTaskOpen: boolean;
@@ -21,7 +22,8 @@ const FocusedTaskView = ({
   setIsFocusedTaskOpen,
   pbItem,
 }: ModalProps) => {
-  const [isDeleteModalOpen, setDeleteModalIsOpen] = useState(false);
+  const [isDeleteModalOpen, setDeleteModalIsOpen] = useState<boolean>(false);
+  const [isUpdateFormOpen, setIsUpdateFormOpen] = useState<boolean>(false);
 
   const customStyles = {
     overlay: {
@@ -42,6 +44,10 @@ const FocusedTaskView = ({
       borderRadius: "16px",
     },
   };
+
+  useEffect(() => {
+    console.log("update form open", isUpdateFormOpen);
+  }, [isUpdateFormOpen]);
 
   return (
     <div className="gap-4 flex-col">
@@ -159,6 +165,7 @@ const FocusedTaskView = ({
                     type="button"
                     className="items-center justify-center py-2 px-6 bg-[#2fd42a]
                                     text-background rounded-lg flex gap-2 text-white opacity-80"
+                    onClick={() => setIsUpdateFormOpen(true)}
                   >
                     <FaEdit size={24} />
                     <p>Edit</p>
@@ -175,6 +182,14 @@ const FocusedTaskView = ({
         isOpen={isDeleteModalOpen}
         setIsOpen={setDeleteModalIsOpen}
         pbItem={pbItem}
+      />
+
+      <UpdateForm
+        isOpen={isUpdateFormOpen}
+        setIsOpen={setIsUpdateFormOpen}
+        pbItem={pbItem}
+        isFocusedTaskOpen={isFocusedTaskOpen}
+        setIsFocusedTaskOpen={setIsFocusedTaskOpen}
       />
     </div>
   );

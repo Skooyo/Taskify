@@ -1,3 +1,5 @@
+import { IProductBacklogItem } from "@/lib/database/models/product_backlog_item.model";
+
 // Constants
 export const taskPriority = ["Low", "Medium", "High", "Urgent"];
 
@@ -57,6 +59,25 @@ export type ProductBacklogItem = {
 
 export type DeleteProductBacklogItemByIdParams = {
   productBacklogItemId: string;
+  pathname: string;
+};
+
+export type UpdateProductBacklogItemParams = {
+  productBacklogItem: {
+    _id: string;
+    title: string;
+    description: string;
+    priority: string;
+    storyPoints: number;
+    status: string;
+    developmentPhase: string;
+    totalLoggedHours: string;
+    loggedHours: string[];
+    taskType: string;
+    createdAt: Date;
+  };
+  tags: string[];
+  userId: string;
   pathname: string;
 };
 
