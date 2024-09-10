@@ -15,7 +15,7 @@ const UserSchema = new Schema<IUser>({
     type: Boolean,
     default: false,
   },
-})
+}, { collection: "users" });
 
 const User = models.User || model<IUser>("User", UserSchema);
 
