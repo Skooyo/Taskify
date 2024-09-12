@@ -55,13 +55,13 @@ const UpdateForm = ({
   setIsFocusedTaskOpen,
 }: ModalProps) => {
   const formSchema = z.object({
-    title: z.string(),
-    description: z.string(),
-    priority: z.string(),
-    storyPoints: z.number().max(10).min(0),
-    status: z.string(),
-    developmentPhase: z.string(),
-    taskType: z.string(),
+    title: z.string().optional(),
+    description: z.string().optional(),
+    priority: z.string().optional(),
+    storyPoints: z.number().max(10).min(0).optional(),
+    status: z.string().optional(),
+    developmentPhase: z.string().optional(),
+    taskType: z.string().optional(),
     assigneeId: z.string(),
     tagIds: z.array(z.string()).min(1),
   });
@@ -69,15 +69,15 @@ const UpdateForm = ({
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: "",
-      description: "",
-      priority: "",
+      title: " ",
+      description: " ",
+      priority: " ",
       storyPoints: 0,
-      status: "",
-      developmentPhase: "",
-      taskType: "",
+      status: " ",
+      developmentPhase: " ",
+      taskType: " ",
       assigneeId: "",
-      tagIds: pbItem.tags.map((tag) => tag._id),
+      tagIds: [],
     },
   });
 
@@ -345,7 +345,7 @@ const UpdateForm = ({
                             type="number" // Add type="number" to make it a number input
                             className="rounded-lg w-[75%] border-neutral-400 py-2 remove-ring"
                             // placeholder=""
-                            placeholder={pbItem.storyPoints.toString()}
+                            placeholder={pbItem.storyPoints?.toString()}
                             onChange={(e) => {
                               field.onChange(parseInt(e.target.value)); // Parse the input value as an integer
                             }}

@@ -45,13 +45,13 @@ type ModalProps = {
 
 const CreateForm = ({ isOpen, setIsOpen }: ModalProps) => {
   const formSchema = z.object({
-    title: z.string(),
-    description: z.string(),
-    priority: z.string(),
-    storyPoints: z.number().max(10).min(0),
-    status: z.string(),
-    developmentPhase: z.string(),
-    taskType: z.string(),
+    title: z.string().optional(),
+    description: z.string().optional(),
+    priority: z.string().optional(),
+    storyPoints: z.number().max(10).min(0).optional(),
+    status: z.string().optional(),
+    developmentPhase: z.string().optional(),
+    taskType: z.string().optional(),
     assigneeId: z.string(),
     tagIds: z.array(z.string()).min(1),
   });
@@ -59,13 +59,13 @@ const CreateForm = ({ isOpen, setIsOpen }: ModalProps) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: "",
-      description: "",
-      priority: "",
+      title: " ",
+      description: " ",
+      priority: " ",
       storyPoints: 0,
-      status: "",
-      developmentPhase: "",
-      taskType: "",
+      status: " ",
+      developmentPhase: " ",
+      taskType: " ",
       assigneeId: "",
       tagIds: [],
     },

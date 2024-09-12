@@ -119,7 +119,7 @@ const FocusedTaskView = ({
                     <p className="font-semibold text-lg items-center justify-center">
                       {" "}
                       {pbItem.storyPoints} Point
-                      {pbItem.storyPoints > 1 ? "s" : ""}
+                      {pbItem.storyPoints && pbItem.storyPoints > 1 ? "s" : ""}
                     </p>
                   </div>
                 </div>
@@ -127,13 +127,13 @@ const FocusedTaskView = ({
                 {/* Priority */}
                 <div className="w-full">
                   <p className="pl-1">Priority:</p>
-                  <TaskPriority priority={pbItem.priority} />
+                  <TaskPriority priority={pbItem.priority || ""} />
                 </div>
 
                 {/* Task Type */}
                 <div className="w-full">
                   <p className="pl-1">Task Type:</p>
-                  <TaskType taskType={pbItem.taskType} />
+                  <TaskType taskType={pbItem.taskType || ""} />
                 </div>
               </div>
 
