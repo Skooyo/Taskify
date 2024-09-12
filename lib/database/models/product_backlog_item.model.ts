@@ -2,15 +2,15 @@ import { model, models, Schema } from "mongoose";
 
 export interface IProductBacklogItem {
   _id: string;
-  title: string;
-  description: string;
-  priority: string;
-  storyPoints: number;
-  status: string;
-  developmentPhase: string;
-  totalLoggedHours: string;
-  loggedHours: string[];
-  taskType: string;
+  title?: string;
+  description?: string;
+  priority?: string;
+  storyPoints?: number;
+  status?: string;
+  developmentPhase?: string;
+  totalLoggedHours?: string;
+  loggedHours?: string[];
+  taskType?: string;
   createdAt: Date;
   assignee: {
     _id: string;
@@ -26,37 +26,46 @@ const ProductBacklogItemSchema = new Schema<IProductBacklogItem>(
   {
     title: {
       type: String,
-      required: true,
+      required: false,
+      default: "",
     },
     description: {
       type: String,
-      required: true,
+      required: false,
+      default: "",
     },
     priority: {
       type: String,
-      required: true,
+      required: false,
+      default: "",
     },
     storyPoints: {
       type: Number,
-      required: true,
+      required: false,
+      default: 0,
     },
     status: {
       type: String,
-      required: true,
+      required: false,
+      default: "",
     },
     developmentPhase: {
       type: String,
-      required: true,
+      required: false,
+      default: "",
     },
     totalLoggedHours: {
       type: String,
+      required: false,
     },
     loggedHours: {
       type: [String],
+      required: false,
     },
     taskType: {
       type: String,
-      required: true,
+      required: false,
+      default: "",
     },
     createdAt: {
       type: Date,
@@ -65,11 +74,13 @@ const ProductBacklogItemSchema = new Schema<IProductBacklogItem>(
     assignee: {
       type: Schema.Types.ObjectId,
       ref: "User",
+      required: true,
     },
     tags: [
       {
         type: Schema.Types.ObjectId,
         ref: "Tag",
+        required: true,
       },
     ],
   },

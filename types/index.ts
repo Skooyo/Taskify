@@ -26,16 +26,16 @@ export const tags = [
 // Product Backlog Params
 export type CreateProductBacklogItemProps = {
   productBacklogItem: {
-    title: string;
-    description: string;
-    priority: string;
-    storyPoints: number;
-    status: string;
-    developmentPhase: string;
-    totalLoggedHours: string;
-    loggedHours: string[];
-    taskType: string;
-    createdAt: Date;
+    title?: string;
+    description?: string;
+    priority?: string;
+    storyPoints?: number;
+    status?: string;
+    developmentPhase?: string;
+    totalLoggedHours?: string;
+    loggedHours?: string[];
+    taskType?: string;
+    createdAt?: Date;
   };
   tags: string[];
   userId: string;
@@ -65,15 +65,15 @@ export type DeleteProductBacklogItemByIdParams = {
 export type UpdateProductBacklogItemParams = {
   productBacklogItem: {
     _id: string;
-    title: string;
-    description: string;
-    priority: string;
-    storyPoints: number;
-    status: string;
-    developmentPhase: string;
+    title?: string;
+    description?: string;
+    priority?: string;
+    storyPoints?: number;
+    status?: string;
+    developmentPhase?: string;
     totalLoggedHours: string;
     loggedHours: string[];
-    taskType: string;
+    taskType?: string;
     createdAt: Date;
   };
   tags: string[];
