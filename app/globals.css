@@ -17,7 +17,11 @@
 }
 
 body {
-  background: white;
+  background: rgb(255, 255, 255, 0.5); 
+  background-image: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Forig00.deviantart.net%2F4e8f%2Ff%2F2017%2F184%2F1%2F9%2Fdeadpool_minimalist_wallpaper_by_damionmauville-dbf0k84.png&f=1&nofb=1&ipt=17107019c0270ed2ef6c65d69445ca7e7e5d67421086868ff055ccdbed7c82d6&ipo=images');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 @layer utilities {
