@@ -22,13 +22,15 @@ function NavLinks() {
     <>
       {links.map((link) => {
         return (
-          <Link
-            key={link.name}
-            href={link.href}
-            className={`${pathname === link.href ? 'text-[#962333] font-semibold text-2xl' : 'font-semibold text-2xl'}`}
-          >
-            <h2>{link.name}</h2>
-          </Link>
+          <div className='navbox'>
+            <Link
+              key={link.name}
+              href={link.href}
+              className={`${pathname === link.href ? 'text-[#962333] font-semibold text-2xl' : 'font-semibold text-2xl'}`}
+            >
+              <h2>{link.name}</h2>
+            </Link>
+          </div>
         );
       })}
     </>
