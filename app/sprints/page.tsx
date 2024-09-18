@@ -9,7 +9,7 @@ const mockData = [
   {
     _id: "1",
     title: "Sprint 1",
-    status: "Active",
+    status: "Completed",
     startDate: new Date(),
     endDate: new Date(Date.now() + 1000 * 60 * 60 * 24 * 14),
     createdAt: new Date(),
@@ -32,7 +32,7 @@ const mockData = [
   {
     _id: "3",
     title: "Sprint 3",
-    status: "Active",
+    status: "Not Started",
     startDate: new Date(),
     endDate: new Date(Date.now() + 1000 * 60 * 60 * 24 * 14),
     createdAt: new Date(),
@@ -43,7 +43,7 @@ const mockData = [
   {
     _id: "4",
     title: "Sprint 4",
-    status: "Active",
+    status: "Not Started",
     startDate: new Date(),
     endDate: new Date(Date.now() + 1000 * 60 * 60 * 24 * 14),
     createdAt: new Date(),
@@ -54,7 +54,7 @@ const mockData = [
   {
     _id: "5",
     title: "Sprint 5",
-    status: "Active",
+    status: "Not Started",
     startDate: new Date(),
     endDate: new Date(Date.now() + 1000 * 60 * 60 * 24 * 14),
     createdAt: new Date(),
@@ -65,7 +65,7 @@ const mockData = [
   {
     _id: "6",
     title: "Sprint 6",
-    status: "Active",
+    status: "Not Started",
     startDate: new Date(),
     endDate: new Date(Date.now() + 1000 * 60 * 60 * 24 * 14),
     createdAt: new Date(),
