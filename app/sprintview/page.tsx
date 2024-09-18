@@ -1,7 +1,9 @@
+"use client";
+
 import SprintCard from "@/components/SprintCard";
 import { IProductBacklogItem } from "@/lib/database/models/product_backlog_item.model";
 import { ISprint } from "@/lib/database/models/sprint.model";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const mockData = [
   {
@@ -17,7 +19,8 @@ const mockData = [
   },
   {
     _id: "2",
-    title: "Sprint 2",
+    title:
+      "Sprint 2 very very long name for a sprint title that should be truncated at some point in the UI to prevent overflow so that it doesn't look ugly",
     status: "Active",
     startDate: new Date(),
     endDate: new Date(Date.now() + 1000 * 60 * 60 * 24 * 14),
@@ -73,6 +76,12 @@ const mockData = [
 ] as ISprint[];
 
 const SprintView = () => {
+  const [sprints, setSprints] = useState<ISprint[]>([]);
+
+  useEffect(() => {
+    setSprints(mockData);
+  }, []);
+
   return (
     <div className="flex flex-col mt-[70px] mx-4 gap-6">
       <div>
@@ -82,7 +91,7 @@ const SprintView = () => {
         {mockData.map((sprint) => {
           return (
             <div key={sprint._id} className="bg-red min-w-full">
-              <SprintCard />
+              <SprintCard sprint={sprint} />
             </div>
           );
         })}
