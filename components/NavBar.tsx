@@ -22,17 +22,32 @@ function NavLinks() {
     <>
       {links.map((link) => {
         return (
-          <div className='navbox'>
             <Link
               key={link.name}
               href={link.href}
               className={`${pathname === link.href ? 'text-[#962333] font-semibold text-2xl' : 'font-semibold text-2xl'}`}
-            >
-              <h2>{link.name}</h2>
+            > 
+              <div className={'w-56.25 h-40 border-2 border-#ccc-300 shadow-lg rounded-lg flex flex-col items-center justify-center'}>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox={link.svg.viewBox} className={link.svg.className}>
+                  (<>{link.icon.map(x => {return (<path d={x.d} className={x.className}/>)})}</>)
+                </svg>
+                <h2>{link.name}</h2>
+              </div>
             </Link>
-          </div>
         );
       })}
     </>
   );
 }
+/**
+ * .navbox {
+  height: 160px;
+  width: 225px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  font-family: Arial, sans-serif;
+}
+ * 
+ * 
+ */
