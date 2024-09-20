@@ -83,11 +83,11 @@ const SprintView = () => {
   }, []);
 
   return (
-    <div className="flex flex-col mt-[70px] mx-4 gap-6">
+    <div className="flex flex-col mt-[70px] mx-4 gap-6 h-screen sprints">
       <div>
         <h1 className="text-4xl font-semibold ml-10">Sprints</h1>
       </div>
-      <div className="flex flex-col gap-10">
+      <div className="flex flex-col gap-10 overflow-y-auto pb-24">
         {mockData.map((sprint) => {
           return (
             <div key={sprint._id} className="bg-red min-w-full">

@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
-import Link from 'next/link'
-import { links } from '@/constants/nav-links'
-import { usePathname } from 'next/navigation'
+import Link from "next/link";
+import { links } from "@/constants/nav-links";
+import { usePathname } from "next/navigation";
 
 const NavBar = () => {
   return (
@@ -11,10 +11,10 @@ const NavBar = () => {
         <NavLinks />
       </div>
     </nav>
-  )
-}
+  );
+};
 
-export default NavBar
+export default NavBar;
 
 function NavLinks() {
   const pathname = usePathname();
@@ -22,11 +22,15 @@ function NavLinks() {
     <>
       {links.map((link) => {
         return (
-          <div className='navbox'>
+          <div className="">
             <Link
               key={link.name}
               href={link.href}
-              className={`${pathname === link.href ? 'text-[#962333] font-semibold text-2xl' : 'font-semibold text-2xl'}`}
+              className={`${
+                pathname === link.href
+                  ? "text-[#962333] font-semibold text-2xl"
+                  : "font-semibold text-2xl"
+              }`}
             >
               <h2>{link.name}</h2>
             </Link>
