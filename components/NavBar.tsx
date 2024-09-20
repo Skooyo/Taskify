@@ -22,19 +22,36 @@ function NavLinks() {
     <>
       {links.map((link) => {
         return (
-          <div className="">
-            <Link
-              key={link.name}
-              href={link.href}
-              className={`${
-                pathname === link.href
-                  ? "text-[#962333] font-semibold text-2xl"
-                  : "font-semibold text-2xl"
-              }`}
+          <Link
+            key={link.name}
+            href={link.href}
+            className={`${
+              pathname === link.href
+                ? "text-[#962333] font-semibold text-2xl"
+                : "font-semibold text-2xl"
+            }`}
+          >
+            <div
+              className={
+                "w-56.25 h-40 border-2 border-#ccc-300 shadow-lg rounded-lg flex flex-col items-center justify-center"
+              }
             >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox={link.svg.viewBox}
+                className={link.svg.className}
+              >
+                (
+                <>
+                  {link.icon.map((x, index) => {
+                    return <path key={index} d={x.d} className={x.className} />;
+                  })}
+                </>
+                )
+              </svg>
               <h2>{link.name}</h2>
-            </Link>
-          </div>
+            </div>
+          </Link>
         );
       })}
     </>
