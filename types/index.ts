@@ -32,7 +32,7 @@ export type CreateProductBacklogItemProps = {
     storyPoints?: number;
     status?: string;
     developmentPhase?: string;
-    totalLoggedHours?: string;
+    totalLoggedHours?: number;
     loggedHours?: string[];
     taskType?: string;
     createdAt?: Date;
