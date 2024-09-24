@@ -5,6 +5,7 @@ import FocusedTaskView from "./FocusedTaskView";
 import { IProductBacklogItem } from "@/lib/database/models/product_backlog_item.model";
 import { ITag } from "@/lib/database/models/tag.model";
 import { getTagById } from "@/lib/actions/tag.actions";
+import KanbanFocused from "./KanbanFocused";
 
 const KanbanCard = ({ pbItem }: { pbItem: IProductBacklogItem }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -96,7 +97,7 @@ const KanbanCard = ({ pbItem }: { pbItem: IProductBacklogItem }) => {
             </div>
           </div>
         </div>
-        <FocusedTaskView
+        <KanbanFocused
           isFocusedTaskOpen={isModalOpen}
           setIsFocusedTaskOpen={setIsModalOpen}
           pbItem={pbItem}

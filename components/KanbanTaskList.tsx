@@ -66,8 +66,8 @@ const KanbanTaskList = ({ tasks }: { tasks: IProductBacklogItem[] }) => {
   }, [pathname, searchParams, tasks]);
 
   return (
-    <div className="w-full h-full p-4">
-      <div className="w-full h-full overflow-auto grid grid-cols-1 gap-10 px-16 gap-y-16 scrollbar-hide pb-60">
+    <div className="w-full h-full p-4 flex items-center justify-center">
+      <div className="w-full h-full overflow-auto grid grid-cols-1 items-center justify-center gap-10 gap-y-16 scrollbar-hide pb-60 px-8">
         {newTasks.map((task) => (
           <KanbanCard key={task._id} pbItem={task} />
         ))}

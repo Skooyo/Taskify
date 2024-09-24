@@ -3,6 +3,10 @@
 import Link from "next/link";
 import { links } from "@/constants/nav-links";
 import { usePathname } from "next/navigation";
+import { BiTask } from "react-icons/bi";
+import { BsListTask } from "react-icons/bs";
+import { AiOutlineTeam } from "react-icons/ai";
+import { RiAdminLine } from "react-icons/ri";
 
 const NavBar = () => {
   return (
@@ -32,24 +36,12 @@ function NavLinks() {
             }`}
           >
             <div
-              className={
-                "w-56.25 h-40 border-2 border-#ccc-300 shadow-lg rounded-lg flex flex-col items-center justify-center"
-              }
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox={link.svg.viewBox}
-                className={link.svg.className}
-              >
-                (
-                <>
-                  {link.icon.map((x, index) => {
-                    return <path key={index} d={x.d} className={x.className} />;
-                  })}
-                </>
-                )
-              </svg>
-              <h2>{link.name}</h2>
+              className="w-56.25 h-40 border-2 border-#ccc-300 shadow-lg rounded-lg flex flex-col items-center justify-center">
+                {link.href === "/" && <BiTask className="text-5xl" />}
+                {link.href === "/sprints" && <BsListTask className="text-5xl" />}
+                {link.href === "/team" && <AiOutlineTeam className="text-5xl" />}
+                {link.href === "/admin" && <RiAdminLine className="text-5xl" />}
+                <h2>{link.name}</h2>
             </div>
           </Link>
         );

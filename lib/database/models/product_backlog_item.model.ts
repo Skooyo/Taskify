@@ -8,7 +8,7 @@ export interface IProductBacklogItem {
   storyPoints?: number;
   status?: string;
   developmentPhase?: string;
-  totalLoggedHours?: string;
+  totalLoggedHours?: number;
   loggedHours?: string[];
   taskType?: string;
   createdAt: Date;
@@ -55,7 +55,7 @@ const ProductBacklogItemSchema = new Schema<IProductBacklogItem>(
       default: "",
     },
     totalLoggedHours: {
-      type: String,
+      type: Number,
       required: false,
     },
     loggedHours: {
