@@ -158,7 +158,7 @@ const LogHours = ({ isOpen, setIsOpen, pbItem }: ModalProps) => {
         <div className="items-center justify-center w-full flex my-12">
           <Button
             type="submit"
-            className="text-black font-semibold px-16 w-1/2 text-lg bg-[#FFD400] rounded-lg drop-shadow-xl hover:bg-[#c2a136]"
+            className="text-black font-semibold px-16 w-1/4 text-lg bg-[#FFD400] rounded-lg drop-shadow-xl hover:bg-[#c2a136]"
             onClick={form.handleSubmit(onSubmit)}
           >
             Log Work Hours
