@@ -54,7 +54,7 @@ const KanbanCard = ({ pbItem }: { pbItem: IProductBacklogItem }) => {
       <div>
         <div
           className="shadow-xl w-full h-full bg-[#BA0000] rounded-2xl hover:cursor-pointer drop-shadow-xl"
-          onClick={() => setIsModalOpen(true)}
+          onDoubleClick={() => setIsModalOpen(true)}
         >
           <p className="opacity-0">color</p>
           <div className="bg-white h-full rounded-b-2xl flex-col istems-center p-4 pb-8">

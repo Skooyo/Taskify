@@ -10,6 +10,7 @@ import { FaEdit } from "react-icons/fa";
 import { IProductBacklogItem } from "@/lib/database/models/product_backlog_item.model";
 import DeleteModal from "./DeleteModal";
 import UpdateForm from "./UpdateForm";
+import LogHours from "./LogHours";
 
 type ModalProps = {
   isFocusedTaskOpen: boolean;
@@ -24,6 +25,7 @@ const KanbanFocused = ({
 }: ModalProps) => {
   const [isDeleteModalOpen, setDeleteModalIsOpen] = useState<boolean>(false);
   const [isUpdateFormOpen, setIsUpdateFormOpen] = useState<boolean>(false);
+  const [isLogHoursOpen, setIsLogHoursOpen] = useState<boolean>(false);
 
   const customStyles = {
     overlay: {
@@ -165,6 +167,7 @@ const KanbanFocused = ({
                     type="button"
                     className="items-center justify-center py-2 px-6 bg-[#FFD400] rounded-lg drop-shadow-xl
                                     text-background flex gap-2 text-black font-semibold opacity-80"
+                    onClick={() => setIsLogHoursOpen(true)}
                   >
                     <p>Log Hours</p>
                   </button>
@@ -191,6 +194,13 @@ const KanbanFocused = ({
         setIsOpen={setDeleteModalIsOpen}
         pbItem={pbItem}
       />
+
+      <LogHours
+        isOpen={isLogHoursOpen}
+        setIsOpen={setIsLogHoursOpen}
+        pbItem={pbItem}
+        />
+
 
       <UpdateForm
         isOpen={isUpdateFormOpen}
