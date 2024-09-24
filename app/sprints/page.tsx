@@ -90,7 +90,7 @@ const SprintView = () => {
       <div className="flex flex-col gap-10 overflow-y-auto pb-24">
         {mockData.map((sprint) => {
           return (
-            <div key={sprint._id} className="bg-red min-w-full">
+            <div key={sprint._id} className="bg-red min-w-full pr-4">
               <SprintCard sprint={sprint} />
             </div>
           );

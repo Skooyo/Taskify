@@ -6,7 +6,7 @@ import SprintStatus from "./SprintStatus";
 
 const SprintCard = ({ sprint }: { sprint: ISprint }) => {
   return (
-    <div className="min-w-full min-h-[25vh] flex bg-white shadow-xl rounded-2xl custom-shadow cursor-pointer">
+    <div className="min-w-full min-h-[15vh] flex bg-white shadow-xl rounded-2xl custom-shadow cursor-pointer">
       <span className="bg-[#BA0000] rounded-l-2xl w-[40px] flex-shrink-0"></span>
       <div className="rounded-r-2xl flex flex-col p-10 overflow-hidden">
         <div className="flex gap-3 items-center">
