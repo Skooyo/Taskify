@@ -111,7 +111,7 @@ const CreateForm = ({ isOpen, setIsOpen }: ModalProps) => {
         storyPoints: values.storyPoints,
         status: values.status,
         developmentPhase: values.developmentPhase,
-        totalLoggedHours: "0 Hours",
+        totalLoggedHours: 0,
         loggedHours: [""],
         taskType: values.taskType,
         createdAt: new Date(),

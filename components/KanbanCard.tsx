@@ -11,7 +11,7 @@ const KanbanCard = ({ pbItem }: { pbItem: IProductBacklogItem }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [visibleTags, setVisibleTags] = useState<ITag[]>([]);
 
-  console.log("in task card", pbItem);
+  // console.log("in task card", pbItem);
 
   const updateVisibleTags = () => {
     if (window.innerWidth >= 1536) {

@@ -34,6 +34,7 @@ import {
 } from "@/types";
 import { usePathname } from "next/navigation";
 import { IProductBacklogItem } from "@/lib/database/models/product_backlog_item.model";
+import { updateProductBacklogItemHours } from "@/lib/actions/product_backlog_item.actions";
 
 type ModalProps = {
   isOpen: boolean;
@@ -80,11 +81,17 @@ const LogHours = ({ isOpen, setIsOpen, pbItem }: ModalProps) => {
     form.reset(); // Reset the form values
   };
 
-  // const pathname = usePathname();
+  const pathname = usePathname();
 
   // TODO: Update the onSubmit function to log the work hours in database
   async function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values.description, values.hoursWorked);
+    const item = await updateProductBacklogItemHours({
+      productBacklogItem: pbItem,
+      hoursWorked: values.hoursWorked,
+      workDescription: values.description ?? "",
+      pathname,
+    })
     handleClose();
   }
 

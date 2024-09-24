@@ -22,7 +22,7 @@ const KanbanTaskList = ({ tasks }: { tasks: IProductBacklogItem[] }) => {
   const allTags = tagQuery ? tagQuery.split("+") : [];
 
   useEffect(() => {
-    console.log(tagQuery, sortQuery);
+    // console.log(tagQuery, sortQuery);
     let filteredTasks = tasks.filter((task) => {
       const taskTags = task.tags.map((tag) => tag._id);
       return allTags.every((tag) => taskTags.includes(tag));

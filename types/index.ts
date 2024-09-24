@@ -81,6 +81,13 @@ export type UpdateProductBacklogItemParams = {
   pathname: string;
 };
 
+export type UpdateProductBacklogHoursParams = {
+  productBacklogItem: IProductBacklogItem;
+  hoursWorked: number;
+  workDescription: string;
+  pathname: string;
+};
+
 export const defaultProductBacklogItemState = {
   _id: "",
   title: "",
