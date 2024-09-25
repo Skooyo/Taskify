@@ -54,7 +54,8 @@ const SprintSchema = new Schema<ISprint>({
       default: [],
     },
   ],
-});
+},
+{collection: "sprints"});
 
 const Sprint = models.Sprint || model<ISprint>("Sprint", SprintSchema);
 

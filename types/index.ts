@@ -23,6 +23,20 @@ export const tags = [
   "Bugfix",
 ];
 
+// Sprint Params
+export type CreateSprintParams = {
+  sprint: {
+    title: string;
+    status: string;
+    startDate: Date;
+    endDate: Date;
+    createdAt: Date;
+    notStartedTasks: IProductBacklogItem[];
+    inProgressTasks: IProductBacklogItem[];
+    completedTasks: IProductBacklogItem[];
+  }
+};
+
 // Product Backlog Params
 export type CreateProductBacklogItemProps = {
   productBacklogItem: {
