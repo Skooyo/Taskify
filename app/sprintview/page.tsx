@@ -68,6 +68,7 @@ const CreateForm = () => {
       right: "auto",
       maxWidth: "900px",
       width: "900px",
+      height: "550px",
       bottom: "auto",
       marginRight: "-50%",
       transform: "translate(-50%, -50%)",
@@ -177,6 +178,7 @@ const CreateForm = () => {
 };
 
 export default CreateForm;
+
 
 
 
