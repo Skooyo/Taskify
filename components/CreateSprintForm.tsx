@@ -180,7 +180,7 @@ const CreateSprintForm = ({isOpen, setIsOpen}: ModalProps) => {
             {/* Submit Button */}
             <Button
               type="submit"
-              className="text-black font-semibold px-16 w-full text-lg bg-[#FFD400] rounded-lg drop-shadow-xl hover:bg-[#c2a136]"
+              className="mt-60 text-black font-semibold px-16 w-full text-lg bg-[#FFD400] rounded-lg drop-shadow-xl hover:bg-[#c2a136]"
             >
               Create New Sprint
             </Button>
