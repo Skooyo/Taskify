@@ -4,6 +4,8 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import Modal from "react-modal";
 import {
   Form,
   FormControl,
@@ -15,35 +17,25 @@ import {
 import { Input } from "@/components/ui/input";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import Modal from "react-modal";
-import React, { useState } from "react";
 
-type FormData = {
-  title: string;
-  startDate: Date;
-  endDate: Date;
-};
+// Define the schema for the form
+const formSchema = z.object({
+  title: z.string().nonempty("Title is required"),
+  startDate: z.date({
+    required_error: "Start date is required",
+  }),
+  endDate: z.date({
+    required_error: "End date is required",
+  }),
+}).refine((data) => data.endDate > data.startDate, {
+  message: "End date must be after start date",
+  path: ["endDate"],
+});
 
-type ModalProps = {
-  isOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-};
+const CreateForm = () => {
+  const [isOpen, setIsOpen] = useState(false); // State to control the modal visibility
 
-const CreateForm = ({ isOpen, setIsOpen }: ModalProps) => {
-  const formSchema = z.object({
-    title: z.string().nonempty("Title is required"),
-    startDate: z.date({
-      required_error: "Start date is required",
-    }),
-    endDate: z.date({
-      required_error: "End date is required",
-    }),
-  }).refine((data) => data.endDate > data.startDate, {
-    message: "End date must be after start date",
-    path: ["endDate"],
-  });
-
-  const form = useForm<FormData>({
+  const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: "",
@@ -51,6 +43,20 @@ const CreateForm = ({ isOpen, setIsOpen }: ModalProps) => {
       endDate: new Date(),
     },
   });
+
+  const handleOpenModal = () => {
+    setIsOpen(true); // Open the modal
+  };
+
+  const handleCloseModal = () => {
+    setIsOpen(false); // Close the modal
+    form.reset(); // Reset the form when closing
+  };
+
+  const onSubmit = (values: any) => {
+    console.log("Submitted values:", values);
+    handleCloseModal(); // Close the modal after submission
+  };
 
   const customStyles = {
     overlay: {
@@ -72,28 +78,23 @@ const CreateForm = ({ isOpen, setIsOpen }: ModalProps) => {
     },
   };
 
-  const handleClose = () => {
-    setIsOpen(false);
-    form.reset(); // Reset the form values
-  };
-
-  const onSubmit = (values: FormData) => {
-    console.log("Submitted values:", values);
-    form.reset();
-    handleClose(); // Close the modal after submission
-  };
-
   return (
-    <div className="flex flex-col gap-8 min-h-fit">
+    <div>
+      {/* Button to open the form modal */}
+      <Button onClick={handleOpenModal} className="text-black bg-[#FFD400] px-4 py-2 rounded-lg">
+        Open Sprint View Form
+      </Button>
+
+      {/* The modal containing the form */}
       <Modal
         isOpen={isOpen}
+        onRequestClose={handleCloseModal}
         style={customStyles}
         ariaHideApp={false}
-        onRequestClose={handleClose}
       >
         <div className="w-full p-4 px-8 min-h-fit bg-[#ffffff] flex flex-col gap-6 text-black rounded-2xl pb-10">
           <div className="items-center justify-center flex">
-            <p className="font-semibold text-2xl mt-4">Create a New Task</p>
+            <p className="font-semibold text-2xl mt-4">Create a new Task</p>
           </div>
           <Form {...form}>
             <form
@@ -160,17 +161,15 @@ const CreateForm = ({ isOpen, setIsOpen }: ModalProps) => {
                 )}
               />
 
+              {/* Submit Button */}
+              <Button
+                type="submit"
+                className="text-black font-semibold px-16 w-full text-lg bg-[#FFD400] rounded-lg drop-shadow-xl hover:bg-[#c2a136]"
+              >
+                Create New Task
+              </Button>
             </form>
           </Form>
-        </div>
-        <div className="items-center justify-center w-full flex my-12">
-          <Button
-            type="submit"
-            className="text-black font-semibold px-16 w-1/4 text-lg bg-[#FFD400] rounded-lg drop-shadow-xl hover:bg-[#c2a136]"
-            onClick={form.handleSubmit(onSubmit)}
-          >
-            Create New Task
-          </Button>
         </div>
       </Modal>
     </div>
@@ -178,6 +177,7 @@ const CreateForm = ({ isOpen, setIsOpen }: ModalProps) => {
 };
 
 export default CreateForm;
+
 
 
 
