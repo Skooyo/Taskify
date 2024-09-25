@@ -76,6 +76,7 @@ const CreateForm = () => {
       border: "none",
       padding: "0px",
       borderRadius: "16px",
+      overflow: "visible",
     },
   };
 
