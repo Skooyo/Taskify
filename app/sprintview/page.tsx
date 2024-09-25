@@ -15,6 +15,8 @@ import {
 import { Input } from "@/components/ui/input";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import Modal from "react-modal";
+import React, { useState } from "react";
 
 type FormData = {
   title: string;
@@ -22,7 +24,12 @@ type FormData = {
   endDate: Date;
 };
 
-const CreateForm = () => {
+type ModalProps = {
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const CreateForm = ({ isOpen, setIsOpen }: ModalProps) => {
   const formSchema = z.object({
     title: z.string().nonempty("Title is required"),
     startDate: z.date({
@@ -45,97 +52,133 @@ const CreateForm = () => {
     },
   });
 
+  const customStyles = {
+    overlay: {
+      backgroundColor: "rgba(0, 0, 0, 0.6)",
+    },
+    content: {
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      maxWidth: "900px",
+      width: "900px",
+      bottom: "auto",
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
+      backgroundColor: "white",
+      border: "none",
+      padding: "0px",
+      borderRadius: "16px",
+    },
+  };
+
+  const handleClose = () => {
+    setIsOpen(false);
+    form.reset(); // Reset the form values
+  };
+
   const onSubmit = (values: FormData) => {
     console.log("Submitted values:", values);
     form.reset();
+    handleClose(); // Close the modal after submission
   };
 
   return (
     <div className="flex flex-col gap-8 min-h-fit">
-      <div className="w-full p-4 px-8 min-h-fit bg-[#ffffff] flex flex-col gap-6 text-black rounded-2xl pb-10">
-        <div className="items-center justify-center flex">
-          <p className="font-semibold text-2xl mt-4">Create a new Task</p>
-        </div>
-        <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="bg-[#ffffff] h-full flex flex-col gap-5"
-          >
-            {/* Task Title */}
-            <FormField
-              control={form.control}
-              name="title"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Task Title:</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      className="border-black rounded-lg"
-                      placeholder="Enter task title"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            {/* Task Start Date */}
-            <FormField
-              control={form.control}
-              name="startDate"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Start Date:</FormLabel>
-                  <FormControl>
-                    <DatePicker
-                      selected={field.value}
-                      onChange={(date) => field.onChange(date as Date)}
-                      className="border-black rounded-lg w-full"
-                      placeholderText="Select start date"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            {/* Task End Date */}
-            <FormField
-              control={form.control}
-              name="endDate"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>End Date:</FormLabel>
-                  <FormControl>
-                    <DatePicker
-                      selected={field.value}
-                      onChange={(date) => field.onChange(date as Date)}
-                      className="border-black rounded-lg w-full"
-                      placeholderText="Select end date"
-                      minDate={form.watch("startDate")}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            {/* Submit Button */}
-            <Button
-              type="submit"
-              className="text-black font-semibold px-16 w-full text-lg bg-[#FFD400] rounded-lg drop-shadow-xl hover:bg-[#c2a136]"
+      <Modal
+        isOpen={isOpen}
+        style={customStyles}
+        ariaHideApp={false}
+        onRequestClose={handleClose}
+      >
+        <div className="w-full p-4 px-8 min-h-fit bg-[#ffffff] flex flex-col gap-6 text-black rounded-2xl pb-10">
+          <div className="items-center justify-center flex">
+            <p className="font-semibold text-2xl mt-4">Create a New Task</p>
+          </div>
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="bg-[#ffffff] h-full flex flex-col gap-5"
             >
-              Create New Task
-            </Button>
-          </form>
-        </Form>
-      </div>
+              {/* Task Title */}
+              <FormField
+                control={form.control}
+                name="title"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Task Title:</FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        className="border-black rounded-lg"
+                        placeholder="Enter task title"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              {/* Task Start Date */}
+              <FormField
+                control={form.control}
+                name="startDate"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Start Date:</FormLabel>
+                    <FormControl>
+                      <DatePicker
+                        selected={field.value}
+                        onChange={(date) => field.onChange(date as Date)}
+                        className="border-black rounded-lg w-full"
+                        placeholderText="Select start date"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              {/* Task End Date */}
+              <FormField
+                control={form.control}
+                name="endDate"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>End Date:</FormLabel>
+                    <FormControl>
+                      <DatePicker
+                        selected={field.value}
+                        onChange={(date) => field.onChange(date as Date)}
+                        className="border-black rounded-lg w-full"
+                        placeholderText="Select end date"
+                        minDate={form.watch("startDate")}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+            </form>
+          </Form>
+        </div>
+        <div className="items-center justify-center w-full flex my-12">
+          <Button
+            type="submit"
+            className="text-black font-semibold px-16 w-1/4 text-lg bg-[#FFD400] rounded-lg drop-shadow-xl hover:bg-[#c2a136]"
+            onClick={form.handleSubmit(onSubmit)}
+          >
+            Create New Task
+          </Button>
+        </div>
+      </Modal>
     </div>
   );
 };
 
 export default CreateForm;
+
 
 
 
