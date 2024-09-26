@@ -75,6 +75,21 @@ export const startSprint = async ({
     }
 }
 
+export const deleteSprintById = async ({
+    sprint
+}: { sprint: ISprint }) => {
+    try {
+        await connectToDatabase();
+
+        const deletedSprint = await Sprint.findByIdAndDelete(sprint._id);
+
+        if (deletedSprint) revalidatePath("/sprints");
+    } catch (error) {
+        console.error("Error deleting sprint:", error);
+        handleError(error);
+    }
+}
+
 export const stopSprint = async ({
     sprint,
 }: { sprint: ISprint }) => {

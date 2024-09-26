@@ -1,12 +1,17 @@
-import Sprint, { ISprint } from "@/lib/database/models/sprint.model";
+"use client"
+
+import { ISprint } from "@/lib/database/models/sprint.model";
 import { formatDateTime } from "@/lib/utils";
 import React from "react";
-import TaskStatus from "./TaskStatus";
 import SprintStatus from "./SprintStatus";
 import StartSprint from "./StartSprint";
 import StopSprint from "./StopSprint";
+import { useState } from "react";
+import { FaRegTrashAlt } from "react-icons/fa";
+import SprintDeleteModal from "./SprintDeleteModal";
 
 const SprintCard = ({ sprint }: { sprint: ISprint }) => {
+  const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
   return (
     <div className="min-w-full min-h-[15vh] flex bg-white shadow-xl rounded-2xl custom-shadow cursor-pointer">
       <span className="bg-[#BA0000] rounded-l-2xl w-[40px] flex-shrink-0"></span>
@@ -36,7 +41,21 @@ const SprintCard = ({ sprint }: { sprint: ISprint }) => {
 
           <div className="flex w-full h-full items-center justify-end gap-6">
             {sprint.status == "Not Started" && <StartSprint sprint={sprint}/>}
+
             {sprint.status == "Active" && <StopSprint sprint={sprint}/>}
+
+
+            <SprintDeleteModal isOpen={deleteModalIsOpen} setIsOpen={setDeleteModalIsOpen} sprint={sprint}/>
+            <button
+                    type="button"
+                    className="items-center justify-center py-2 px-6 bg-red-500
+                                    text-background rounded-lg flex gap-2 text-white opacity-80"
+                    onClick={() => setDeleteModalIsOpen(true)}
+                  >
+                    <FaRegTrashAlt size={16} />
+                    <p>Delete</p>
+            </button>
+
           </div>
         </div>
       </div>
