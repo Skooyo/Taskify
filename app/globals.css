@@ -16,8 +16,41 @@
   }
 }
 
+.datePicker {
+  width: 100%;
+}
+
+.react-datepicker__input-container input {
+  background-color: transparent;
+  width: 100%;
+  outline: none;
+  margin-left: 16px;
+}
+
+.react-datepicker__day--selected {
+  background-color: #624cf5 !important;
+  color: #ffffff !important;
+  border-radius: 4px;
+}
+
+.react-datepicker__time-list-item--selected {
+  background-color: #624cf5 !important;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+   display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
 body {
-  background: white;
+  background: rgb(255, 255, 255, 0.5); 
+  background-image: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Forig00.deviantart.net%2F4e8f%2Ff%2F2017%2F184%2F1%2F9%2Fdeadpool_minimalist_wallpaper_by_damionmauville-dbf0k84.png&f=1&nofb=1&ipt=17107019c0270ed2ef6c65d69445ca7e7e5d67421086868ff055ccdbed7c82d6&ipo=images');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 @layer utilities {
@@ -34,4 +67,8 @@ body {
 
 .remove-ring {
   @apply focus-visible:ring-transparent focus:ring-transparent !important;
+}
+
+.custom-shadow {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.13);
 }

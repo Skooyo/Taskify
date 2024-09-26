@@ -23,6 +23,20 @@ export const tags = [
   "Bugfix",
 ];
 
+// Sprint Params
+export type CreateSprintParams = {
+  sprint: {
+    title: string;
+    status: string;
+    startDate: Date;
+    endDate: Date;
+    createdAt: Date;
+    notStartedTasks: IProductBacklogItem[];
+    inProgressTasks: IProductBacklogItem[];
+    completedTasks: IProductBacklogItem[];
+  }
+};
+
 // Product Backlog Params
 export type CreateProductBacklogItemProps = {
   productBacklogItem: {
@@ -32,7 +46,7 @@ export type CreateProductBacklogItemProps = {
     storyPoints?: number;
     status?: string;
     developmentPhase?: string;
-    totalLoggedHours?: string;
+    totalLoggedHours?: number;
     loggedHours?: string[];
     taskType?: string;
     createdAt?: Date;
@@ -78,6 +92,13 @@ export type UpdateProductBacklogItemParams = {
   };
   tags: string[];
   userId: string;
+  pathname: string;
+};
+
+export type UpdateProductBacklogHoursParams = {
+  productBacklogItem: IProductBacklogItem;
+  hoursWorked: number;
+  workDescription: string;
   pathname: string;
 };
 

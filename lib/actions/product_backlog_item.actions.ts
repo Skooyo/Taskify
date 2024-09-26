@@ -3,6 +3,7 @@
 import {
   CreateProductBacklogItemProps,
   DeleteProductBacklogItemByIdParams,
+  UpdateProductBacklogHoursParams,
   UpdateProductBacklogItemParams,
 } from "@/types";
 import { connectToDatabase } from "../database";
@@ -86,6 +87,33 @@ export const updateProductBacklogItem = async ({
       { ...productBacklogItem, tags, assignee: userId },
       { new: true },
     );
+
+    if (updatedItem) revalidatePath(pathname);
+    return JSON.parse(JSON.stringify(updatedItem));
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+export const updateProductBacklogItemHours = async ({
+  productBacklogItem,
+  hoursWorked,
+  workDescription,
+  pathname
+}: UpdateProductBacklogHoursParams) => {
+
+  try {
+    await connectToDatabase();
+
+    const updatedItem = await ProductBacklogItem.findByIdAndUpdate(
+      productBacklogItem._id,
+      {...productBacklogItem, totalLoggedHours: productBacklogItem.totalLoggedHours ? productBacklogItem.totalLoggedHours + hoursWorked : hoursWorked,
+        loggedHours: productBacklogItem.loggedHours ? [...productBacklogItem.loggedHours, workDescription] : [workDescription]
+      },
+      { new: true },
+    );
+
+    console.log("Log hours updated")
 
     if (updatedItem) revalidatePath(pathname);
     return JSON.parse(JSON.stringify(updatedItem));
