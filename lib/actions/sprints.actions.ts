@@ -37,3 +37,47 @@ export const createSprint = async ({
         handleError(error);
     }
 }
+
+export const startSprint = async ({
+    sprint,
+}: { sprint: ISprint }) => {
+    try {
+        await connectToDatabase();
+
+        const updatedSprint = await Sprint.findByIdAndUpdate(
+            sprint._id,
+            {
+                status: "Active",
+            },
+            { new: true }
+        );
+
+        if (updatedSprint) revalidatePath("/sprints");
+        return JSON.parse(JSON.stringify(updatedSprint));
+    } catch (error) {
+        console.error("Error starting sprint:", error);
+        handleError(error);
+    }
+}
+
+export const stopSprint = async ({
+    sprint,
+}: { sprint: ISprint }) => {
+    try {
+        await connectToDatabase();
+
+        const updatedSprint = await Sprint.findByIdAndUpdate(
+            sprint._id,
+            {
+                status: "Completed",
+            },
+            { new: true }
+        );
+
+        if (updatedSprint) revalidatePath("/sprints");
+        return JSON.parse(JSON.stringify(updatedSprint));
+    } catch (error) {
+        console.error("Error stopping sprint:", error);
+        handleError(error);
+    }
+}
