@@ -13,6 +13,21 @@ export const getAllSprints = async () => {
 
         const sprints = await Sprint.find();
 
+        // Logic to automatically start sprints
+        sprints.forEach(sprint => {
+            if (sprint.status !== "Completed") {
+            const startDate = new Date(sprint.startDate);
+            const endDate = new Date(sprint.endDate);
+            const now = new Date();
+
+            if (startDate <= now && endDate >= now) {
+                sprint.status = "Active";
+            } else if (endDate < now) {
+                sprint.status = "Completed";
+            }
+            }
+        });
+
         return JSON.parse(JSON.stringify(sprints));
     } catch (error) {
         console.error("Error fetching sprints:", error);
