@@ -10,8 +10,6 @@ const TaskCard = ({ pbItem }: { pbItem: IProductBacklogItem }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [visibleTags, setVisibleTags] = useState<ITag[]>([]);
 
-  console.log("in task card", pbItem);
-
   const updateVisibleTags = () => {
     if (window.innerWidth >= 1536) {
       setVisibleTags(pbItem.tags.slice(0, 2));
@@ -52,7 +50,7 @@ const TaskCard = ({ pbItem }: { pbItem: IProductBacklogItem }) => {
     <>
       <div>
         <div
-          className="shadow-xl w-full h-full bg-[#BA0000] rounded-2xl hover:cursor-pointer drop-shadow-xl"
+          className="shadow-xl w-full h-fit bg-[#BA0000] rounded-2xl hover:cursor-pointer drop-shadow-xl"
           onClick={() => setIsModalOpen(true)}
         >
           <p className="opacity-0">color</p>

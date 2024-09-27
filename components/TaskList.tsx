@@ -67,7 +67,7 @@ const TaskList = ({ tasks }: { tasks: IProductBacklogItem[] }) => {
 
   return (
     <div className="w-full h-screen overflow-y-auto pb-60 p-4 grid grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-10">
-      {newTasks.map((task) => (
+      {newTasks.map((task, index) => (
         <TaskCard key={task._id} pbItem={task} />
       ))}
     </div>
