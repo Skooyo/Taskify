@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { ISprint } from "@/lib/database/models/sprint.model";
 import { formatDateTime } from "@/lib/utils";
@@ -9,11 +9,21 @@ import StopSprint from "./StopSprint";
 import { useState } from "react";
 import { FaRegTrashAlt } from "react-icons/fa";
 import SprintDeleteModal from "./SprintDeleteModal";
+import { useRouter } from "next/navigation";
 
 const SprintCard = ({ sprint }: { sprint: ISprint }) => {
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.push(`/sprints/${sprint._id}`);
+  };
+
   return (
-    <div className="min-w-full min-h-[15vh] flex bg-white shadow-xl rounded-2xl custom-shadow cursor-pointer">
+    <div
+      onClick={handleClick}
+      className="min-w-full min-h-[15vh] flex bg-white shadow-xl rounded-2xl custom-shadow cursor-pointer"
+    >
       <span className="bg-[#BA0000] rounded-l-2xl w-[40px] flex-shrink-0"></span>
       <div className="rounded-r-2xl flex flex-col p-10 overflow-hidden w-full">
         <div className="flex gap-3 items-center">
@@ -23,7 +33,6 @@ const SprintCard = ({ sprint }: { sprint: ISprint }) => {
           <SprintStatus status={sprint.status} />
         </div>
         <div className="flex items-center w-full justify-between">
-
           <div className="w-full">
             <div className="flex mt-4">
               <p className="font-semibold">Sprint starts:</p>
@@ -40,22 +49,24 @@ const SprintCard = ({ sprint }: { sprint: ISprint }) => {
           </div>
 
           <div className="flex w-full h-full items-center justify-end gap-6">
-            {sprint.status == "Not Started" && <StartSprint sprint={sprint}/>}
+            {sprint.status == "Not Started" && <StartSprint sprint={sprint} />}
 
-            {sprint.status == "Active" && <StopSprint sprint={sprint}/>}
+            {sprint.status == "Active" && <StopSprint sprint={sprint} />}
 
-
-            <SprintDeleteModal isOpen={deleteModalIsOpen} setIsOpen={setDeleteModalIsOpen} sprint={sprint}/>
+            <SprintDeleteModal
+              isOpen={deleteModalIsOpen}
+              setIsOpen={setDeleteModalIsOpen}
+              sprint={sprint}
+            />
             <button
-                    type="button"
-                    className="items-center justify-center py-2 px-6 bg-red-500
+              type="button"
+              className="items-center justify-center py-2 px-6 bg-red-500
                                     text-background rounded-lg flex gap-2 text-white opacity-80"
-                    onClick={() => setDeleteModalIsOpen(true)}
-                  >
-                    <FaRegTrashAlt size={16} />
-                    <p>Delete</p>
+              onClick={() => setDeleteModalIsOpen(true)}
+            >
+              <FaRegTrashAlt size={16} />
+              <p>Delete</p>
             </button>
-
           </div>
         </div>
       </div>

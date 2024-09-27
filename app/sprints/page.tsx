@@ -5,79 +5,7 @@ import React, { useEffect, useState } from "react";
 import SprintButton from "@/components/SprintButton";
 import { getAllSprints } from "@/lib/actions/sprints.actions";
 
-const mockData = [
-  {
-    _id: "1",
-    title: "Sprint 1",
-    status: "Completed",
-    startDate: new Date(),
-    endDate: new Date(Date.now() + 1000 * 60 * 60 * 24 * 14),
-    createdAt: new Date(),
-    notStartedTasks: [] as IProductBacklogItem[],
-    inProgressTasks: [] as IProductBacklogItem[],
-    completedTasks: [] as IProductBacklogItem[],
-  },
-  {
-    _id: "2",
-    title:
-      "Sprint 2 very very long name for a sprint title that should be truncated at some point in the UI to prevent overflow so that it doesn't look ugly",
-    status: "Active",
-    startDate: new Date(),
-    endDate: new Date(Date.now() + 1000 * 60 * 60 * 24 * 14),
-    createdAt: new Date(),
-    notStartedTasks: [] as IProductBacklogItem[],
-    inProgressTasks: [] as IProductBacklogItem[],
-    completedTasks: [] as IProductBacklogItem[],
-  },
-  {
-    _id: "3",
-    title: "Sprint 3",
-    status: "Not Started",
-    startDate: new Date(),
-    endDate: new Date(Date.now() + 1000 * 60 * 60 * 24 * 14),
-    createdAt: new Date(),
-    notStartedTasks: [] as IProductBacklogItem[],
-    inProgressTasks: [] as IProductBacklogItem[],
-    completedTasks: [] as IProductBacklogItem[],
-  },
-  {
-    _id: "4",
-    title: "Sprint 4",
-    status: "Not Started",
-    startDate: new Date(),
-    endDate: new Date(Date.now() + 1000 * 60 * 60 * 24 * 14),
-    createdAt: new Date(),
-    notStartedTasks: [] as IProductBacklogItem[],
-    inProgressTasks: [] as IProductBacklogItem[],
-    completedTasks: [] as IProductBacklogItem[],
-  },
-  {
-    _id: "5",
-    title: "Sprint 5",
-    status: "Not Started",
-    startDate: new Date(),
-    endDate: new Date(Date.now() + 1000 * 60 * 60 * 24 * 14),
-    createdAt: new Date(),
-    notStartedTasks: [] as IProductBacklogItem[],
-    inProgressTasks: [] as IProductBacklogItem[],
-    completedTasks: [] as IProductBacklogItem[],
-  },
-  {
-    _id: "6",
-    title: "Sprint 6",
-    status: "Not Started",
-    startDate: new Date(),
-    endDate: new Date(Date.now() + 1000 * 60 * 60 * 24 * 14),
-    createdAt: new Date(),
-    notStartedTasks: [] as IProductBacklogItem[],
-    inProgressTasks: [] as IProductBacklogItem[],
-    completedTasks: [] as IProductBacklogItem[],
-  },
-] as ISprint[];
-
 export default async function SprintView() {
-  // const [sprints, setSprints] = useState<ISprint[]>([]);
-
   const sprints = await getAllSprints();
 
   return (
@@ -97,4 +25,4 @@ export default async function SprintView() {
       </div>
     </div>
   );
-};
+}
