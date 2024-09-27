@@ -61,7 +61,7 @@ const KanbanCard = ({ pbItem }: { pbItem: IProductBacklogItem }) => {
             <p className="font-bold text-xl mb-2 line-clamp-3">
               {pbItem.title}
             </p>
-            <div className="flex gap-6 items-center">
+            <div className="flex items-center gap-2 justify-start">
               <div className="flex bg-green-400 w-fit px-2 h-fit p-1 items-center justify-center text-white gap-2 rounded-md drop-shadow-xl">
                 <div className="bg-white rounded-full w-fit px-2 h-fit">
                   <p className="text-xl font-semibold text-green-400">P</p>
