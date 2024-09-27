@@ -3,12 +3,16 @@
 import TaskCard from "@/components/TaskCard";
 import TaskList from "@/components/TaskList";
 import { getAllProductBacklogItems } from "@/lib/actions/product_backlog_item.actions";
-import { getSprintById } from "@/lib/actions/sprints.actions";
+import {
+  getSprintById,
+  updateSprintTasks as updateSprintTasks,
+} from "@/lib/actions/sprints.actions";
 import { IProductBacklogItem } from "@/lib/database/models/product_backlog_item.model";
 import { ISprint } from "@/lib/database/models/sprint.model";
 import React, { useEffect, useState } from "react";
 import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
 import { FaSave } from "react-icons/fa";
+import { useRouter } from "next/navigation";
 
 interface Params {
   id: string;
@@ -26,6 +30,8 @@ const TaskDragAndDrop = ({ params: { id } }: { params: Params }) => {
   const [sprint, setSprint] = useState<ISprint>();
   const [pbItems, setPbItems] = useState<IProductBacklogItem[]>([]);
   const [sprintItems, setSprintItems] = useState<IProductBacklogItem[]>([]);
+
+  const router = useRouter();
 
   useEffect(() => {
     // get sprint by id
@@ -88,6 +94,20 @@ const TaskDragAndDrop = ({ params: { id } }: { params: Params }) => {
           setSprintItems(sourceList);
         }
       }
+    }
+  };
+
+  const handleSaveClick = async () => {
+    // save sprint items
+    try {
+      const updatedSprint = await updateSprintTasks({
+        sprint,
+        tasks: sprintItems,
+      });
+
+      router.push("/sprints");
+    } catch (error) {
+      console.error("Error updating sprint tasks in page.tsx:", error);
     }
   };
 
@@ -172,8 +192,11 @@ const TaskDragAndDrop = ({ params: { id } }: { params: Params }) => {
           </div>
         </div>
       </div>
-      <div className="fixed bottom-5 right-15 w-4/5 flex items-end justify-end">
-        <button className="bg-[#FFD400] rounded-lg drop-shadow-xl p-5 flex gap-2 items-center">
+      <div className="fixed bottom-5 right-20 w-4/5 flex items-end justify-end">
+        <button
+          onClick={handleSaveClick}
+          className="bg-[#FFD400] rounded-lg drop-shadow-xl p-5 flex gap-2 items-center"
+        >
           <FaSave />
           <p className="font-semibold text-lg">Save</p>
         </button>

@@ -1,6 +1,6 @@
 "use server";
 
-import { CreateSprintParams } from "@/types";
+import { CreateSprintParams, UpdateSprintTasksParams } from "@/types";
 import { connectToDatabase } from "../database";
 import Sprint, { ISprint } from "../database/models/sprint.model";
 import { handleError } from "../utils";
@@ -44,6 +44,25 @@ export const getSprintById = async (id: string) => {
     return JSON.parse(JSON.stringify(sprint));
   } catch (error) {
     console.error("Error fetching sprint by ID:", error);
+    handleError(error);
+  }
+};
+
+export const updateSprintTasks = async ({
+  sprint,
+  tasks,
+}: UpdateSprintTasksParams) => {
+  try {
+    await connectToDatabase();
+
+    const updatedSprint = await Sprint.findByIdAndUpdate(
+      sprint?._id,
+      { ...sprint, notStartedTasks: tasks },
+      { new: true },
+    );
+
+    return JSON.parse(JSON.stringify(updatedSprint));
+  } catch (error) {
     handleError(error);
   }
 };
