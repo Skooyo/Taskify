@@ -1,4 +1,5 @@
 import { IProductBacklogItem } from "@/lib/database/models/product_backlog_item.model";
+import { ISprint } from "@/lib/database/models/sprint.model";
 
 // Constants
 export const taskPriority = ["Low", "Medium", "High", "Urgent"];
@@ -34,7 +35,12 @@ export type CreateSprintParams = {
     notStartedTasks: IProductBacklogItem[];
     inProgressTasks: IProductBacklogItem[];
     completedTasks: IProductBacklogItem[];
-  }
+  };
+};
+
+export type UpdateSprintTasksParams = {
+  sprint?: ISprint;
+  tasks: IProductBacklogItem[];
 };
 
 // Product Backlog Params

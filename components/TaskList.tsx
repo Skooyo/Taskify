@@ -66,8 +66,8 @@ const TaskList = ({ tasks }: { tasks: IProductBacklogItem[] }) => {
   }, [pathname, searchParams, tasks]);
 
   return (
-    <div className="w-full h-fit p-4 grid grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-10">
-      {newTasks.map((task) => (
+    <div className="w-full h-screen overflow-y-auto pb-60 p-4 grid grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-10">
+      {newTasks.map((task, index) => (
         <TaskCard key={task._id} pbItem={task} />
       ))}
     </div>
