@@ -5,7 +5,10 @@ import React, { useEffect, useState } from "react";
 import { getAllProductBacklogItems } from "@/lib/actions/product_backlog_item.actions";
 import { IProductBacklogItem } from "@/lib/database/models/product_backlog_item.model";
 import KanbanTaskList from "@/components/KanbanTaskList";
-import { getSprintById } from "@/lib/actions/sprints.actions";
+import {
+  getSprintById,
+  updateSprintTasks,
+} from "@/lib/actions/sprints.actions";
 import { ISprint } from "@/lib/database/models/sprint.model";
 import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
 import { reorder } from "@/lib/utils";
@@ -35,6 +38,7 @@ export default function KanbanView({ params: { id } }: { params: Params }) {
   }, []);
 
   useEffect(() => {
+    console.log(sprint);
     setNotStarted(sprint?.notStartedTasks || []);
     setInProgress(sprint?.inProgressTasks || []);
     setCompleted(sprint?.completedTasks || []);
@@ -93,8 +97,29 @@ export default function KanbanView({ params: { id } }: { params: Params }) {
       const [removed] = sourceList.splice(source.index, 1);
       destinationList.splice(destination.index, 0, removed);
 
+      if (destination.droppableId === "notStarted") {
+        removed.status = "Not Started";
+      } else if (destination.droppableId === "inProgress") {
+        removed.status = "In Progress";
+      } else {
+        removed.status = "Completed";
+      }
+
       updateState(source.droppableId, sourceList);
       updateState(destination.droppableId, destinationList);
+
+      const updateSprint = async () => {
+        const res = await updateSprintTasks({
+          sprint,
+          notStarted: notStarted.map((task: IProductBacklogItem) => task._id),
+          inProgress: inProgress.map((task: IProductBacklogItem) => task._id),
+          completed: completed.map((task: IProductBacklogItem) => task._id),
+        });
+      };
+      updateSprint();
+      console.log("notStarted in dragend", sprint?.notStartedTasks);
+      console.log("inProgress in dragend", sprint?.inProgressTasks);
+      console.log("completed in dragedn", sprint?.completedTasks);
     }
   };
 

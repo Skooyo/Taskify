@@ -74,7 +74,7 @@ const KanbanCard = ({ pbItem }: { pbItem: IProductBacklogItem }) => {
                 <p>{pbItem.priority}</p>
               </div>
               <div
-                className={`flex ${statusBGColor()} w-fit px-2 h-full pt-[6px] pb-[6px] items-center justify-center text-sm text-white rounded-lg`}
+                className={`flex ${statusBGColor()} w-fit px-2 h-full pt-[6px] pb-[6px] items-center justify-center text-sm text-black rounded-lg`}
               >
                 <p>{pbItem.status}</p>
               </div>

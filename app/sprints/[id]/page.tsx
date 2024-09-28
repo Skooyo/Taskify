@@ -121,7 +121,7 @@ const TaskDragAndDrop = ({ params: { id } }: { params: Params }) => {
     try {
       const updatedSprint = await updateSprintTasks({
         sprint,
-        tasks: sprintItems.map((task) => task._id),
+        notStarted: sprintItems.map((task) => task._id),
       });
 
       router.push("/sprints");

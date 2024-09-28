@@ -40,7 +40,9 @@ export type CreateSprintParams = {
 
 export type UpdateSprintTasksParams = {
   sprint?: ISprint;
-  tasks: string[];
+  notStarted?: string[];
+  inProgress?: string[];
+  completed?: string[];
 };
 
 // Product Backlog Params

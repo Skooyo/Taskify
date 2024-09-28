@@ -71,14 +71,21 @@ export const getSprintById = async (id: string) => {
 
 export const updateSprintTasks = async ({
   sprint,
-  tasks,
+  notStarted,
+  inProgress,
+  completed,
 }: UpdateSprintTasksParams) => {
   try {
     await connectToDatabase();
 
     const updatedSprint = await Sprint.findByIdAndUpdate(
       sprint?._id,
-      { ...sprint, notStartedTasks: tasks },
+      {
+        ...sprint,
+        notStartedTasks: notStarted,
+        inProgressTasks: inProgress,
+        completedTasks: completed,
+      },
       { new: true },
     );
 
