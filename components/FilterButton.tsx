@@ -52,7 +52,7 @@ const FilterButton = () => {
     <>
       <DropdownMenu>
         <DropdownMenuTrigger>
-          <div className="bg-[#FFD400] rounded-lg drop-shadow-xl p-2 border-solid bg-yellow text-base font-semibold px-3 flex items-center justify-center gap-2">
+          <div className="bg-[#FFE97F] rounded-lg drop-shadow-xl p-2 border-solid bg-yellow text-base font-semibold px-3 flex items-center justify-center gap-2">
             <IoFilter />
             <p>Filters</p>
           </div>

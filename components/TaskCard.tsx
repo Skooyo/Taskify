@@ -52,17 +52,17 @@ const TaskCard = ({ pbItem }: { pbItem: IProductBacklogItem }) => {
     <>
       <div>
         <div
-          className="shadow-xl w-full h-full bg-[#BA0000] rounded-2xl hover:cursor-pointer drop-shadow-xl"
+          className="shadow-xl w-full h-full bg-[#6B6F72] rounded-2xl hover:cursor-pointer drop-shadow-xl"
           onClick={() => setIsModalOpen(true)}
         >
           <p className="opacity-0">color</p>
-          <div className="bg-white h-full rounded-b-2xl flex-col istems-center p-4 pb-8">
+          <div className="bg-[#F2F2F2] h-full rounded-b-2xl flex-col istems-center p-4 pb-8">
             <p className="font-bold text-xl mb-2 line-clamp-3">
               {pbItem.title}
             </p>
             <div className="flex gap-6 items-center">
               <div className="flex bg-green-400 w-fit px-2 h-fit p-1 items-center justify-center text-white gap-2 rounded-md drop-shadow-xl">
-                <div className="bg-white rounded-full w-fit px-2 h-fit">
+                <div className="bg-[#F6F5EF] rounded-full w-fit px-2 h-fit">
                   <p className="text-xl font-semibold text-green-400">P</p>
                 </div>
                 <p className="font-semibold text-lg">{pbItem.storyPoints}</p>
@@ -84,7 +84,7 @@ const TaskCard = ({ pbItem }: { pbItem: IProductBacklogItem }) => {
                 {visibleTags.map((tag) => (
                   <div
                     key={tag._id}
-                    className="flex text-sm bg-[#FFD400] opacity-80 h-full w-fit px-4 py-2 items-center justify-center rounded-2xl"
+                    className="flex text-sm bg-[#FFE97F] opacity-80 h-full w-fit px-4 py-2 items-center justify-center rounded-2xl"
                   >
                     <p>{tag.name}</p>
                   </div>
