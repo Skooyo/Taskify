@@ -10,7 +10,7 @@ import { RiAdminLine } from "react-icons/ri";
 
 const NavBar = () => {
   return (
-    <nav className="h-full w-1/6 rounded-xl p-5 bg-[#FAFAFF] drop-shadow-2xl">
+    <nav className="h-full w-1/6 rounded-xl p-5 bg-[#21282F] drop-shadow-2xl">
       <div className="flex flex-col gap-4">
         <NavLinks />
       </div>
@@ -31,8 +31,8 @@ function NavLinks() {
             href={link.href}
             className={`${
               pathname === link.href
-                ? "text-[#962333] font-semibold text-2xl"
-                : "font-semibold text-2xl"
+                ? "text-[#FFE97F] font-semibold text-2xl"
+                : "font-semibold text-2xl text-white"
             }`}
           >
             <div
