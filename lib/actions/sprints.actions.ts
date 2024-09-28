@@ -6,12 +6,18 @@ import Sprint, { ISprint } from "../database/models/sprint.model";
 import { handleError } from "../utils";
 import mongoose from "mongoose";
 import { revalidatePath } from "next/cache";
+import ProductBacklogItem from "../database/models/product_backlog_item.model";
 
 export const getAllSprints = async () => {
   try {
     await connectToDatabase();
 
-    const sprints = await Sprint.find();
+    const sprints = await Sprint.find().populate({
+      path: "notStartedTasks",
+      model: ProductBacklogItem,
+      select:
+        "_id title description prioerity storyPoints status developmentPhase totalLoggedHours loggedHours taskType createdAt assignee tags",
+    });
 
     // Logic to automatically start sprints
     sprints.forEach((sprint) => {
@@ -39,7 +45,12 @@ export const getSprintById = async (id: string) => {
   try {
     await connectToDatabase();
 
-    const sprint = await Sprint.findById(id);
+    const sprint = await Sprint.findById(id).populate({
+      path: "notStartedTasks",
+      model: ProductBacklogItem,
+      select:
+        "_id title description prioerity storyPoints status developmentPhase totalLoggedHours loggedHours taskType createdAt assignee tags",
+    });
 
     return JSON.parse(JSON.stringify(sprint));
   } catch (error) {

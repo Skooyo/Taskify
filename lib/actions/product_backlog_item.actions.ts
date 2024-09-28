@@ -33,6 +33,25 @@ export const getAllProductBacklogItems = async () => {
   }
 };
 
+export const getProductBacklogItemById = async (
+  productBacklogItemId: string,
+) => {
+  try {
+    await connectToDatabase();
+
+    const productBacklogItem = await ProductBacklogItem.findById(
+      productBacklogItemId,
+    )
+      .populate({ path: "assignee", model: User, select: "_id name isAdmin" })
+      .populate({ path: "tags", model: Tag, select: "_id name" });
+
+    return JSON.parse(JSON.stringify(productBacklogItem));
+  } catch (error) {
+    console.error("Error fetching product backlog item by id:", error);
+    handleError(error);
+  }
+};
+
 export const createProductBacklogItem = async ({
   productBacklogItem,
   tags,
@@ -99,21 +118,26 @@ export const updateProductBacklogItemHours = async ({
   productBacklogItem,
   hoursWorked,
   workDescription,
-  pathname
+  pathname,
 }: UpdateProductBacklogHoursParams) => {
-
   try {
     await connectToDatabase();
 
     const updatedItem = await ProductBacklogItem.findByIdAndUpdate(
       productBacklogItem._id,
-      {...productBacklogItem, totalLoggedHours: productBacklogItem.totalLoggedHours ? productBacklogItem.totalLoggedHours + hoursWorked : hoursWorked,
-        loggedHours: productBacklogItem.loggedHours ? [...productBacklogItem.loggedHours, workDescription] : [workDescription]
+      {
+        ...productBacklogItem,
+        totalLoggedHours: productBacklogItem.totalLoggedHours
+          ? productBacklogItem.totalLoggedHours + hoursWorked
+          : hoursWorked,
+        loggedHours: productBacklogItem.loggedHours
+          ? [...productBacklogItem.loggedHours, workDescription]
+          : [workDescription],
       },
       { new: true },
     );
 
-    console.log("Log hours updated")
+    console.log("Log hours updated");
 
     if (updatedItem) revalidatePath(pathname);
     return JSON.parse(JSON.stringify(updatedItem));

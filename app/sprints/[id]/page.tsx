@@ -2,7 +2,10 @@
 
 import TaskCard from "@/components/TaskCard";
 import TaskList from "@/components/TaskList";
-import { getAllProductBacklogItems } from "@/lib/actions/product_backlog_item.actions";
+import {
+  getAllProductBacklogItems,
+  getProductBacklogItemById,
+} from "@/lib/actions/product_backlog_item.actions";
 import {
   getSprintById,
   updateSprintTasks as updateSprintTasks,
@@ -13,6 +16,7 @@ import React, { useEffect, useState } from "react";
 import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
 import { FaSave } from "react-icons/fa";
 import { useRouter } from "next/navigation";
+import { set } from "mongoose";
 
 interface Params {
   id: string;
@@ -49,6 +53,29 @@ const TaskDragAndDrop = ({ params: { id } }: { params: Params }) => {
     fetchSprint();
     fetchPbItems();
   }, []);
+
+  useEffect(() => {
+    if (sprint) {
+      const fetchSprintTasks = async () => {
+        const res = await Promise.all(
+          sprint.notStartedTasks.map((task) =>
+            getProductBacklogItemById(task._id),
+          ),
+        );
+        setSprintItems(res);
+      };
+
+      fetchSprintTasks();
+    }
+  }, [sprint]);
+
+  useEffect(() => {
+    const newPbItems = pbItems.filter(
+      (task) => !sprintItems.map((sTask) => sTask._id).includes(task._id),
+    );
+    setPbItems(newPbItems);
+  }, [sprintItems]);
+
   const onDragEnd = (result: any) => {
     const { destination, source, type } = result;
     if (!destination) return;
@@ -102,7 +129,7 @@ const TaskDragAndDrop = ({ params: { id } }: { params: Params }) => {
     try {
       const updatedSprint = await updateSprintTasks({
         sprint,
-        tasks: sprintItems,
+        tasks: sprintItems.map((task) => task._id),
       });
 
       router.push("/sprints");
