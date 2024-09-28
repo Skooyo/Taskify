@@ -1,12 +1,16 @@
 import SprintCard from "@/components/SprintCard";
-import { IProductBacklogItem } from "@/lib/database/models/product_backlog_item.model";
-import Sprint, { ISprint } from "@/lib/database/models/sprint.model";
-import React, { useEffect, useState } from "react";
+import { ISprint } from "@/lib/database/models/sprint.model";
+import React from "react";
 import SprintButton from "@/components/SprintButton";
 import { getAllSprints } from "@/lib/actions/sprints.actions";
 
 export default async function SprintView() {
   const sprints = await getAllSprints();
+
+  const sprintWithTasks = sprints.find(
+    (sprint: ISprint) =>
+      sprint.notStartedTasks.length > 0 || sprint.inProgressTasks.length > 0,
+  );
 
   return (
     <div className="flex flex-col mt-[70px] mx-4 gap-6 h-screen sprints">
@@ -18,7 +22,17 @@ export default async function SprintView() {
         {sprints.map((sprint: ISprint) => {
           return (
             <div key={sprint._id} className="bg-red min-w-full pr-4">
-              <SprintCard sprint={sprint} />
+              <SprintCard
+                sprint={sprint}
+                clickable={
+                  sprintWithTasks
+                    ? sprintWithTasks._id === sprint._id
+                      ? true
+                      : false
+                    : true
+                }
+                startedSprint={sprintWithTasks}
+              />
             </div>
           );
         })}

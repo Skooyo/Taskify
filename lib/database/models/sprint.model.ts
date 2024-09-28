@@ -8,54 +8,116 @@ export interface ISprint {
   startDate: Date;
   endDate: Date;
   createdAt: Date;
-  notStartedTasks: IProductBacklogItem[];
-  inProgressTasks: IProductBacklogItem[];
-  completedTasks: IProductBacklogItem[];
+  notStartedTasks: {
+    _id: string;
+    title?: string;
+    description?: string;
+    priority?: string;
+    storyPoints?: number;
+    status?: string;
+    developmentPhase?: string;
+    totalLoggedHours?: number;
+    loggedHours?: string[];
+    taskType?: string;
+    createdAt: Date;
+    assignee: {
+      _id: string;
+      name: string;
+    };
+    tags: {
+      _id: string;
+      name: string;
+    }[];
+  }[];
+  inProgressTasks: {
+    _id: string;
+    title?: string;
+    description?: string;
+    priority?: string;
+    storyPoints?: number;
+    status?: string;
+    developmentPhase?: string;
+    totalLoggedHours?: number;
+    loggedHours?: string[];
+    taskType?: string;
+    createdAt: Date;
+    assignee: {
+      _id: string;
+      name: string;
+    };
+    tags: {
+      _id: string;
+      name: string;
+    }[];
+  }[];
+  completedTasks: {
+    _id: string;
+    title?: string;
+    description?: string;
+    priority?: string;
+    storyPoints?: number;
+    status?: string;
+    developmentPhase?: string;
+    totalLoggedHours?: number;
+    loggedHours?: string[];
+    taskType?: string;
+    createdAt: Date;
+    assignee: {
+      _id: string;
+      name: string;
+    };
+    tags: {
+      _id: string;
+      name: string;
+    }[];
+  }[];
 }
 
-const SprintSchema = new Schema<ISprint>({
-  title: {
-    type: String,
-    required: true,
-  },
-  status: {
-    type: String,
-    required: true,
-  },
-  startDate: {
-    type: Date,
-    required: true,
-  },
-  endDate: {
-    type: Date,
-    required: true,
-  },
-  notStartedTasks: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "ProductBacklogItem",
-      required: false,
-      default: [],
+const SprintSchema = new Schema<ISprint>(
+  {
+    title: {
+      type: String,
+      required: true,
     },
-  ],
-  inProgressTasks: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "ProductBacklogItem",
-      required: false,
-      default: [],
+    status: {
+      type: String,
+      required: true,
     },
-  ],
-  completedTasks: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "ProductBacklogItem",
-      required: false,
-      default: [],
+    startDate: {
+      type: Date,
+      required: true,
     },
-  ],
-},
-{collection: "sprints"});
+    endDate: {
+      type: Date,
+      required: true,
+    },
+    notStartedTasks: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "ProductBacklogItem",
+        required: false,
+        default: [],
+      },
+    ],
+    inProgressTasks: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "ProductBacklogItem",
+        required: false,
+        default: [],
+      },
+    ],
+    completedTasks: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "ProductBacklogItem",
+        required: false,
+        default: [],
+      },
+    ],
+  },
+  { collection: "sprints" },
+);
 
 const Sprint = models.Sprint || model<ISprint>("Sprint", SprintSchema);
 

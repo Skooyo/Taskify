@@ -40,7 +40,9 @@ export type CreateSprintParams = {
 
 export type UpdateSprintTasksParams = {
   sprint?: ISprint;
-  tasks: IProductBacklogItem[];
+  notStarted?: string[];
+  inProgress?: string[];
+  completed?: string[];
 };
 
 // Product Backlog Params
@@ -80,6 +82,23 @@ export type ProductBacklogItem = {
 export type DeleteProductBacklogItemByIdParams = {
   productBacklogItemId: string;
   pathname: string;
+};
+
+export type UpdateProductBacklogItemStatusParams = {
+  productBacklogItem: {
+    _id: string;
+    title?: string;
+    description?: string;
+    priority?: string;
+    storyPoints?: number;
+    status?: string;
+    developmentPhase?: string;
+    totalLoggedHours?: string;
+    loggedHours?: string[];
+    taskType?: string;
+    createdAt: Date;
+  };
+  status?: string;
 };
 
 export type UpdateProductBacklogItemParams = {

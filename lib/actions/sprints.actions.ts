@@ -6,12 +6,24 @@ import Sprint, { ISprint } from "../database/models/sprint.model";
 import { handleError } from "../utils";
 import mongoose from "mongoose";
 import { revalidatePath } from "next/cache";
+import ProductBacklogItem from "../database/models/product_backlog_item.model";
+import User from "../database/models/user.model";
+import Tag from "../database/models/tag.model";
 
 export const getAllSprints = async () => {
   try {
     await connectToDatabase();
 
-    const sprints = await Sprint.find();
+    const sprints = await Sprint.find().populate({
+      path: "notStartedTasks",
+      model: ProductBacklogItem,
+      select:
+        "_id title description priority storyPoints status developmentPhase totalLoggedHours loggedHours taskType createdAt assignee tags",
+      populate: [
+        { path: "assignee", model: User, select: "_id name isAdmin" },
+        { path: "tags", model: Tag, select: "_id name" },
+      ],
+    });
 
     // Logic to automatically start sprints
     sprints.forEach((sprint) => {
@@ -39,7 +51,38 @@ export const getSprintById = async (id: string) => {
   try {
     await connectToDatabase();
 
-    const sprint = await Sprint.findById(id);
+    const sprint = await Sprint.findById(id).populate([
+      {
+        path: "notStartedTasks",
+        model: ProductBacklogItem,
+        select:
+          "_id title description priority storyPoints status developmentPhase totalLoggedHours loggedHours taskType createdAt assignee tags",
+        populate: [
+          { path: "assignee", model: User, select: "_id name isAdmin" },
+          { path: "tags", model: Tag, select: "_id name" },
+        ],
+      },
+      {
+        path: "inProgressTasks",
+        model: ProductBacklogItem,
+        select:
+          "_id title description priority storyPoints status developmentPhase totalLoggedHours loggedHours taskType createdAt assignee tags",
+        populate: [
+          { path: "assignee", model: User, select: "_id name isAdmin" },
+          { path: "tags", model: Tag, select: "_id name" },
+        ],
+      },
+      {
+        path: "completedTasks",
+        model: ProductBacklogItem,
+        select:
+          "_id title description priority storyPoints status developmentPhase totalLoggedHours loggedHours taskType createdAt assignee tags",
+        populate: [
+          { path: "assignee", model: User, select: "_id name isAdmin" },
+          { path: "tags", model: Tag, select: "_id name" },
+        ],
+      },
+    ]);
 
     return JSON.parse(JSON.stringify(sprint));
   } catch (error) {
@@ -50,17 +93,25 @@ export const getSprintById = async (id: string) => {
 
 export const updateSprintTasks = async ({
   sprint,
-  tasks,
+  notStarted,
+  inProgress,
+  completed,
 }: UpdateSprintTasksParams) => {
   try {
     await connectToDatabase();
 
     const updatedSprint = await Sprint.findByIdAndUpdate(
       sprint?._id,
-      { ...sprint, notStartedTasks: tasks },
+      {
+        ...sprint,
+        notStartedTasks: notStarted,
+        inProgressTasks: inProgress,
+        completedTasks: completed,
+      },
       { new: true },
     );
 
+    console.log("updatedSprint", updatedSprint);
     return JSON.parse(JSON.stringify(updatedSprint));
   } catch (error) {
     handleError(error);

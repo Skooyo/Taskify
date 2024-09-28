@@ -57,7 +57,7 @@ const KanbanCard = ({ pbItem }: { pbItem: IProductBacklogItem }) => {
           onDoubleClick={() => setIsModalOpen(true)}
         >
           <p className="opacity-0">color</p>
-          <div className="bg-white h-full rounded-b-2xl flex-col istems-center p-4 pb-8">
+          <div className="bg-white h-full rounded-b-2xl flex-col istems-center p-4 pb-8 z-[1000]">
             <p className="font-bold text-xl mb-2 line-clamp-3">
               {pbItem.title}
             </p>
@@ -74,7 +74,7 @@ const KanbanCard = ({ pbItem }: { pbItem: IProductBacklogItem }) => {
                 <p>{pbItem.priority}</p>
               </div>
               <div
-                className={`flex ${statusBGColor()} w-fit px-2 h-full pt-[6px] pb-[6px] items-center justify-center text-sm text-white rounded-lg`}
+                className={`flex ${statusBGColor()} w-fit px-2 h-full pt-[6px] pb-[6px] items-center justify-center text-sm text-black rounded-lg`}
               >
                 <p>{pbItem.status}</p>
               </div>

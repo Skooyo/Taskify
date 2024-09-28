@@ -2,7 +2,10 @@
 
 import TaskCard from "@/components/TaskCard";
 import TaskList from "@/components/TaskList";
-import { getAllProductBacklogItems } from "@/lib/actions/product_backlog_item.actions";
+import {
+  getAllProductBacklogItems,
+  getProductBacklogItemById,
+} from "@/lib/actions/product_backlog_item.actions";
 import {
   getSprintById,
   updateSprintTasks as updateSprintTasks,
@@ -13,17 +16,10 @@ import React, { useEffect, useState } from "react";
 import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
 import { FaSave } from "react-icons/fa";
 import { useRouter } from "next/navigation";
+import { reorder } from "@/lib/utils";
 
 interface Params {
   id: string;
-}
-
-function reorder<T>(list: T[], st: number, en: number) {
-  const result = Array.from(list);
-  const [removed] = result.splice(st, 1);
-  result.splice(en, 0, removed);
-
-  return result;
 }
 
 const TaskDragAndDrop = ({ params: { id } }: { params: Params }) => {
@@ -49,6 +45,29 @@ const TaskDragAndDrop = ({ params: { id } }: { params: Params }) => {
     fetchSprint();
     fetchPbItems();
   }, []);
+
+  useEffect(() => {
+    if (sprint) {
+      const fetchSprintTasks = async () => {
+        const res = await Promise.all(
+          sprint.notStartedTasks.map((task) =>
+            getProductBacklogItemById(task._id),
+          ),
+        );
+        setSprintItems(res);
+      };
+
+      fetchSprintTasks();
+    }
+  }, [sprint]);
+
+  useEffect(() => {
+    const newPbItems = pbItems.filter(
+      (task) => !sprintItems.map((sTask) => sTask._id).includes(task._id),
+    );
+    setPbItems(newPbItems);
+  }, [sprintItems]);
+
   const onDragEnd = (result: any) => {
     const { destination, source, type } = result;
     if (!destination) return;
@@ -102,7 +121,7 @@ const TaskDragAndDrop = ({ params: { id } }: { params: Params }) => {
     try {
       const updatedSprint = await updateSprintTasks({
         sprint,
-        tasks: sprintItems,
+        notStarted: sprintItems.map((task) => task._id),
       });
 
       router.push("/sprints");
@@ -123,7 +142,7 @@ const TaskDragAndDrop = ({ params: { id } }: { params: Params }) => {
             <h1 className="text-3xl font-semibold ml-10 pt-5">
               Product Backlog
             </h1>
-            <Droppable droppableId="pbBoard" type="card" direction="horizontal">
+            <Droppable droppableId="pbBoard" type="card" direction="vertical">
               {(provided) => (
                 <div
                   ref={provided.innerRef}
@@ -159,7 +178,7 @@ const TaskDragAndDrop = ({ params: { id } }: { params: Params }) => {
             <Droppable
               droppableId="sprintBoard"
               type="card"
-              direction="horizontal"
+              direction="vertical"
             >
               {(provided) => (
                 <div
