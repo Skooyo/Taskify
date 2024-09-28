@@ -39,7 +39,11 @@ const SprintCard = ({
 
   const handleClick = () => {
     if (clickable) {
-      router.push(`/sprints/${sprint._id}`);
+      if (sprint.status === "Not Started") {
+        router.push(`/sprints/${sprint._id}`);
+      } else {
+        router.push(`/kanban/${sprint._id}`);
+      }
       return;
     } else {
       openNotificationWithIcon("error");
@@ -52,7 +56,7 @@ const SprintCard = ({
     <Context.Provider value={contextValue}>
       {contextHolder}
       <div
-        onClick={handleClick}
+        onDoubleClick={handleClick}
         className="min-w-full min-h-[15vh] flex bg-white shadow-xl rounded-2xl custom-shadow cursor-pointer"
       >
         <span className="bg-[#BA0000] rounded-l-2xl w-[40px] flex-shrink-0"></span>

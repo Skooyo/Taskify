@@ -16,7 +16,6 @@ import React, { useEffect, useState } from "react";
 import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
 import { FaSave } from "react-icons/fa";
 import { useRouter } from "next/navigation";
-import { set } from "mongoose";
 
 interface Params {
   id: string;

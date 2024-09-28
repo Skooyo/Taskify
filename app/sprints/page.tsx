@@ -1,7 +1,6 @@
 import SprintCard from "@/components/SprintCard";
-import { IProductBacklogItem } from "@/lib/database/models/product_backlog_item.model";
-import Sprint, { ISprint } from "@/lib/database/models/sprint.model";
-import React, { useEffect, useState } from "react";
+import { ISprint } from "@/lib/database/models/sprint.model";
+import React from "react";
 import SprintButton from "@/components/SprintButton";
 import { getAllSprints } from "@/lib/actions/sprints.actions";
 
