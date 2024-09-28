@@ -84,6 +84,23 @@ export type DeleteProductBacklogItemByIdParams = {
   pathname: string;
 };
 
+export type UpdateProductBacklogItemStatusParams = {
+  productBacklogItem: {
+    _id: string;
+    title?: string;
+    description?: string;
+    priority?: string;
+    storyPoints?: number;
+    status?: string;
+    developmentPhase?: string;
+    totalLoggedHours?: string;
+    loggedHours?: string[];
+    taskType?: string;
+    createdAt: Date;
+  };
+  status?: string;
+};
+
 export type UpdateProductBacklogItemParams = {
   productBacklogItem: {
     _id: string;

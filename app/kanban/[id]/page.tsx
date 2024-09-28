@@ -2,7 +2,11 @@
 
 import React, { useEffect, useState } from "react";
 
-import { getAllProductBacklogItems } from "@/lib/actions/product_backlog_item.actions";
+import {
+  getAllProductBacklogItems,
+  getProductBacklogItemById,
+  updateProductBacklogItemStatus,
+} from "@/lib/actions/product_backlog_item.actions";
 import { IProductBacklogItem } from "@/lib/database/models/product_backlog_item.model";
 import KanbanTaskList from "@/components/KanbanTaskList";
 import {
@@ -38,10 +42,36 @@ export default function KanbanView({ params: { id } }: { params: Params }) {
   }, []);
 
   useEffect(() => {
-    console.log(sprint);
-    setNotStarted(sprint?.notStartedTasks || []);
-    setInProgress(sprint?.inProgressTasks || []);
-    setCompleted(sprint?.completedTasks || []);
+    if (sprint) {
+      const fetchSprintTasks = async () => {
+        const notStartedTasks = await Promise.all(
+          sprint.notStartedTasks.map((task) =>
+            getProductBacklogItemById(task._id),
+          ),
+        );
+
+        const inProgressTasks = await Promise.all(
+          sprint.inProgressTasks.map((task) =>
+            getProductBacklogItemById(task._id),
+          ),
+        );
+
+        const completedTasks = await Promise.all(
+          sprint.completedTasks.map((task) =>
+            getProductBacklogItemById(task._id),
+          ),
+        );
+        console.log("sprint", sprint);
+        console.log("notStartedTasks", notStartedTasks);
+        console.log("inProgressTasks", inProgressTasks);
+        console.log("completedTasks", completedTasks);
+        setNotStarted(notStartedTasks);
+        setInProgress(inProgressTasks);
+        setCompleted(completedTasks);
+      };
+
+      fetchSprintTasks();
+    }
   }, [sprint]);
 
   const updateState = (droppableId: string, list: IProductBacklogItem[]) => {
@@ -105,10 +135,23 @@ export default function KanbanView({ params: { id } }: { params: Params }) {
         removed.status = "Completed";
       }
 
+      const updateTask = async () => {
+        const res = await updateProductBacklogItemStatus({
+          productBacklogItem: {
+            ...removed,
+            totalLoggedHours: removed.totalLoggedHours?.toString() || "0",
+          },
+          status: removed.status,
+        });
+      };
+
       updateState(source.droppableId, sourceList);
       updateState(destination.droppableId, destinationList);
 
       const updateSprint = async () => {
+        console.log("notStarted in udpateSprint", notStarted);
+        console.log("inProgress in updateSPrint", inProgress);
+        console.log("completed in uipdateSprunt", completed);
         const res = await updateSprintTasks({
           sprint,
           notStarted: notStarted.map((task: IProductBacklogItem) => task._id),
@@ -116,6 +159,8 @@ export default function KanbanView({ params: { id } }: { params: Params }) {
           completed: completed.map((task: IProductBacklogItem) => task._id),
         });
       };
+
+      updateTask();
       updateSprint();
       console.log("notStarted in dragend", sprint?.notStartedTasks);
       console.log("inProgress in dragend", sprint?.inProgressTasks);

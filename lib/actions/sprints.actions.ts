@@ -51,16 +51,38 @@ export const getSprintById = async (id: string) => {
   try {
     await connectToDatabase();
 
-    const sprint = await Sprint.findById(id).populate({
-      path: "notStartedTasks",
-      model: ProductBacklogItem,
-      select:
-        "_id title description priority storyPoints status developmentPhase totalLoggedHours loggedHours taskType createdAt assignee tags",
-      populate: [
-        { path: "assignee", model: User, select: "_id name isAdmin" },
-        { path: "tags", model: Tag, select: "_id name" },
-      ],
-    });
+    const sprint = await Sprint.findById(id).populate([
+      {
+        path: "notStartedTasks",
+        model: ProductBacklogItem,
+        select:
+          "_id title description priority storyPoints status developmentPhase totalLoggedHours loggedHours taskType createdAt assignee tags",
+        populate: [
+          { path: "assignee", model: User, select: "_id name isAdmin" },
+          { path: "tags", model: Tag, select: "_id name" },
+        ],
+      },
+      {
+        path: "inProgressTasks",
+        model: ProductBacklogItem,
+        select:
+          "_id title description priority storyPoints status developmentPhase totalLoggedHours loggedHours taskType createdAt assignee tags",
+        populate: [
+          { path: "assignee", model: User, select: "_id name isAdmin" },
+          { path: "tags", model: Tag, select: "_id name" },
+        ],
+      },
+      {
+        path: "completedTasks",
+        model: ProductBacklogItem,
+        select:
+          "_id title description priority storyPoints status developmentPhase totalLoggedHours loggedHours taskType createdAt assignee tags",
+        populate: [
+          { path: "assignee", model: User, select: "_id name isAdmin" },
+          { path: "tags", model: Tag, select: "_id name" },
+        ],
+      },
+    ]);
 
     return JSON.parse(JSON.stringify(sprint));
   } catch (error) {
@@ -90,7 +112,6 @@ export const updateSprintTasks = async ({
     );
 
     console.log("updatedSprint", updatedSprint);
-
     return JSON.parse(JSON.stringify(updatedSprint));
   } catch (error) {
     handleError(error);

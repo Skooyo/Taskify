@@ -5,6 +5,7 @@ import {
   DeleteProductBacklogItemByIdParams,
   UpdateProductBacklogHoursParams,
   UpdateProductBacklogItemParams,
+  UpdateProductBacklogItemStatusParams,
 } from "@/types";
 import { connectToDatabase } from "../database";
 import ProductBacklogItem, {
@@ -87,6 +88,26 @@ export const deleteProductBacklogItemById = async ({
     );
 
     if (deletedItem) revalidatePath(pathname);
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+export const updateProductBacklogItemStatus = async ({
+  productBacklogItem,
+  status,
+}: UpdateProductBacklogItemStatusParams) => {
+  try {
+    await connectToDatabase();
+
+    const updatedItem = await ProductBacklogItem.findByIdAndUpdate(
+      productBacklogItem._id,
+      { ...productBacklogItem, status },
+      { new: true },
+    );
+
+    console.log(updatedItem);
+    return JSON.parse(JSON.stringify(updatedItem));
   } catch (error) {
     handleError(error);
   }
