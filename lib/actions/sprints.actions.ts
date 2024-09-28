@@ -7,6 +7,8 @@ import { handleError } from "../utils";
 import mongoose from "mongoose";
 import { revalidatePath } from "next/cache";
 import ProductBacklogItem from "../database/models/product_backlog_item.model";
+import User from "../database/models/user.model";
+import Tag from "../database/models/tag.model";
 
 export const getAllSprints = async () => {
   try {
@@ -16,7 +18,11 @@ export const getAllSprints = async () => {
       path: "notStartedTasks",
       model: ProductBacklogItem,
       select:
-        "_id title description prioerity storyPoints status developmentPhase totalLoggedHours loggedHours taskType createdAt assignee tags",
+        "_id title description priority storyPoints status developmentPhase totalLoggedHours loggedHours taskType createdAt assignee tags",
+      populate: [
+        { path: "assignee", model: User, select: "_id name isAdmin" },
+        { path: "tags", model: Tag, select: "_id name" },
+      ],
     });
 
     // Logic to automatically start sprints
@@ -49,7 +55,11 @@ export const getSprintById = async (id: string) => {
       path: "notStartedTasks",
       model: ProductBacklogItem,
       select:
-        "_id title description prioerity storyPoints status developmentPhase totalLoggedHours loggedHours taskType createdAt assignee tags",
+        "_id title description priority storyPoints status developmentPhase totalLoggedHours loggedHours taskType createdAt assignee tags",
+      populate: [
+        { path: "assignee", model: User, select: "_id name isAdmin" },
+        { path: "tags", model: Tag, select: "_id name" },
+      ],
     });
 
     return JSON.parse(JSON.stringify(sprint));
@@ -71,6 +81,8 @@ export const updateSprintTasks = async ({
       { ...sprint, notStartedTasks: tasks },
       { new: true },
     );
+
+    console.log("updatedSprint", updatedSprint);
 
     return JSON.parse(JSON.stringify(updatedSprint));
   } catch (error) {

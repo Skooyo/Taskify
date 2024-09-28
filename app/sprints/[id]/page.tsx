@@ -126,10 +126,13 @@ const TaskDragAndDrop = ({ params: { id } }: { params: Params }) => {
   const handleSaveClick = async () => {
     // save sprint items
     try {
+      console.log("got here");
       const updatedSprint = await updateSprintTasks({
         sprint,
         tasks: sprintItems.map((task) => task._id),
       });
+
+      console.log("updatedSprint", updatedSprint);
 
       router.push("/sprints");
     } catch (error) {

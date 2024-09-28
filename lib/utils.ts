@@ -10,6 +10,14 @@ export const handleError = (error: any) => {
   throw new Error(typeof error === "string" ? error : JSON.stringify(error));
 };
 
+export function reorder<T>(list: T[], st: number, en: number) {
+  const result = Array.from(list);
+  const [removed] = result.splice(st, 1);
+  result.splice(en, 0, removed);
+
+  return result;
+}
+
 export const formatDateTime = (dateString: Date) => {
   const dateTimeOptions: Intl.DateTimeFormatOptions = {
     weekday: "short", // abbreviated weekday name (e.g., 'Mon')
