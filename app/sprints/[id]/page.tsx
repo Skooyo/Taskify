@@ -16,17 +16,10 @@ import React, { useEffect, useState } from "react";
 import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
 import { FaSave } from "react-icons/fa";
 import { useRouter } from "next/navigation";
+import { reorder } from "@/lib/utils";
 
 interface Params {
   id: string;
-}
-
-function reorder<T>(list: T[], st: number, en: number) {
-  const result = Array.from(list);
-  const [removed] = result.splice(st, 1);
-  result.splice(en, 0, removed);
-
-  return result;
 }
 
 const TaskDragAndDrop = ({ params: { id } }: { params: Params }) => {
@@ -126,13 +119,10 @@ const TaskDragAndDrop = ({ params: { id } }: { params: Params }) => {
   const handleSaveClick = async () => {
     // save sprint items
     try {
-      console.log("got here");
       const updatedSprint = await updateSprintTasks({
         sprint,
         tasks: sprintItems.map((task) => task._id),
       });
-
-      console.log("updatedSprint", updatedSprint);
 
       router.push("/sprints");
     } catch (error) {
@@ -152,7 +142,7 @@ const TaskDragAndDrop = ({ params: { id } }: { params: Params }) => {
             <h1 className="text-3xl font-semibold ml-10 pt-5">
               Product Backlog
             </h1>
-            <Droppable droppableId="pbBoard" type="card" direction="horizontal">
+            <Droppable droppableId="pbBoard" type="card" direction="vertical">
               {(provided) => (
                 <div
                   ref={provided.innerRef}
@@ -188,7 +178,7 @@ const TaskDragAndDrop = ({ params: { id } }: { params: Params }) => {
             <Droppable
               droppableId="sprintBoard"
               type="card"
-              direction="horizontal"
+              direction="vertical"
             >
               {(provided) => (
                 <div

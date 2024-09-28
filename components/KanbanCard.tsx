@@ -57,7 +57,7 @@ const KanbanCard = ({ pbItem }: { pbItem: IProductBacklogItem }) => {
           onDoubleClick={() => setIsModalOpen(true)}
         >
           <p className="opacity-0">color</p>
-          <div className="bg-white h-full rounded-b-2xl flex-col istems-center p-4 pb-8">
+          <div className="bg-white h-full rounded-b-2xl flex-col istems-center p-4 pb-8 z-[1000]">
             <p className="font-bold text-xl mb-2 line-clamp-3">
               {pbItem.title}
             </p>
