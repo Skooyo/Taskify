@@ -138,6 +138,7 @@ export const updateProductBacklogItem = async ({
 export const updateProductBacklogItemHours = async ({
   productBacklogItem,
   hoursWorked,
+  dateWorked,
   workDescription,
   pathname,
 }: UpdateProductBacklogHoursParams) => {
@@ -147,11 +148,10 @@ export const updateProductBacklogItemHours = async ({
     const updatedItem = await ProductBacklogItem.findByIdAndUpdate(
       productBacklogItem._id,
       {...productBacklogItem, totalLoggedHours: productBacklogItem.totalLoggedHours ? productBacklogItem.totalLoggedHours + hoursWorked : hoursWorked,
-        loggedHours: productBacklogItem.loggedHours ? [...productBacklogItem.loggedHours, workDescription] : [workDescription]
+        loggedHours: productBacklogItem.loggedHours ? [...productBacklogItem.loggedHours, hoursWorked, dateWorked, workDescription] : [hoursWorked, dateWorked, workDescription]
       },
       { new: true },
     );
-
 
     console.log("Log hours updated");
 

@@ -123,6 +123,7 @@ export type UpdateProductBacklogItemParams = {
 export type UpdateProductBacklogHoursParams = {
   productBacklogItem: IProductBacklogItem;
   hoursWorked: number;
+  dateWorked: Date;
   workDescription: string;
   pathname: string;
 };
