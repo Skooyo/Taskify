@@ -59,7 +59,7 @@ const SprintCard = ({
         onDoubleClick={handleClick}
         className="min-w-full min-h-[15vh] flex bg-white shadow-xl rounded-2xl custom-shadow cursor-pointer"
       >
-        <span className="bg-[#BA0000] rounded-l-2xl w-[40px] flex-shrink-0"></span>
+        <span className="bg-[#6B6F72] rounded-l-2xl w-[40px] flex-shrink-0"></span>
         <div className="rounded-r-2xl flex flex-col p-10 overflow-hidden w-full">
           <div className="flex gap-3 items-center">
             <p className="font-bold text-2xl truncate max-w-full">
