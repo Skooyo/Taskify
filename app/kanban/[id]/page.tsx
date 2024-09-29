@@ -44,29 +44,29 @@ export default function KanbanView({ params: { id } }: { params: Params }) {
   useEffect(() => {
     if (sprint) {
       const fetchSprintTasks = async () => {
-        const notStartedTasks = await Promise.all(
-          sprint.notStartedTasks.map((task) =>
-            getProductBacklogItemById(task._id),
-          ),
-        );
+        if (sprint.status !== "Completed") {
+          const notStartedTasks = await Promise.all(
+            sprint.notStartedTasks.map((task) =>
+              getProductBacklogItemById(task._id),
+            ),
+          );
 
-        const inProgressTasks = await Promise.all(
-          sprint.inProgressTasks.map((task) =>
-            getProductBacklogItemById(task._id),
-          ),
-        );
+          const inProgressTasks = await Promise.all(
+            sprint.inProgressTasks.map((task) =>
+              getProductBacklogItemById(task._id),
+            ),
+          );
+
+          setNotStarted(notStartedTasks);
+          setInProgress(inProgressTasks);
+        }
 
         const completedTasks = await Promise.all(
           sprint.completedTasks.map((task) =>
             getProductBacklogItemById(task._id),
           ),
         );
-        console.log("sprint", sprint);
-        console.log("notStartedTasks", notStartedTasks);
-        console.log("inProgressTasks", inProgressTasks);
-        console.log("completedTasks", completedTasks);
-        setNotStarted(notStartedTasks);
-        setInProgress(inProgressTasks);
+
         setCompleted(completedTasks);
       };
 
@@ -139,7 +139,7 @@ export default function KanbanView({ params: { id } }: { params: Params }) {
         const res = await updateProductBacklogItemStatus({
           productBacklogItem: {
             ...removed,
-            totalLoggedHours: removed.totalLoggedHours?.toString() || "0",
+            totalLoggedHours: removed.totalLoggedHours || 0,
           },
           status: removed.status,
         });
@@ -149,9 +149,6 @@ export default function KanbanView({ params: { id } }: { params: Params }) {
       updateState(destination.droppableId, destinationList);
 
       const updateSprint = async () => {
-        console.log("notStarted in udpateSprint", notStarted);
-        console.log("inProgress in updateSPrint", inProgress);
-        console.log("completed in uipdateSprunt", completed);
         const res = await updateSprintTasks({
           sprint,
           notStarted: notStarted.map((task: IProductBacklogItem) => task._id),
@@ -162,11 +159,10 @@ export default function KanbanView({ params: { id } }: { params: Params }) {
 
       updateTask();
       updateSprint();
-      console.log("notStarted in dragend", sprint?.notStartedTasks);
-      console.log("inProgress in dragend", sprint?.inProgressTasks);
-      console.log("completed in dragedn", sprint?.completedTasks);
     }
   };
+
+  const isDraggable = sprint?.status !== "Completed";
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
@@ -193,6 +189,7 @@ export default function KanbanView({ params: { id } }: { params: Params }) {
                       key={task._id}
                       draggableId={task._id}
                       index={index}
+                      isDragDisabled={!isDraggable}
                     >
                       {(provided) => (
                         <div
@@ -229,6 +226,7 @@ export default function KanbanView({ params: { id } }: { params: Params }) {
                       key={task._id}
                       draggableId={task._id}
                       index={index}
+                      isDragDisabled={!isDraggable}
                     >
                       {(provided) => (
                         <div
@@ -265,6 +263,7 @@ export default function KanbanView({ params: { id } }: { params: Params }) {
                       key={task._id}
                       draggableId={task._id}
                       index={index}
+                      isDragDisabled={!isDraggable}
                     >
                       {(provided) => (
                         <div
@@ -286,65 +285,5 @@ export default function KanbanView({ params: { id } }: { params: Params }) {
         </div>
       </div>
     </DragDropContext>
-    // <DragDropContext onDragEnd={onDragEnd}>
-    //   <div className="flex w-full h-full">
-    //     {/* Not Started */}
-    //     <div className="w-1/3 h-full">
-    //       <div className="flex-col justify-between items-center flex pt-8 gap-4 bg-gray-200 m-8 rounded-3xl drop-shadow-2xl z-[-1] h-full">
-    //         <h1 className="text-4xl font-bold text-black">Not Started</h1>
-    //         <Droppable
-    //           droppableId="notStarted"
-    //           type="group"
-    //           direction="vertical"
-    //         >
-    //           {(provided) => (
-    //             <div ref={provided.innerRef} {...provided.droppableProps}>
-    //               <KanbanTaskList tasks={notStarted} />
-    //               {provided.placeholder}
-    //             </div>
-    //           )}
-    //         </Droppable>
-    //       </div>
-    //     </div>
-
-    //     {/* In Progress */}
-    //     <div className="w-1/3 h-full">
-    //       <div className="flex-col justify-between items-center flex pt-8 gap-4 bg-gray-200 m-8 rounded-3xl drop-shadow-2xl z-[-1] h-full">
-    //         <h1 className="text-4xl font-bold text-black">In Progress</h1>
-    //         <Droppable
-    //           droppableId="inProgress"
-    //           type="group"
-    //           direction="vertical"
-    //         >
-    //           {(provided) => (
-    //             <div ref={provided.innerRef} {...provided.droppableProps}>
-    //               <KanbanTaskList tasks={inProgress} />
-    //               {provided.placeholder}
-    //             </div>
-    //           )}
-    //         </Droppable>
-    //       </div>
-    //     </div>
-
-    //     {/* Done */}
-    //     <div className="w-1/3 h-full">
-    //       <div className="flex-col justify-between items-center flex pt-8 gap-4 bg-gray-200 m-8 rounded-3xl drop-shadow-2xl z-[-1] h-full">
-    //         <h1 className="text-4xl font-bold text-black">Done</h1>
-    //         <Droppable
-    //           droppableId="completed"
-    //           type="group"
-    //           direction="vertical"
-    //         >
-    //           {(provided) => (
-    //             <div ref={provided.innerRef} {...provided.droppableProps}>
-    //               <KanbanTaskList tasks={completed} />
-    //               {provided.placeholder}
-    //             </div>
-    //           )}
-    //         </Droppable>
-    //       </div>
-    //     </div>
-    //   </div>
-    // </DragDropContext>
   );
 }

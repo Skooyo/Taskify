@@ -2,7 +2,14 @@ import SprintCard from "@/components/SprintCard";
 import { ISprint } from "@/lib/database/models/sprint.model";
 import React from "react";
 import SprintButton from "@/components/SprintButton";
-import { getAllSprints } from "@/lib/actions/sprints.actions";
+import {
+  getAllSprints,
+  updateSprintTasks,
+} from "@/lib/actions/sprints.actions";
+import {
+  getProductBacklogItemById,
+  updateProductBacklogItemStatus,
+} from "@/lib/actions/product_backlog_item.actions";
 
 export default async function SprintView() {
   const sprints = await getAllSprints();

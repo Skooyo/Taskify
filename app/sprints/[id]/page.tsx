@@ -39,7 +39,10 @@ const TaskDragAndDrop = ({ params: { id } }: { params: Params }) => {
     // get all pb items
     const fetchPbItems = async () => {
       const res = await getAllProductBacklogItems();
-      setPbItems(res);
+      const newRes = res.filter(
+        (task: IProductBacklogItem) => task.status !== "Completed",
+      );
+      setPbItems(newRes);
     };
 
     fetchSprint();

@@ -7,7 +7,7 @@ import { ISprint } from "@/lib/database/models/sprint.model";
 import { stopSprint } from "@/lib/actions/sprints.actions";
 import StopSprintModal from "./StopSprintModal";
 
-const StopSprint = ({sprint}: {sprint: ISprint}) => {
+const StopSprint = ({ sprint }: { sprint: ISprint }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClick = async () => {

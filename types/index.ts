@@ -71,7 +71,7 @@ export type ProductBacklogItem = {
   storyPoints: number;
   status: string;
   developmentPhase: string;
-  totalLoggedHours: string;
+  totalLoggedHours: number;
   loggedHours: string[];
   taskType: string;
   createdAt: Date;
@@ -93,7 +93,7 @@ export type UpdateProductBacklogItemStatusParams = {
     storyPoints?: number;
     status?: string;
     developmentPhase?: string;
-    totalLoggedHours?: string;
+    totalLoggedHours?: number;
     loggedHours?: string[];
     taskType?: string;
     createdAt: Date;
@@ -110,7 +110,7 @@ export type UpdateProductBacklogItemParams = {
     storyPoints?: number;
     status?: string;
     developmentPhase?: string;
-    totalLoggedHours: string;
+    totalLoggedHours: number;
     loggedHours: string[];
     taskType?: string;
     createdAt: Date;

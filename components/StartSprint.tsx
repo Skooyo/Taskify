@@ -7,7 +7,7 @@ import { ISprint } from "@/lib/database/models/sprint.model";
 import { startSprint } from "@/lib/actions/sprints.actions";
 import StartSprintModal from "./StartSprintModal";
 
-const StartSprint = ({sprint}: {sprint: ISprint}) => {
+const StartSprint = ({ sprint }: { sprint: ISprint }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClick = async () => {
@@ -20,7 +20,7 @@ const StartSprint = ({sprint}: {sprint: ISprint}) => {
 
   return (
     <>
-    <StartSprintModal isOpen={isOpen} setIsOpen={setIsOpen} sprint={sprint} />
+      <StartSprintModal isOpen={isOpen} setIsOpen={setIsOpen} sprint={sprint} />
       <div className="bg-[#FFD400] rounded-lg drop-shadow-xl">
         <button
           type="button"
