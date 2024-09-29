@@ -147,13 +147,10 @@ export const updateProductBacklogItemHours = async ({
     const updatedItem = await ProductBacklogItem.findByIdAndUpdate(
       productBacklogItem._id,
       {
-        ...productBacklogItem,
-        totalLoggedHours: productBacklogItem.totalLoggedHours
-          ? productBacklogItem.totalLoggedHours + hoursWorked
-          : hoursWorked,
+        totalLoggedHours: (productBacklogItem.totalLoggedHours ?? 0) + hoursWorked,
         loggedHours: productBacklogItem.loggedHours
           ? [...productBacklogItem.loggedHours, workDescription]
-          : [workDescription],
+          : [workDescription]
       },
       { new: true },
     );
