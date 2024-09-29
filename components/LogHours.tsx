@@ -35,14 +35,19 @@ import {
 import { usePathname } from "next/navigation";
 import { IProductBacklogItem } from "@/lib/database/models/product_backlog_item.model";
 import { updateProductBacklogItemHours } from "@/lib/actions/product_backlog_item.actions";
+import { set } from "mongoose";
 
 type ModalProps = {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   pbItem: IProductBacklogItem;
+  focusTaskIsOpen: boolean;
+  setFocusTaskIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  isTaskUpdated: boolean;
+  setIsTaskUpdated: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const LogHours = ({ isOpen, setIsOpen, pbItem }: ModalProps) => {
+const LogHours = ({ isOpen, setIsOpen, pbItem, focusTaskIsOpen, setFocusTaskIsOpen, isTaskUpdated, setIsTaskUpdated }: ModalProps) => {
   const formSchema = z.object({
     description: z.string().optional(),
     hoursWorked: z.number().min(0),
@@ -78,7 +83,10 @@ const LogHours = ({ isOpen, setIsOpen, pbItem }: ModalProps) => {
 
   const handleClose = () => {
     setIsOpen(false);
+    setFocusTaskIsOpen(false);
+    setIsTaskUpdated(!isTaskUpdated);
     form.reset(); // Reset the form values
+    // window.location.reload(); // Reload the page
   };
 
   const pathname = usePathname();
@@ -91,7 +99,7 @@ const LogHours = ({ isOpen, setIsOpen, pbItem }: ModalProps) => {
       hoursWorked: values.hoursWorked,
       workDescription: values.description ?? "",
       pathname,
-    })
+    });
     handleClose();
   }
 

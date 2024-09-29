@@ -16,12 +16,16 @@ type ModalProps = {
   isFocusedTaskOpen: boolean;
   setIsFocusedTaskOpen: React.Dispatch<React.SetStateAction<boolean>>;
   pbItem: IProductBacklogItem;
+  isTaskUpdated: boolean;
+  setIsTaskUpdated: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const KanbanFocused = ({
   isFocusedTaskOpen,
   setIsFocusedTaskOpen,
   pbItem,
+  isTaskUpdated,
+  setIsTaskUpdated
 }: ModalProps) => {
   const [isDeleteModalOpen, setDeleteModalIsOpen] = useState<boolean>(false);
   const [isUpdateFormOpen, setIsUpdateFormOpen] = useState<boolean>(false);
@@ -199,6 +203,10 @@ const KanbanFocused = ({
         isOpen={isLogHoursOpen}
         setIsOpen={setIsLogHoursOpen}
         pbItem={pbItem}
+        focusTaskIsOpen={isFocusedTaskOpen}
+        setFocusTaskIsOpen={setIsFocusedTaskOpen}
+        isTaskUpdated={isTaskUpdated}
+        setIsTaskUpdated={setIsTaskUpdated}
         />
 
 

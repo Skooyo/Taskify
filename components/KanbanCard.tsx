@@ -7,7 +7,13 @@ import { ITag } from "@/lib/database/models/tag.model";
 import { getTagById } from "@/lib/actions/tag.actions";
 import KanbanFocused from "./KanbanFocused";
 
-const KanbanCard = ({ pbItem }: { pbItem: IProductBacklogItem }) => {
+type KanbanCardProps = {
+  pbItem: IProductBacklogItem,
+  isTaskUpdated: boolean;
+  setIsTaskUpdated: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const KanbanCard = ({ pbItem, isTaskUpdated, setIsTaskUpdated }: KanbanCardProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [visibleTags, setVisibleTags] = useState<ITag[]>([]);
 
@@ -101,6 +107,8 @@ const KanbanCard = ({ pbItem }: { pbItem: IProductBacklogItem }) => {
           isFocusedTaskOpen={isModalOpen}
           setIsFocusedTaskOpen={setIsModalOpen}
           pbItem={pbItem}
+          isTaskUpdated={isTaskUpdated}
+          setIsTaskUpdated={setIsTaskUpdated}
         />
       </div>
     </>
