@@ -38,7 +38,7 @@ const SprintCard = ({
   };
 
   const handleClick = () => {
-    if (clickable) {
+    if (clickable || sprint.status === "Completed") {
       if (sprint.status === "Not Started") {
         router.push(`/sprints/${sprint._id}`);
       } else {
