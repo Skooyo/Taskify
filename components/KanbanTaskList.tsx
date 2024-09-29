@@ -14,7 +14,13 @@ enum Priority {
   Urgent = 3,
 }
 
-const KanbanTaskList = ({ tasks }: { tasks: IProductBacklogItem[] }) => {
+const KanbanTaskList = ({
+  tasks,
+  isDraggable,
+}: {
+  tasks: IProductBacklogItem[];
+  isDraggable: boolean;
+}) => {
   return (
     <div className="w-full h-[90vh] p-2 flex items-center justify-center">
       <div
@@ -23,7 +29,12 @@ const KanbanTaskList = ({ tasks }: { tasks: IProductBacklogItem[] }) => {
         } items-center justify-center gap-10 gap-y-8 scrollbar-hide px-4 pb-60`}
       >
         {tasks.map((task, index) => (
-          <Draggable key={task._id} draggableId={task._id} index={index}>
+          <Draggable
+            key={task._id}
+            draggableId={task._id}
+            index={index}
+            isDragDisabled={!isDraggable}
+          >
             {(provided, snapshot) => (
               <div
                 {...provided.draggableProps}

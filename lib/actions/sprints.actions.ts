@@ -6,24 +6,52 @@ import Sprint, { ISprint } from "../database/models/sprint.model";
 import { handleError } from "../utils";
 import mongoose from "mongoose";
 import { revalidatePath } from "next/cache";
-import ProductBacklogItem from "../database/models/product_backlog_item.model";
+import ProductBacklogItem, {
+  IProductBacklogItem,
+} from "../database/models/product_backlog_item.model";
 import User from "../database/models/user.model";
 import Tag from "../database/models/tag.model";
+import {
+  getProductBacklogItemById,
+  updateProductBacklogItemStatus,
+} from "./product_backlog_item.actions";
 
 export const getAllSprints = async () => {
   try {
     await connectToDatabase();
 
-    const sprints = await Sprint.find().populate({
-      path: "notStartedTasks",
-      model: ProductBacklogItem,
-      select:
-        "_id title description priority storyPoints status developmentPhase totalLoggedHours loggedHours taskType createdAt assignee tags",
-      populate: [
-        { path: "assignee", model: User, select: "_id name isAdmin" },
-        { path: "tags", model: Tag, select: "_id name" },
-      ],
-    });
+    const sprints = await Sprint.find().populate([
+      {
+        path: "notStartedTasks",
+        model: ProductBacklogItem,
+        select:
+          "_id title description priority storyPoints status developmentPhase totalLoggedHours loggedHours taskType createdAt assignee tags",
+        populate: [
+          { path: "assignee", model: User, select: "_id name isAdmin" },
+          { path: "tags", model: Tag, select: "_id name" },
+        ],
+      },
+      {
+        path: "inProgressTasks",
+        model: ProductBacklogItem,
+        select:
+          "_id title description priority storyPoints status developmentPhase totalLoggedHours loggedHours taskType createdAt assignee tags",
+        populate: [
+          { path: "assignee", model: User, select: "_id name isAdmin" },
+          { path: "tags", model: Tag, select: "_id name" },
+        ],
+      },
+      {
+        path: "completedTasks",
+        model: ProductBacklogItem,
+        select:
+          "_id title description priority storyPoints status developmentPhase totalLoggedHours loggedHours taskType createdAt assignee tags",
+        populate: [
+          { path: "assignee", model: User, select: "_id name isAdmin" },
+          { path: "tags", model: Tag, select: "_id name" },
+        ],
+      },
+    ]);
 
     // Logic to automatically start sprints
     sprints.forEach((sprint) => {
@@ -111,7 +139,6 @@ export const updateSprintTasks = async ({
       { new: true },
     );
 
-    console.log("updatedSprint", updatedSprint);
     return JSON.parse(JSON.stringify(updatedSprint));
   } catch (error) {
     handleError(error);
@@ -171,7 +198,7 @@ export const stopSprint = async ({ sprint }: { sprint: ISprint }) => {
   try {
     await connectToDatabase();
 
-    const updatedSprint = await Sprint.findByIdAndUpdate(
+    const _ = await Sprint.findByIdAndUpdate(
       sprint._id,
       {
         status: "Completed",
@@ -179,8 +206,39 @@ export const stopSprint = async ({ sprint }: { sprint: ISprint }) => {
       { new: true },
     );
 
-    if (updatedSprint) revalidatePath("/sprints");
-    return JSON.parse(JSON.stringify(updatedSprint));
+    const populatedSprint = await getSprintById(sprint._id);
+
+    console.log("populatedSprint", populatedSprint);
+
+    await Promise.all(
+      populatedSprint.inProgressTasks.map((task: IProductBacklogItem) =>
+        updateProductBacklogItemStatus({
+          productBacklogItem: task,
+          status: "Not Started",
+        }),
+      ),
+    );
+
+    const newSprint = await updateSprintTasks({
+      sprint: populatedSprint,
+      notStarted: [],
+      inProgress: [],
+      completed: populatedSprint.completedTasks,
+    });
+
+    const tasks = await Promise.all(
+      sprint.inProgressTasks.map((task) => {
+        console.log("task in stopSprint", task);
+        return getProductBacklogItemById(task._id);
+      }),
+    );
+
+    // console.log("newSprint", updatedSprint);
+    console.log("newSprint", newSprint);
+    // if (updatedSprint) revalidatePath("/sprints");
+    if (newSprint) revalidatePath("/sprints");
+    // return JSON.parse(JSON.stringify(updatedSprint));
+    return JSON.parse(JSON.stringify(newSprint));
   } catch (error) {
     console.error("Error stopping sprint:", error);
     handleError(error);
