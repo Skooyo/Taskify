@@ -113,6 +113,7 @@ const UpdateForm = ({
   const pathname = usePathname();
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+
     const item = await updateProductBacklogItem({
       productBacklogItem: {
         _id: pbItem._id,
@@ -122,8 +123,8 @@ const UpdateForm = ({
         storyPoints: values.storyPoints,
         status: values.status,
         developmentPhase: values.developmentPhase,
-        totalLoggedHours: "0 Hours",
-        loggedHours: [""],
+        totalLoggedHours: pbItem.totalLoggedHours ?? 0,
+        loggedHours: pbItem.loggedHours ?? [],
         taskType: values.taskType,
         createdAt: new Date(),
       },
@@ -142,6 +143,7 @@ const UpdateForm = ({
       "tagIds",
       checkedTags.map((tag) => tag._id),
     );
+    console.log(pbItem)
   }, [checkedTags]);
 
   useEffect(() => {
