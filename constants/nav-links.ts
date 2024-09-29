@@ -1,7 +1,7 @@
 import { BiTask } from "react-icons/bi";
 import { BiSolidDashboard } from "react-icons/bi";
-import { TbFileStack } from "react-icons/tb";
-import { FaUser, FaUserTie } from "react-icons/fa6";
+import { AiOutlineTeam } from "react-icons/ai";
+import { RiAdminLine } from "react-icons/ri";
 export const links = [
   {
     name: "Product Backlog",
@@ -16,11 +16,11 @@ export const links = [
   {
     name: "Team Dashboard",
     href: "/team",
-    icon: FaUser  
+    icon: AiOutlineTeam  
   },
   {
     name: "Admin Dashboard",
     href: "/admin",
-    icon: FaUserTie
+    icon: RiAdminLine
   },
 ];

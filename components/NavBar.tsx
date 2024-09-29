@@ -3,10 +3,6 @@
 import Link from "next/link";
 import { links } from "@/constants/nav-links";
 import { usePathname } from "next/navigation";
-import { BiTask } from "react-icons/bi";
-import { BsListTask } from "react-icons/bs";
-import { AiOutlineTeam } from "react-icons/ai";
-import { RiAdminLine } from "react-icons/ri";
 
 const NavBar = () => {
   return (
@@ -37,10 +33,7 @@ function NavLinks() {
           >
             <div
               className="w-56.25 h-full border-2 border-#ccc-300 shadow-lg rounded-lg flex flex-grow flex-col text-center items-center justify-center">
-                {link.href === "/" && <BiTask className="text-5xl" />}
-                {link.href === "/sprints" && <BsListTask className="text-5xl" />}
-                {link.href === "/team" && <AiOutlineTeam className="text-5xl" />}
-                {link.href === "/admin" && <RiAdminLine className="text-5xl" />}
+                <link.icon className="text-5xl"/>
                 <h2>{link.name}</h2>
             </div>
           </Link>
