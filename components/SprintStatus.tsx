@@ -16,7 +16,7 @@ const SprintStatus = ({ status }: { status: string }) => {
   return (
     <>
       <div
-        className={`flex ${bgColor()} px-2 h-2/3 items-center justify-center rounded-md drop-shadow-xl flex-shrink-0`}
+        className={`flex ${bgColor()} px-4 h-2/3 items-center justify-center rounded-md drop-shadow-xl flex-shrink-0`}
       >
         {status == "Active" && <FaGear size={16} />}
         {status == "Completed" && <FaCheck size={16} />}

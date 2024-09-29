@@ -35,17 +35,27 @@ import {
 import { usePathname } from "next/navigation";
 import { IProductBacklogItem } from "@/lib/database/models/product_backlog_item.model";
 import { updateProductBacklogItemHours } from "@/lib/actions/product_backlog_item.actions";
+import { set } from "mongoose";
+import DatePicker from "react-datepicker";
+import { FaRegCalendarAlt } from "react-icons/fa";
 
 type ModalProps = {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   pbItem: IProductBacklogItem;
+  focusTaskIsOpen: boolean;
+  setFocusTaskIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  isTaskUpdated: boolean;
+  setIsTaskUpdated: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const LogHours = ({ isOpen, setIsOpen, pbItem }: ModalProps) => {
+const LogHours = ({ isOpen, setIsOpen, pbItem, focusTaskIsOpen, setFocusTaskIsOpen, isTaskUpdated, setIsTaskUpdated }: ModalProps) => {
   const formSchema = z.object({
     description: z.string().optional(),
     hoursWorked: z.number().min(0),
+    dateWorked: z.date({
+      required_error: "Date worked is required"
+    })
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -53,6 +63,7 @@ const LogHours = ({ isOpen, setIsOpen, pbItem }: ModalProps) => {
     defaultValues: {
       description: " ",
       hoursWorked: 0,
+      dateWorked: new Date(),
     },
   });
 
@@ -78,20 +89,24 @@ const LogHours = ({ isOpen, setIsOpen, pbItem }: ModalProps) => {
 
   const handleClose = () => {
     setIsOpen(false);
+    setFocusTaskIsOpen(false);
+    setIsTaskUpdated(!isTaskUpdated);
     form.reset(); // Reset the form values
+    // window.location.reload(); // Reload the page
   };
 
   const pathname = usePathname();
 
   // TODO: Update the onSubmit function to log the work hours in database
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values.description, values.hoursWorked);
+    console.log(values.description, values.hoursWorked, values.dateWorked);
     const item = await updateProductBacklogItemHours({
       productBacklogItem: pbItem,
       hoursWorked: values.hoursWorked,
+      dateWorked: values.dateWorked.toISOString(),
       workDescription: values.description ?? "",
       pathname,
-    })
+    });
     handleClose();
   }
 
@@ -129,6 +144,31 @@ const LogHours = ({ isOpen, setIsOpen, pbItem }: ModalProps) => {
                             field.onChange(e);
                           }}
                         />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="dateWorked"
+                  render={({ field }) => (
+                    <FormItem className="w-1/2">
+                      <FormLabel>Date Worked:</FormLabel>
+                      <FormControl className="h-72">
+                        <div className="items-center flex h-[50px] w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2">
+                          <FaRegCalendarAlt size={24}/>
+                          <p className="ml-3 whitespace-nowrap text-gray-600">Date Worked:</p>
+                          <DatePicker
+                            selected={field.value}
+                            onChange={(date) => field.onChange(date as Date)}
+                            showTimeSelect
+                            timeInputLabel="Time: "
+                            dateFormat="dd/MM/yyyy hh:mm aa"
+                            wrapperClassName="datePicker"
+                          />
+                        </div>
                       </FormControl>
                       <FormMessage />
                     </FormItem>

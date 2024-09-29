@@ -112,7 +112,7 @@ const CreateForm = ({ isOpen, setIsOpen }: ModalProps) => {
         status: values.status,
         developmentPhase: values.developmentPhase,
         totalLoggedHours: 0,
-        loggedHours: [""],
+        loggedHours: [],
         taskType: values.taskType,
         createdAt: new Date(),
       },

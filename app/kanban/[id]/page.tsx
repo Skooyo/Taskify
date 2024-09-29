@@ -23,6 +23,7 @@ interface Params {
 }
 
 export default function KanbanView({ params: { id } }: { params: Params }) {
+  const [isTaskUpdated, setIsTaskUpdated] = useState(false)
   const [notStarted, setNotStarted] = useState<IProductBacklogItem[]>([]);
   const [inProgress, setInProgress] = useState<IProductBacklogItem[]>([]);
   const [completed, setCompleted] = useState<IProductBacklogItem[]>([]);
@@ -72,7 +73,7 @@ export default function KanbanView({ params: { id } }: { params: Params }) {
 
       fetchSprintTasks();
     }
-  }, [sprint]);
+  }, [sprint, isTaskUpdated]);
 
   const updateState = (droppableId: string, list: IProductBacklogItem[]) => {
     switch (droppableId) {
@@ -198,7 +199,7 @@ export default function KanbanView({ params: { id } }: { params: Params }) {
                           {...provided.dragHandleProps}
                           className="mx-4"
                         >
-                          <KanbanCard pbItem={task} />
+                          <KanbanCard pbItem={task} isTaskUpdated={isTaskUpdated} setIsTaskUpdated={setIsTaskUpdated} />
                         </div>
                       )}
                     </Draggable>
@@ -235,7 +236,7 @@ export default function KanbanView({ params: { id } }: { params: Params }) {
                           {...provided.dragHandleProps}
                           className="mx-4"
                         >
-                          <KanbanCard pbItem={task} />
+                          <KanbanCard pbItem={task} isTaskUpdated={isTaskUpdated} setIsTaskUpdated={setIsTaskUpdated} />
                         </div>
                       )}
                     </Draggable>
@@ -272,7 +273,7 @@ export default function KanbanView({ params: { id } }: { params: Params }) {
                           {...provided.dragHandleProps}
                           className="mx-4"
                         >
-                          <KanbanCard pbItem={task} />
+                          <KanbanCard pbItem={task} isTaskUpdated={isTaskUpdated} setIsTaskUpdated={setIsTaskUpdated} />
                         </div>
                       )}
                     </Draggable>
