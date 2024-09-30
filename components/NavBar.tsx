@@ -17,6 +17,7 @@ const NavBar = () => {
       //Deadpool:#21282F
       //Ocean: #223648
       //Nature:#0D3537
+      //Default:#0F101A
 
 export default NavBar;
 
@@ -51,4 +52,5 @@ Active icon colour:
 Deadpool:#FFE97F
 Ocean:#E1DDC5
 Nature:#C6A280
+Default:#A7B6B3
 */

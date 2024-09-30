@@ -47,6 +47,7 @@ const SortButton = () => {
   //Sort button:
   //Deadpool:#FFE97F
   //Ocean:#E1DDC5
+  //Default:#A7B6B3
 
   return (
     <>

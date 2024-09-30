@@ -20,6 +20,8 @@ const TaskButton = () => {
   //Deadpool:#FFE97F
   //Ocean:#E1DDC5
   //Nature:#C6A280
+  //Default:#A7B6B3
+  
 
   return (
     <>
