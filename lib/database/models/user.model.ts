@@ -4,6 +4,7 @@ export interface IUser {
   _id: string;
   name: string;
   isAdmin: boolean;
+  password: string;
 }
 
 const UserSchema = new Schema<IUser>({
@@ -14,6 +15,10 @@ const UserSchema = new Schema<IUser>({
   isAdmin: {
     type: Boolean,
     default: false,
+  },
+  password: {
+    type: String,
+    required: true,
   },
 }, { collection: "users" });
 
