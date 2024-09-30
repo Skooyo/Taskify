@@ -168,7 +168,7 @@ export default function KanbanView({ params: { id } }: { params: Params }) {
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div className="mt-5 flex flex-col gap-5 pr-7">
-        <h1 className="w-full text-4xl font-semibold pb-5 border-b-2">
+        <h1 className="w-full text-4xl font-semibold pb-5 border-b-2 text-white">
           {sprint?.title}
         </h1>
         <div className="w-full h-[90vh] flex flex-row gap-2">

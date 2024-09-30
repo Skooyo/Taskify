@@ -59,7 +59,7 @@ const KanbanCard = ({ pbItem, isTaskUpdated, setIsTaskUpdated }: KanbanCardProps
     <>
       <div>
         <div
-          className="shadow-xl w-full h-full bg-[#BA0000] rounded-2xl hover:cursor-pointer drop-shadow-xl"
+          className="shadow-xl w-full h-full bg-[#6B6F72] rounded-2xl hover:cursor-pointer drop-shadow-xl"
           onDoubleClick={() => setIsModalOpen(true)}
         >
           <p className="opacity-0">color</p>
@@ -91,7 +91,7 @@ const KanbanCard = ({ pbItem, isTaskUpdated, setIsTaskUpdated }: KanbanCardProps
                 {visibleTags.map((tag) => (
                   <div
                     key={tag._id}
-                    className="flex text-sm bg-[#FFD400] opacity-80 h-full w-fit px-4 py-2 items-center justify-center rounded-2xl"
+                    className="flex text-sm bg-[#FFE97F] opacity-80 h-full w-fit px-4 py-2 items-center justify-center rounded-2xl"
                   >
                     <p>{tag.name}</p>
                   </div>

@@ -53,7 +53,7 @@ const FocusedTaskView = ({
         onRequestClose={() => setIsFocusedTaskOpen(false)}
         style={customStyles as Styles}
       >
-        <div className="shadow-xl w-full h-fit bg-[#BA0000] rounded-xl">
+        <div className="shadow-xl w-full h-fit bg-[#6B6F72] rounded-xl">
           <p className="opacity-0">color</p>
 
           {/* Heading */}
@@ -74,7 +74,7 @@ const FocusedTaskView = ({
                   {pbItem.tags.map((tag) => (
                     <div
                       key={tag._id}
-                      className={`flex bg-[#FFD400] opacity-80 px-4 py-2 w-fit h-fit items-center justify-center rounded-full text-sm`}
+                      className={`flex bg-[#FFE97F] opacity-80 px-4 py-2 w-fit h-fit items-center justify-center rounded-full text-sm`}
                     >
                       <p>{tag.name}</p>
                     </div>
