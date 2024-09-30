@@ -4,7 +4,7 @@ export interface IUser {
   _id: string;
   name: string;
   isAdmin: boolean;
-  password?: string;
+  password: string;
 }
 
 const UserSchema = new Schema<IUser>({
@@ -18,6 +18,7 @@ const UserSchema = new Schema<IUser>({
   },
   password: {
     type: String,
+    required: true,
   },
 }, { collection: "users" });
 
