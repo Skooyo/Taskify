@@ -12,6 +12,7 @@ import SprintDeleteModal from "./SprintDeleteModal";
 import { useRouter } from "next/navigation";
 import { Button, Divider, notification, Space } from "antd";
 import type { NotificationArgsProps } from "antd";
+import SprintEditButton from "./SprintEditButton";
 
 type NotificationType = "success" | "info" | "warning" | "error";
 
@@ -94,6 +95,8 @@ const SprintCard = ({
               )}
 
               {sprint.status == "Active" && <StopSprint sprint={sprint} />}
+
+              {sprint.status == "Not Started" && <SprintEditButton sprint={sprint} /> }
 
               <SprintDeleteModal
                 isOpen={deleteModalIsOpen}

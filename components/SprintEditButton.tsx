@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { FaEdit } from 'react-icons/fa';
+import { ISprint } from '@/lib/database/models/sprint.model';
+import SprintUpdateForm from './SprintUpdateForm';
 
-const SprintEditButton: React.FC = () => {
+const SprintEditButton = ({sprint}: {sprint: ISprint}) => {
   const [isUpdateFormOpen, setIsUpdateFormOpen] = useState(false);
 
   return (
@@ -15,6 +17,7 @@ const SprintEditButton: React.FC = () => {
         <FaEdit size={24} />
         <p>Edit</p>
       </button>
+      <SprintUpdateForm isOpen={isUpdateFormOpen} setIsOpen={setIsUpdateFormOpen} sprint={sprint} />
     </div>
   );
 };
