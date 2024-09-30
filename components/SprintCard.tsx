@@ -57,6 +57,7 @@ const SprintCard = ({
   //Deadpool:#6B6F72
   //Ocean:#223648
   //Nature:#226560
+  //Default:#0F101A
 
   return (
     <Context.Provider value={contextValue}>

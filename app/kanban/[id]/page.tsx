@@ -169,7 +169,8 @@ export default function KanbanView({ params: { id } }: { params: Params }) {
   //Deadpool: #FFFFFF
   //Ocean: #FFFFFF
   //Nature:#000000
-  
+  //Default:#000000
+
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div className="mt-5 flex flex-col gap-5 pr-7">

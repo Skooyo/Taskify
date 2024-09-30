@@ -23,6 +23,7 @@ export default async function SprintView() {
   //Deadpool:#FFFFFF
   //Ocean:#FFFFFF
   //Nature:#000000
+  //Default:#000000
 
   return (
     <div className="flex flex-col mt-[70px] mx-4 gap-6 h-screen sprints">
