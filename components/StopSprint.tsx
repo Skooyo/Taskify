@@ -21,7 +21,7 @@ const StopSprint = ({ sprint }: { sprint: ISprint }) => {
   return (
     <>
       <StopSprintModal isOpen={isOpen} setIsOpen={setIsOpen} sprint={sprint} />
-      <div className="bg-[#FFD400] rounded-lg drop-shadow-xl">
+      <div className="bg-[#FFE97F] rounded-lg drop-shadow-xl">
         <button
           type="button"
           className="p-2 rounded-lg border-solid bg-yellow text-base font-semibold px-3 flex items-center justify-center gap-2"
