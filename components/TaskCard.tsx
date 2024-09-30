@@ -49,11 +49,13 @@ const TaskCard = ({ pbItem }: { pbItem: IProductBacklogItem }) => {
   //Top of task card: 
   //Deadpool:#6B6F72
   //Ocean:#164763
+  //Nature:#226560
 
 
 	//Tags:
 	//Deadpool:#FFE97F 
 	//Ocean:#E1DDC5
+  //Nature:#C6A280
 
   return (
     <>

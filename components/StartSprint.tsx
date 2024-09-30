@@ -21,6 +21,7 @@ const StartSprint = ({ sprint }: { sprint: ISprint }) => {
   //Start sprint button
   //Deadpool:#FFE97F
   //Ocean: #E1DDC5
+  //Nature:#C6A280
 
   return (
     <>
