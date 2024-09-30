@@ -244,3 +244,21 @@ export const stopSprint = async ({ sprint }: { sprint: ISprint }) => {
     handleError(error);
   }
 };
+
+export const updateSprint = async ({ sprint }: { sprint: ISprint }) => {
+  try {
+    await connectToDatabase();
+
+    const updatedSprint = await Sprint.findByIdAndUpdate(
+      sprint._id,
+      {...sprint},
+      { new: true },
+    );
+
+    if (updatedSprint) revalidatePath("/sprints");
+    return JSON.parse(JSON.stringify(updatedSprint));
+  } catch (error) {
+    console.error("Error updating sprint:", error);
+    handleError(error);
+  }
+}
