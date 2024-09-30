@@ -54,10 +54,12 @@ const KanbanFocused = ({
   //Kanban Focused top colour
   //Deadpool:#6B6F72
   //Ocean:#223648
+  //Nature:#226560
 
   //Kanban Focused tags colour
   //Deadpool:#FFE97F
   //Ocean:#E1DDC5
+  //Nature:#C6A280
 
   return (
     <div className="gap-4 flex-col">
