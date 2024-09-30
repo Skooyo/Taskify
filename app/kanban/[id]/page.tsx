@@ -165,6 +165,9 @@ export default function KanbanView({ params: { id } }: { params: Params }) {
 
   const isDraggable = sprint?.status !== "Completed";
 
+  //Title colour
+  //Deadpool: #FFFFFF
+  //Ocean: #FFFFFF
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div className="mt-5 flex flex-col gap-5 pr-7">

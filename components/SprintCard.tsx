@@ -52,6 +52,10 @@ const SprintCard = ({
 
   const contextValue = useMemo(() => ({ name: "Taskify" }), []);
 
+  //Sprint card top colour
+  //Deadpool:#6B6F72
+  //Ocean:#223648
+
   return (
     <Context.Provider value={contextValue}>
       {contextHolder}

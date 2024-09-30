@@ -55,6 +55,14 @@ const KanbanCard = ({ pbItem, isTaskUpdated, setIsTaskUpdated }: KanbanCardProps
     }
   };
 
+  //Kanban Card top colour
+  //Deadpool:#6B6F72
+  //Ocean:#223648
+
+  //Kanban card tags colour
+  //Deadpool:#FFE97F
+  //Ocean:#E1DDC5
+
   return (
     <>
       <div>

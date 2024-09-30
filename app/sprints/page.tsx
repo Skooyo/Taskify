@@ -19,6 +19,10 @@ export default async function SprintView() {
       sprint.notStartedTasks.length > 0 || sprint.inProgressTasks.length > 0,
   );
 
+  //Title colour 
+  //Deadpool:#FFFFFF
+  //Ocean:#FFFFFF
+
   return (
     <div className="flex flex-col mt-[70px] mx-4 gap-6 h-screen sprints">
       <div className="flex w-full gap-8 items-center">

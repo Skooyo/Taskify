@@ -50,6 +50,14 @@ const KanbanFocused = ({
       borderRadius: "16px",
     },
   };
+  
+  //Kanban Focused top colour
+  //Deadpool:#6B6F72
+  //Ocean:#223648
+
+  //Kanban Focused tags colour
+  //Deadpool:#FFE97F
+  //Ocean:#E1DDC5
 
   return (
     <div className="gap-4 flex-col">

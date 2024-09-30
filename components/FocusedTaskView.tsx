@@ -45,6 +45,14 @@ const FocusedTaskView = ({
     },
   };
 
+  //Focused Task view top colour
+  //Deadpool:#6B6F72
+  //Ocean:#223648
+
+  //Focused Task View Tags
+  //Deadpool:#FFE97F
+  //Ocean:#E1DDC5
+
   return (
     <div className="gap-4 flex-col">
       <Modal

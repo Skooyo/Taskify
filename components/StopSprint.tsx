@@ -18,6 +18,10 @@ const StopSprint = ({ sprint }: { sprint: ISprint }) => {
     }
   };
 
+  //Stop sprint button
+  //Deadpool:#FFE97F
+  //Ocean: #E1DDC5
+
   return (
     <>
       <StopSprintModal isOpen={isOpen} setIsOpen={setIsOpen} sprint={sprint} />
