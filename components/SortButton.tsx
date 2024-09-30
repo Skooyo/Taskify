@@ -44,6 +44,10 @@ const SortButton = () => {
     console.log("Selected Priority Sort:", value);
   };
 
+  //Sort button:
+  //Deadpool:#FFE97F
+  //Ocean:#E1DDC5
+
   return (
     <>
       <DropdownMenu>

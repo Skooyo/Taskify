@@ -8,11 +8,14 @@ const NavBar = () => {
   return (
     <nav className="h-dvh w-1/6 rounded-xl p-5 bg-[#21282F] drop-shadow-2xl flex flex-col">
       <div className="h-full flex flex-col gap-4">
-        <NavLinks />
+        <NavLinks /> 
       </div>
     </nav>
   );
 };
+      //Navbar Colour: 
+      //Deadpool:#21282F
+      //Ocean: #223648
 
 export default NavBar;
 
@@ -42,3 +45,8 @@ function NavLinks() {
     </>
   );
 }
+/*
+Active icon colour:
+Deadpool:#FFE97F
+Ocean:#E1DDC5
+*/

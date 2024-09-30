@@ -48,6 +48,10 @@ const FilterButton = () => {
     }
   }, [checkedTags]);
 
+  //Filter button:
+  //Deadpool:#FFE97F
+  //Ocean:#E1DDC5
+
   return (
     <>
       <DropdownMenu>
