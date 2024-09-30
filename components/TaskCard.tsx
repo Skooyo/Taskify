@@ -46,6 +46,19 @@ const TaskCard = ({ pbItem }: { pbItem: IProductBacklogItem }) => {
     }
   };
 
+  //Top of task card: 
+  //Deadpool:#6B6F72
+  //Ocean:#164763
+  //Nature:#226560
+  //Default:#0F101A
+
+
+	//Tags:
+	//Deadpool:#FFE97F 
+	//Ocean:#E1DDC5
+  //Nature:#C6A280
+  //Default:#A7B6B3
+
   return (
     <>
       <div>
@@ -103,5 +116,6 @@ const TaskCard = ({ pbItem }: { pbItem: IProductBacklogItem }) => {
     </>
   );
 };
+
 
 export default TaskCard;
