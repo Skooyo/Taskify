@@ -23,7 +23,7 @@ interface Params {
 }
 
 export default function KanbanView({ params: { id } }: { params: Params }) {
-  const [isTaskUpdated, setIsTaskUpdated] = useState(false)
+  const [isTaskUpdated, setIsTaskUpdated] = useState(false);
   const [notStarted, setNotStarted] = useState<IProductBacklogItem[]>([]);
   const [inProgress, setInProgress] = useState<IProductBacklogItem[]>([]);
   const [completed, setCompleted] = useState<IProductBacklogItem[]>([]);
@@ -72,7 +72,7 @@ export default function KanbanView({ params: { id } }: { params: Params }) {
         setCompleted(completedTasks);
       };
 
-      console.log("Hours logged, ensuring sprint tasks are in correct columns")
+      console.log("Hours logged, ensuring sprint tasks are in correct columns");
       fetchSprintTasks();
     }
   }, [sprint, isTaskUpdated]);
@@ -182,7 +182,7 @@ export default function KanbanView({ params: { id } }: { params: Params }) {
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div className="mt-5 flex flex-col gap-5 pr-7">
-        <h1 className="w-full text-4xl font-semibold pb-5 border-b-2 text-white">
+        <h1 className="w-full text-4xl font-semibold pb-5 border-b-2 text-text">
           {sprint?.title}
         </h1>
         <div className="w-full h-[90vh] flex flex-row gap-2">
@@ -213,7 +213,11 @@ export default function KanbanView({ params: { id } }: { params: Params }) {
                           {...provided.dragHandleProps}
                           className="mx-4"
                         >
-                          <KanbanCard pbItem={task} isTaskUpdated={isTaskUpdated} setIsTaskUpdated={setIsTaskUpdated} />
+                          <KanbanCard
+                            pbItem={task}
+                            isTaskUpdated={isTaskUpdated}
+                            setIsTaskUpdated={setIsTaskUpdated}
+                          />
                         </div>
                       )}
                     </Draggable>
@@ -250,7 +254,11 @@ export default function KanbanView({ params: { id } }: { params: Params }) {
                           {...provided.dragHandleProps}
                           className="mx-4"
                         >
-                          <KanbanCard pbItem={task} isTaskUpdated={isTaskUpdated} setIsTaskUpdated={setIsTaskUpdated} />
+                          <KanbanCard
+                            pbItem={task}
+                            isTaskUpdated={isTaskUpdated}
+                            setIsTaskUpdated={setIsTaskUpdated}
+                          />
                         </div>
                       )}
                     </Draggable>
@@ -287,7 +295,11 @@ export default function KanbanView({ params: { id } }: { params: Params }) {
                           {...provided.dragHandleProps}
                           className="mx-4"
                         >
-                          <KanbanCard pbItem={task} isTaskUpdated={isTaskUpdated} setIsTaskUpdated={setIsTaskUpdated} />
+                          <KanbanCard
+                            pbItem={task}
+                            isTaskUpdated={isTaskUpdated}
+                            setIsTaskUpdated={setIsTaskUpdated}
+                          />
                         </div>
                       )}
                     </Draggable>

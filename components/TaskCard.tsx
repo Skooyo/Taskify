@@ -46,16 +46,15 @@ const TaskCard = ({ pbItem }: { pbItem: IProductBacklogItem }) => {
     }
   };
 
-  //Top of task card: 
+  //Top of task card:
   //Deadpool:#6B6F72
   //Ocean:#164763
   //Nature:#226560
   //Default:#0F101A
 
-
-	//Tags:
-	//Deadpool:#FFE97F 
-	//Ocean:#E1DDC5
+  //Tags:
+  //Deadpool:#FFE97F
+  //Ocean:#E1DDC5
   //Nature:#C6A280
   //Default:#A7B6B3
 
@@ -63,7 +62,7 @@ const TaskCard = ({ pbItem }: { pbItem: IProductBacklogItem }) => {
     <>
       <div>
         <div
-          className="shadow-xl w-full h-full bg-[#6B6F72] rounded-2xl hover:cursor-pointer drop-shadow-xl"
+          className="shadow-xl w-full h-full bg-accent rounded-2xl hover:cursor-pointer drop-shadow-xl"
           onClick={() => setIsModalOpen(true)}
         >
           <p className="opacity-0">color</p>
@@ -95,7 +94,7 @@ const TaskCard = ({ pbItem }: { pbItem: IProductBacklogItem }) => {
                 {visibleTags.map((tag) => (
                   <div
                     key={tag._id}
-                    className="flex text-sm bg-[#FFE97F] opacity-80 h-full w-fit px-4 py-2 items-center justify-center rounded-2xl"
+                    className="flex text-sm bg-secondary opacity-80 h-full w-fit px-4 py-2 items-center justify-center rounded-2xl"
                   >
                     <p>{tag.name}</p>
                   </div>
@@ -116,6 +115,5 @@ const TaskCard = ({ pbItem }: { pbItem: IProductBacklogItem }) => {
     </>
   );
 };
-
 
 export default TaskCard;

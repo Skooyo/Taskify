@@ -2,10 +2,56 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Default Theme (Deadpool) */
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --text: #ffffff;
+  --button: #ffe97f;
+  --accent: #6b6f72;
+  --secondary: #ffe97f;
+  --primary: #21282f;
+  --bg-image: url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Forig00.deviantart.net%2F4e8f%2Ff%2F2017%2F184%2F1%2F9%2Fdeadpool_minimalist_wallpaper_by_damionmauville-dbf0k84.png&f=1&nofb=1&ipt=17107019c0270ed2ef6c65d69445ca7e7e5d67421086868ff055ccdbed7c82d6&ipo=images");
+}
+
+/* Custom Theme: Nature */
+[data-theme="nature"] {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 34, 139, 34;
+  --background-end-rgb: 0, 100, 0;
+  --text: #ffffff;
+  --button: #c6a280;
+  --accent: #226560;
+  --secondary: #c6a280;
+  --primary: #0d3537;
+  --bg-image: url("https://wallpapers.com/images/hd/minimalist-nature-3840-x-2160-1iwu4cosdjh9b6l4.jpg");
+}
+
+/* Custom Theme: Ocean */
+[data-theme="ocean"] {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 0, 123, 255;
+  --background-end-rgb: 0, 82, 204;
+  --text: #000000;
+  --button: #e1ddc5;
+  --accent: #223648;
+  --secondary: #e1ddc5;
+  --primary: #223648;
+  --bg-image: url("https://images.unsplash.com/photo-1698173956184-1b19f9fdceca?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8Ymx1ZSUyMGdyYWRpZW50fGVufDB8fDB8fHww");
+}
+
+/* Other Default Theme */
+[data-theme="otherdefault"] {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 0, 0, 0;
+  --background-end-rgb: 0, 0, 0;
+  --text: #000000;
+  --button: #a7b6b3;
+  --accent: #0f101a;
+  --secondary: #a7b6b3;
+  --primary: #0f101a;
+  --bg-image: none;
 }
 
 @media (prefers-color-scheme: light) {

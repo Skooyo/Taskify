@@ -27,7 +27,7 @@ const StartSprint = ({ sprint }: { sprint: ISprint }) => {
   return (
     <>
       <StartSprintModal isOpen={isOpen} setIsOpen={setIsOpen} sprint={sprint} />
-      <div className="bg-[#FFE97F] rounded-lg drop-shadow-xl mx-4">
+      <div className="bg-button rounded-lg drop-shadow-xl mx-4">
         <button
           type="button"
           className="p-2 rounded-lg border-solid bg-yellow text-base font-semibold px-3 flex items-center justify-center gap-2"

@@ -17,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="overflow-hidden">
+      <body className="overflow-hidden bg-theme">
         <div className="h-screen w-full flex gap-8">
           <NavBar />
           <div className="flex-grow h-full w-4/6">{children}</div>

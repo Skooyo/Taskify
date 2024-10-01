@@ -21,11 +21,14 @@ const SprintButton = () => {
   //Ocean: #E1DDC5
   //Nature:#C6A280
   //Default:#A7B6B3
-  
+
   return (
     <>
-      <CreateSprintForm isOpen={createModalOpen} setIsOpen={setCreateModalOpen} />
-      <div className="bg-[#FFE97F] rounded-lg drop-shadow-xl">
+      <CreateSprintForm
+        isOpen={createModalOpen}
+        setIsOpen={setCreateModalOpen}
+      />
+      <div className="bg-button rounded-lg drop-shadow-xl">
         <button
           type="button"
           className="p-2 rounded-lg border-solid bg-yellow text-base font-semibold px-3 flex items-center justify-center gap-2"

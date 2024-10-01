@@ -25,7 +25,7 @@ const KanbanFocused = ({
   setIsFocusedTaskOpen,
   pbItem,
   isTaskUpdated,
-  setIsTaskUpdated
+  setIsTaskUpdated,
 }: ModalProps) => {
   const [isDeleteModalOpen, setDeleteModalIsOpen] = useState<boolean>(false);
   const [isUpdateFormOpen, setIsUpdateFormOpen] = useState<boolean>(false);
@@ -50,7 +50,7 @@ const KanbanFocused = ({
       borderRadius: "16px",
     },
   };
-  
+
   //Kanban Focused top colour
   //Deadpool:#6B6F72
   //Ocean:#223648
@@ -71,7 +71,7 @@ const KanbanFocused = ({
         onRequestClose={() => setIsFocusedTaskOpen(false)}
         style={customStyles as Styles}
       >
-        <div className="shadow-xl w-full h-fit bg-[#6B6F72] rounded-xl">
+        <div className="shadow-xl w-full h-fit bg-accent rounded-xl">
           <p className="opacity-0">color</p>
 
           {/* Heading */}
@@ -92,7 +92,7 @@ const KanbanFocused = ({
                   {pbItem.tags.map((tag) => (
                     <div
                       key={tag._id}
-                      className={`flex bg-[#FFE97F] opacity-80 px-4 py-2 w-fit h-fit items-center justify-center rounded-full text-sm`}
+                      className={`flex bg-secondary opacity-80 px-4 py-2 w-fit h-fit items-center justify-center rounded-full text-sm`}
                     >
                       <p>{tag.name}</p>
                     </div>
@@ -219,8 +219,7 @@ const KanbanFocused = ({
         setFocusTaskIsOpen={setIsFocusedTaskOpen}
         isTaskUpdated={isTaskUpdated}
         setIsTaskUpdated={setIsTaskUpdated}
-        />
-
+      />
 
       <UpdateForm
         isOpen={isUpdateFormOpen}
