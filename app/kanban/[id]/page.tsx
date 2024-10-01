@@ -28,6 +28,7 @@ export default function KanbanView({ params: { id } }: { params: Params }) {
   const [inProgress, setInProgress] = useState<IProductBacklogItem[]>([]);
   const [completed, setCompleted] = useState<IProductBacklogItem[]>([]);
   const [sprint, setSprint] = useState<ISprint>();
+  const [forceUpdate, setForceUpdate] = useState(false);
   const idToList = new Map<string, IProductBacklogItem[]>();
   idToList.set("notStarted", notStarted);
   idToList.set("inProgress", inProgress);
@@ -71,6 +72,7 @@ export default function KanbanView({ params: { id } }: { params: Params }) {
         setCompleted(completedTasks);
       };
 
+      console.log("Hours logged, ensuring sprint tasks are in correct columns")
       fetchSprintTasks();
     }
   }, [sprint, isTaskUpdated]);
@@ -90,6 +92,12 @@ export default function KanbanView({ params: { id } }: { params: Params }) {
         break;
     }
   };
+
+  useEffect(() => {
+    console.log("notStarted", notStarted);
+    console.log("inProgress", inProgress);
+    console.log("completed", completed);
+  }, [notStarted, inProgress, completed]);
 
   const onDragEnd = (result: any) => {
     const { destination, source, type } = result;

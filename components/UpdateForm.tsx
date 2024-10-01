@@ -143,7 +143,7 @@ const UpdateForm = ({
       "tagIds",
       checkedTags.map((tag) => tag._id),
     );
-    console.log(pbItem)
+    // console.log(pbItem)
   }, [checkedTags]);
 
   useEffect(() => {
