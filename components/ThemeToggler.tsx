@@ -26,7 +26,7 @@ const ThemeToggler = () => {
           </div>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="p-3 pr-10 bg-white rounded-lg">
-          <h1 className="font-semibold mb-2">Date Created</h1>
+          <h1 className="font-semibold mb-2">Pick a Theme</h1>
           <RadioGroup
             value={theme}
             onValueChange={changeTheme}
