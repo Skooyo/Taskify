@@ -92,7 +92,7 @@ const SprintCard = ({
 
             <div className="flex w-full h-full items-center justify-end gap-6">
               {sprint.status == "Not Started" && (
-                <StartSprint sprint={sprint} />
+                <StartSprint startedSprint={startedSprint} sprint={sprint} />
               )}
 
               {sprint.status == "Active" && <StopSprint sprint={sprint} />}

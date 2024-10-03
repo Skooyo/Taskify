@@ -16,7 +16,7 @@ export default async function SprintView() {
 
   const sprintWithTasks = sprints.find(
     (sprint: ISprint) =>
-      sprint.notStartedTasks.length > 0 || sprint.inProgressTasks.length > 0,
+      sprint.notStartedTasks.length > 0 || sprint.inProgressTasks.length > 0 || sprint.status == "Active",
   );
 
   //Title colour

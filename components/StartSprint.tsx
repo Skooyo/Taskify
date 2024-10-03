@@ -7,7 +7,7 @@ import { ISprint } from "@/lib/database/models/sprint.model";
 import { startSprint } from "@/lib/actions/sprints.actions";
 import StartSprintModal from "./StartSprintModal";
 
-const StartSprint = ({ sprint }: { sprint: ISprint }) => {
+const StartSprint = ({ sprint, startedSprint }: { sprint: ISprint, startedSprint?: ISprint }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClick = async () => {
@@ -30,7 +30,7 @@ const StartSprint = ({ sprint }: { sprint: ISprint }) => {
       <div className="bg-button rounded-lg drop-shadow-xl mx-4">
         <button
           type="button"
-          className="p-2 rounded-lg border-solid bg-yellow text-base font-semibold px-3 flex items-center justify-center gap-2"
+          className={`p-2 rounded-lg border-solid ${startedSprint ? 'bg-gray-500 pointer-events-none cursor-not-allowed' : 'bg-yellow'} text-base font-semibold px-3 flex items-center justify-center gap-2`}
           onClick={handleClick}
         >
           <p>Start Sprint</p>
