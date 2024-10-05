@@ -50,9 +50,11 @@ const EditUserForm = ({isOpen, setIsOpen, user}: ModalProps) => {
 
   useEffect(() => {
     if (user) {
-      form.setValue("name", user.name);
-      form.setValue("email", user.email);
-      form.setValue("password", user.password);
+      form.reset({
+        name: user.name,
+        email: user.email,
+        password: user.password,
+      })
     }
   }, [user])
 
