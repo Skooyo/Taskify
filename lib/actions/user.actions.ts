@@ -1,6 +1,6 @@
 "use server";
 
-import { CreateUserParams } from "@/types";
+import { CreateUserParams, deleteUserByIdParams } from "@/types";
 import { connectToDatabase } from "../database";
 import User from "../database/models/user.model";
 import { handleError } from "../utils";
@@ -35,11 +35,11 @@ export async function getUserById(userId: string) {
   }
 }
 
-export const deleteUserById = async ({user}: { user: IUser }) => {
+export const deleteUserById = async ({_id}: deleteUserByIdParams) => {
   try {
     await connectToDatabase();
 
-    const deletedUser = await User.findByIdAndDelete(user._id);
+    const deletedUser = await User.findByIdAndDelete(_id);
 
     if (deletedUser) revalidatePath("/admin");
   } catch (error) {

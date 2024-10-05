@@ -157,6 +157,10 @@ export type CreateUserParams = {
   }
 };
 
+export type deleteUserByIdParams = {
+  _id: string;
+}
+
 export type User = {
   _id: string;
   name: string;
