@@ -6,9 +6,11 @@ import { FaRegTrashAlt } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import { IUser } from "@/lib/database/models/user.model";
 import UserDeleteModal from "./UserDeleteModal";
+import { FaEdit } from "react-icons/fa";
 
 const UserCard = ({user}: {user: IUser}) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isEditFormOpen, setIsEditFormOpen] = useState(false);
 
   return (
     <>
@@ -22,7 +24,15 @@ const UserCard = ({user}: {user: IUser}) => {
             <p className="font-bold text-2xl max-w-full">
               {user.name}
             </p>
-            <div className="h-fit w-fit items-center justify-center">
+            <div className="h-fit w-fit items-center justify-center flex gap-6">
+            <button
+              type="button"
+              className="items-center justify-center py-2 px-6 bg-[#2fd42a] text-background rounded-lg flex gap-2 text-white opacity-80"
+              onClick={() => setIsEditFormOpen(true)}
+            >
+              <FaEdit size={24} />
+              <p>Edit</p>
+            </button>
             <button
                 type="button"
                 className="items-center justify-center px-6 py-2 bg-red-500
