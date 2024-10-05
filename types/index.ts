@@ -149,14 +149,20 @@ export const defaultProductBacklogItemState = {
 
 // User Params
 export type CreateUserParams = {
-  name: string;
-  isAdmin: boolean;
+  user : {
+    name: string;
+    email: string;
+    password: string;
+    isAdmin: boolean
+  }
 };
 
 export type User = {
   _id: string;
   name: string;
-  isAdmin: string;
+  email: string;
+  password: string;
+  isAdmin: boolean;
 };
 
 // Tag Params

@@ -3,10 +3,9 @@
 import { FaPlus } from "react-icons/fa";
 import { useState } from "react";
 import { handleError } from "@/lib/utils";
-import CreateSprintForm from "./CreateSprintForm";
-import { ISprint } from "@/lib/database/models/sprint.model";
+import CreateUserForm from "./CreateUserForm";
 
-const SprintButton = ({allSprints}: {allSprints:ISprint[]}) => {
+const CreateUserButton = () => {
   const [createModalOpen, setCreateModalOpen] = useState(false);
 
   const handleClick = async () => {
@@ -25,10 +24,10 @@ const SprintButton = ({allSprints}: {allSprints:ISprint[]}) => {
 
   return (
     <>
-      <CreateSprintForm
+      <CreateUserForm
         isOpen={createModalOpen}
         setIsOpen={setCreateModalOpen}
-      />
+        />
       <div className="bg-button rounded-lg drop-shadow-xl">
         <button
           type="button"
@@ -36,11 +35,11 @@ const SprintButton = ({allSprints}: {allSprints:ISprint[]}) => {
           onClick={handleClick}
         >
           <FaPlus />
-          <p>Create Sprint</p>
+          <p>Create User</p>
         </button>
       </div>
     </>
   );
 };
 
-export default SprintButton;
+export default CreateUserButton;
