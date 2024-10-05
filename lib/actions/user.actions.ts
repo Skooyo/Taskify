@@ -35,6 +35,7 @@ export async function getUserById(userId: string) {
   }
 }
 
+// TODO: implement validation to prevent deletion of users who are assigned to tasks
 export const deleteUserById = async ({_id}: deleteUserByIdParams) => {
   try {
     await connectToDatabase();
