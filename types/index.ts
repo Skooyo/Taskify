@@ -157,6 +157,16 @@ export type CreateUserParams = {
   }
 };
 
+export type UpdateUserParams = {
+  user: {
+    _id: string;
+    name: string;
+    email: string;
+    password: string;
+    isAdmin: boolean;
+  };
+};
+
 export type deleteUserByIdParams = {
   _id: string;
 }

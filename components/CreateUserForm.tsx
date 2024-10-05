@@ -46,17 +46,20 @@ const CreateUserForm = ({isOpen, setIsOpen}: ModalProps) => {
   };
 
   async function onSubmit(values: z.infer<typeof formSchema>): Promise<void> {
-    console.log("Submitted values:", values);
-    const item = await createUser({
-      user: {
-        name: values.name,
-        email: values.email,
-        password: values.password,
-        isAdmin: false,
-      }
-    })
-    handleCloseModal(); // Close the modal after submission
-  };
+    try {
+      const item = await createUser({
+        user: {
+          name: values.name,
+          email: values.email,
+          password: values.password,
+          isAdmin: false,
+        }
+      });
+      handleCloseModal(); // Close the modal after submission
+    } catch (error) {
+      alert("The email or name has been used by another user"); // Display an alert with the error message
+    }
+  }
 
   const customStyles = {
     overlay: {

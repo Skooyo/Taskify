@@ -1,6 +1,6 @@
 "use server";
 
-import { CreateUserParams, deleteUserByIdParams } from "@/types";
+import { CreateUserParams, deleteUserByIdParams, UpdateUserParams } from "@/types";
 import { connectToDatabase } from "../database";
 import User from "../database/models/user.model";
 import { handleError } from "../utils";
@@ -23,7 +23,8 @@ export const createUser = async({user}: CreateUserParams) => {
     revalidatePath("/admin")
     return JSON.parse(JSON.stringify(newUser));
   } catch (error) {
-    handleError(error);
+    handleError(error)
+    throw error;
   }
 }
 
@@ -61,5 +62,23 @@ export async function getAllUsers() {
     return JSON.parse(JSON.stringify(users));
   } catch (error) {
     handleError(error);
+  }
+}
+
+export const updateUser = async ({user}: UpdateUserParams) => {
+  try {
+    await connectToDatabase();
+
+    const updatedUser = await User.findByIdAndUpdate(
+      user._id,
+      {...user},
+      { new: true},
+    );
+
+    if (updatedUser) revalidatePath("/admin");
+    return JSON.parse(JSON.stringify(updatedUser));
+  } catch (error) {
+    handleError(error);
+    throw error;
   }
 }

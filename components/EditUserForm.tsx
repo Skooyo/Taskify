@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import "react-datepicker/dist/react-datepicker.css";
-import { createUser } from "@/lib/actions/user.actions";
+import { createUser, updateUser } from "@/lib/actions/user.actions";
 import { IUser } from "@/lib/database/models/user.model";
 import { useEffect } from "react";
 
@@ -54,19 +54,24 @@ const EditUserForm = ({isOpen, setIsOpen, user}: ModalProps) => {
       form.setValue("email", user.email);
       form.setValue("password", user.password);
     }
-  })
+  }, [user])
 
   async function onSubmit(values: z.infer<typeof formSchema>): Promise<void> {
-    console.log("Submitted values:", values);
-    const item = await createUser({
-      user: {
-        name: values.name,
-        email: values.email,
-        password: values.password,
-        isAdmin: false,
-      }
-    })
-    handleCloseModal(); // Close the modal after submission
+    try {
+      console.log("Submitted values:", values);
+      const item = await updateUser({
+        user: {
+          name: values.name,
+          email: values.email,
+          password: values.password,
+          isAdmin: user.isAdmin,
+          _id: user._id
+        }
+      })
+      handleCloseModal(); // Close the modal after submission
+    } catch (error) {
+      alert("The email or name has been used by another user"); // Display an alert with the error message
+    }
   };
 
   const customStyles = {
@@ -100,7 +105,7 @@ const EditUserForm = ({isOpen, setIsOpen, user}: ModalProps) => {
     >
       <div className="w-full p-4 px-8 min-h-fit bg-[#ffffff] flex flex-col gap-6 text-black rounded-2xl pb-10">
         <div className="items-center justify-center flex">
-          <p className="font-semibold text-2xl mt-4">Create a new User</p>
+          <p className="font-semibold text-2xl mt-4">Edit User Details</p>
         </div>
         <Form {...form}>
           <form
@@ -167,7 +172,7 @@ const EditUserForm = ({isOpen, setIsOpen, user}: ModalProps) => {
               type="submit"
               className="mt-12 text-black font-semibold px-16 w-full text-lg bg-[#FFD400] rounded-lg drop-shadow-xl hover:bg-[#c2a136]"
             >
-              Create New User
+              Update User Details
             </Button>
           </form>
         </Form>
