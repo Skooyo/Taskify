@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { IUser } from "@/lib/database/models/user.model";
 import UserDeleteModal from "./UserDeleteModal";
 import { FaEdit } from "react-icons/fa";
+import EditUserForm from "./EditUserForm";
 
 const UserCard = ({user}: {user: IUser}) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -48,6 +49,7 @@ const UserCard = ({user}: {user: IUser}) => {
       </div>
       <div className="absolute">
       <UserDeleteModal isOpen={isOpen} setIsOpen={setIsOpen} user={user}/>
+      <EditUserForm isOpen={isEditFormOpen} setIsOpen={setIsEditFormOpen} user={user}/>
       </div>
     </>
   );

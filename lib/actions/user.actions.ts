@@ -11,8 +11,13 @@ export const createUser = async({user}: CreateUserParams) => {
   try {
     await connectToDatabase();
 
+    console.log(user.email)
+
     const newUser = await User.create({
-      ...user,
+      name: user.name,
+      email: user.email,
+      password: user.password,
+      isAdmin: user.isAdmin,
     });
 
     revalidatePath("/admin")
