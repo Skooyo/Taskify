@@ -29,7 +29,7 @@ export default async function SprintView() {
     <div className="flex flex-col mt-[70px] mx-4 gap-6 h-screen sprints">
       <div className="flex w-full gap-8 items-center">
         <h1 className="text-4xl font-semibold ml-10 text-text">Sprints</h1>
-        <SprintButton />
+        <SprintButton allSprints={sprints}/>
       </div>
       <div className="flex flex-col gap-10 overflow-y-auto pb-24">
         {sprints.map((sprint: ISprint) => {
