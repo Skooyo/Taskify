@@ -58,6 +58,7 @@ const LoginForm: React.FC = () => {
       {/* Login Button */}
       <Button
         type="submit"
+        className="text-black font-semibold px-16 w-1/2 text-lg bg-[#FFD400] rounded-lg drop-shadow-xl hover:bg-[#c2a136]"
         onClick={form.handleSubmit(onSubmit)}
       >
         Login
