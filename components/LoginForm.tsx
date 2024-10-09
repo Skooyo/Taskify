@@ -4,6 +4,10 @@ import { useForm } from 'react-hook-form';
 const LoginForm: React.FC = () => {
   const form = useForm();
 
+  const onSubmit = (data: any) => {
+    console.log(data);
+  };
+
   return (
     <form>
       {/* Username Field */}
@@ -50,6 +54,14 @@ const LoginForm: React.FC = () => {
           </FormItem>
         )}
       />
+
+      {/* Login Button */}
+      <Button
+        type="submit"
+        onClick={form.handleSubmit(onSubmit)}
+      >
+        Login
+      </Button>
     </form>
   );
 };
