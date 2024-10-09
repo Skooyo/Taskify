@@ -1,5 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
 
 const LoginForm: React.FC = () => {
   const form = useForm();
@@ -63,6 +64,13 @@ const LoginForm: React.FC = () => {
       >
         Login
       </Button>
+
+      {/* Forgot Password Link */}
+      <div className="mt-4">
+        <Link to="/reset-password" className="text-blue-500 hover:underline">
+          Forgot your password?
+        </Link>
+      </div>
     </form>
   );
 };
