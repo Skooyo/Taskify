@@ -1,4 +1,4 @@
-import React from 'react';
+import Bargraph from "./BarGraph";
 const MemberDetailsCard = () => {
     return (
         <div className="flex justify-center items-center min-h-screen p-10"> 
@@ -20,7 +20,7 @@ const MemberDetailsCard = () => {
                     </div>
 
                     <div className="col-span-4 row-span-3 flex justify-center items-center"> 
-                        GRAPH
+                        <Bargraph />
                     </div>
 
                     <div className="col-span-3 row-span-3 flex flex-col justify-start max-h-[350px] overflow-y-auto"> {/* Add max height and overflow for scroll */}
