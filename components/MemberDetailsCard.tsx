@@ -1,118 +1,81 @@
+import React from 'react';
 const MemberDetailsCard = () => {
-    return(
-        <div className="h-lvh align-center pr-7">
-            <div className="h-full shadow-lg rounded-lg bg-primary self-center">
-                <div className="h-1/3 w-full shadow-lg rounded-lg content-normal grid grid-cols-7 items-center align-middle bg-accent">
-
-                    <div className="h-full w-full col-span-2 content-normal flex justify-center items-center align-center text-white">
-                        IMAGE
-                    </div>
-
-                    <div className="h-2/3 w-full col-span-5 flex flex-col items-start justify-center font-semibold text-base text-white">
-                        <p className="text-3xl align-middle">
-                            Pine Hein Swe
-                        </p>
-                        <p>
-                            pine0002@student.monash.edu
-                        </p>
-                        <p>
-                            120 hours worked
-                        </p>
-                    </div>
-
+    return (
+        <div className="flex justify-center items-center min-h-screen p-10"> 
+            <div className="shadow-lg rounded-xl bg-white max-w-9xl min-h-[50vh] mx-auto"> 
+                <div className="h-12 rounded-t-xl" style={{ backgroundColor: '#6B6F72'}}> 
                 </div>
 
-                <div className="h-2/3 w-full grid grid-cols-3 py-2 px-2 flex-none">
+                <div className="grid grid-cols-7 grid-rows-5 gap-4 p-5 min-h-[90vh]">
+                    <div className="col-span-2 row-span-2 flex justify-center items-center">
+                        <div className="w-48 h-48 rounded-full flex justify-center items-center text-white text-7xl" style={{ backgroundColor: '#6B6F72' }}> {/* Circle with #6B6F72 */}
+                            A
+                        </div>
+                    </div>
 
-                    <div className="h-3/5 col-span-2 border-2 border-white text-white flex-col content-center items-center text-center aligh-center">
+                    <div className="col-span-5 row-span-2 flex flex-col justify-center">
+                        <p className="text-3xl font-bold">Member Name</p>
+                        <p>Email: member@student.monash.edu</p>
+                        <p>Total Hours Worked: 80 hours</p>
+                    </div>
+
+                    <div className="col-span-4 row-span-3 flex justify-center items-center"> 
                         GRAPH
                     </div>
 
-                    <div className="h-2/3 text-base text-white">
-
-                        <div>
-                            <h1 className="text-xl text-center py-2">
-                                Work Description
-                            </h1>
-                        </div>
-
-                        <div className="">
-                            <div className="grid grid-cols-2">
-                                <p className="text-start pl-1">
-                                    Date:
-                                </p>
-                                <p className="text-end pr-1">
-                                    7/10/2024
-                                </p>
-                            </div>
-                        </div>
-
-                        <div className="grid grid-cols-2">
-                            <p className="text-start pl-1">
-                                Hours Worked:
-                            </p>
-                            <p className="text-end px-1">
-                                1HR
-                            </p>
-                        </div>
-
-                        <div className="h-2/3">
-                            <p className="pl-1">
-                                Description:
-                            </p>
-                            <p className="text-xs text-wrap px-1 overflow-y-auto h-full">
-                                This is a very detailed description yes indeed 
-                                yes very indeed detailed description of details
-                                that is very indeedThis is a very detailed description yes indeed 
-                                yes very indeed detailed description of details
-                                that is very indeedThis is a very detailed description yes indeed 
-                                yes very indeed detailed description of details
-                                that is very indeedThis is a very detailed description yes indeed 
-                                yes very indeed detailed description of details
-                                that is very indeedThis is a very detailed description yes indeed 
-                                yes very indeed detailed description of details
-                                that is very indeedThis is a very detailed description yes indeed 
-                                yes very indThis is a very detailed description yes indeed 
-                                yes very indeed detailed description of details
-                                that is very indeedThis is a very detailed description yes indeed 
-                                yes very indeed detailed description of details
-                                that is very indeedThis is a very detailed description yes indeed 
-                                yes very indeed detailed description of details
-                                that is very indeedThis is a very detailed description yes indeed 
-                                yes very indeed detailed description of details
-                                that is very indeedThis is a very detailed description yes indeed 
-                                yes very indeed detailed description of details
-                                that is very indeedThis is a very detailed description yes indeed 
-                                yes very indThis is a very detailed description yes indeed 
-                                yes very indeed detailed description of details
-                                that is very indeedThis is a very detailed description yes indeed 
-                                yes very indeed detailed description of details
-                                that is very indeedThis is a very detailed description yes indeed 
-                                yes very indeed detailed description of details
-                                that is very indeedThis is a very detailed description yes indeed 
-                                yes very indeed detailed description of details
-                                that is very indeedThis is a very detailed description yes indeed 
-                                yes very indeed detailed description of details
-                                that is very indeedThis is a very detailed description yes indeed 
-                                yes very indThis is a very detailed description yes indeed 
-                                yes very indeed detailed description of details
-                                that is very indeedThis is a very detailed description yes indeed 
-                                yes very indeed detailed description of details
-                                that is very indeedThis is a very detailed description yes indeed 
-                                yes very indeed detailed description of details
-                                that is very indeedThis is a very detailed description yes indeed 
-                                yes very indeed detailed description of details
-                                that is very indeedThis is a very detailed description yes indeed 
-                                yes very indeed detailed description of details
-                                that is very indeedThis is a very detailed description yes indeed 
-                                yes very ind
-                            </p>
-                        </div>
+                    <div className="col-span-3 row-span-3 flex flex-col justify-start max-h-[350px] overflow-y-auto"> {/* Add max height and overflow for scroll */}
+                        <h1 className="text-xl font-bold mb-2">Work Description</h1>
+                        <p className="text-sm">
+                            This is a very detailed description yes indeed 
+                            yes very indeed detailed description of details
+                            that is very indeedThis is a very detailed description yes indeed 
+                            yes very indeed detailed description of details
+                            that is very indeedThis is a very detailed description yes indeed 
+                            yes very indeed detailed description of details
+                            that is very indeedThis is a very detailed description yes indeed 
+                            yes very indeed detailed description of details
+                            that is very indeedThis is a very detailed description yes indeed 
+                            yes very indeed detailed description of details
+                            that is very indeedThis is a very detailed description yes indeed 
+                            yes very indThis is a very detailed description yes indeed 
+                            yes very indeed detailed description of details
+                            that is very indeedThis is a very detailed description yes indeed 
+                            yes very indeed detailed description of details
+                            that is very indeedThis is a very detailed description yes indeed 
+                            yes very indeed detailed description of details
+                            that is very indeedThis is a very detailed description yes indeed 
+                            yes very indeed detailed description of details
+                            that is very indeedThis is a very detailed description yes indeed 
+                            yes very indeed detailed description of details
+                            that is very indeedThis is a very detailed description yes indeed 
+                            yes very indThis is a very detailed description yes indeed 
+                            yes very indeed detailed description of details
+                            that is very indeedThis is a very detailed description yes indeed 
+                            yes very indeed detailed description of details
+                            that is very indeedThis is a very detailed description yes indeed 
+                            yes very indeed detailed description of details
+                            that is very indeedThis is a very detailed description yes indeed 
+                            yes very indeed detailed description of details
+                            that is very indeedThis is a very detailed description yes indeed 
+                            yes very indeed detailed description of details
+                            that is very indeedThis is a very detailed description yes indeed 
+                            yes very indThis is a very detailed description yes indeed 
+                            yes very indeed detailed description of details
+                            that is very indeedThis is a very detailed description yes indeed 
+                            yes very indeed detailed description of details
+                            that is very indeedThis is a very detailed description yes indeed 
+                            yes very indeed detailed description of details
+                            that is very indeedThis is a very detailed description yes indeed 
+                            yes very indeed detailed description of details
+                            that is very indeedThis is a very detailed description yes indeed 
+                            yes very indeed detailed description of details
+                            that is very indeedThis is a very detailed description yes indeed 
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
 export default MemberDetailsCard;
