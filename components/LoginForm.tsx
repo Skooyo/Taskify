@@ -27,6 +27,29 @@ const LoginForm: React.FC = () => {
           </FormItem>
         )}
       />
+
+      {/* Password Field */}
+      <FormField
+        control={form.control}
+        name="password"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Password:</FormLabel>
+            <FormControl>
+              <Input
+                {...field}
+                className="border-black rounded-lg"
+                type="password"
+                placeholder="Enter your password"
+                onChange={(e) => {
+                  field.onChange(e);
+                }}
+              />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
     </form>
   );
 };
