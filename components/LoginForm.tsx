@@ -6,11 +6,12 @@ const LoginForm: React.FC = () => {
   const form = useForm();
 
   const onSubmit = (data: any) => {
-    console.log(data);
+    // Log the data for now as placeholder, can pass to db later, for now just make the form first
+    console.log("Form Data Submitted:", data);
   };
 
   return (
-    <form>
+    <form onSubmit={form.handleSubmit(onSubmit)}>
       {/* Username Field */}
       <FormField
         control={form.control}
@@ -60,7 +61,6 @@ const LoginForm: React.FC = () => {
       <Button
         type="submit"
         className="text-black font-semibold px-16 w-1/2 text-lg bg-[#FFD400] rounded-lg drop-shadow-xl hover:bg-[#c2a136]"
-        onClick={form.handleSubmit(onSubmit)}
       >
         Login
       </Button>
