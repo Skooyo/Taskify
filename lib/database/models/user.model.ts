@@ -1,6 +1,6 @@
 import { model, models, Schema } from "mongoose";
 
-export interface IUser { 
+export interface IUser {
   _id: string;
   name: string;
   email: string;
@@ -8,26 +8,29 @@ export interface IUser {
   password: string;
 }
 
-const UserSchema = new Schema<IUser>({
-  name: {
-    type: String,
-    required: true,
-    unique: true,
+const UserSchema = new Schema<IUser>(
+  {
+    name: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    isAdmin: {
+      type: Boolean,
+      default: false,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
   },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  isAdmin: {
-    type: Boolean,
-    default: false,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
-}, { collection: "users" });
+  { collection: "users" },
+);
 
 const User = models.User || model<IUser>("User", UserSchema);
 

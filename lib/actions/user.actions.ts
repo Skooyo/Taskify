@@ -7,7 +7,7 @@ import { handleError } from "../utils";
 import { revalidatePath } from "next/cache";
 import { IUser } from "../database/models/user.model";
 
-export const createUser = async({user}: CreateUserParams) => {
+export const createUser = async ({ user }: CreateUserParams) => {
   try {
     await connectToDatabase();
 
@@ -20,13 +20,13 @@ export const createUser = async({user}: CreateUserParams) => {
       isAdmin: user.isAdmin,
     });
 
-    revalidatePath("/admin")
+    revalidatePath("/admin");
     return JSON.parse(JSON.stringify(newUser));
   } catch (error) {
     handleError(error)
     throw error;
   }
-}
+};
 
 export async function getUserById(userId: string) {
   try {
@@ -42,7 +42,7 @@ export async function getUserById(userId: string) {
 }
 
 // TODO: implement validation to prevent deletion of users who are assigned to tasks
-export const deleteUserById = async ({_id}: deleteUserByIdParams) => {
+export const deleteUserById = async ({ _id }: deleteUserByIdParams) => {
   try {
     await connectToDatabase();
 
@@ -52,7 +52,7 @@ export const deleteUserById = async ({_id}: deleteUserByIdParams) => {
   } catch (error) {
     handleError(error);
   }
-}
+};
 
 export async function getAllUsers() {
   try {
@@ -80,5 +80,40 @@ export const updateUser = async ({user}: UpdateUserParams) => {
   } catch (error) {
     handleError(error);
     throw error;
+  }
+}
+
+export async function getUserByName({ name }: { name: string }) {
+  try {
+    await connectToDatabase();
+
+    const user = await User.findOne({ name });
+    console.log("got user:", user);
+    return JSON.parse(JSON.stringify(user));
+  } catch (error) {
+    handleError(error);
+  }
+}
+
+export async function verifyUser({
+  name,
+  password,
+}: {
+  name: string;
+  password: string;
+}) {
+  try {
+    await connectToDatabase();
+
+    const user = await User.findOne({ name });
+
+    if (!user) return null;
+
+    if (user.password === password) return JSON.parse(JSON.stringify(user));
+
+    return null;
+  } catch (error) {
+    handleError(error);
+    return false;
   }
 }
