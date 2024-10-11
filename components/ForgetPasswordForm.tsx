@@ -33,4 +33,96 @@ const ForgetPasswordForm: React.FC = () => {
     console.log("Form Data Submitted:", data);
   };
 
-}
+    return (
+    <div className="w-full p-4 px-8 min-h-fit bg-[#ffffff] flex flex-col gap-6 text-black rounded-2xl pb-10">
+      <div className="items-center justify-center flex">
+        <p className="font-semibold text-2xl mt-4">Reset Your Password</p>
+      </div>
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="bg-[#ffffff] h-full flex flex-col gap-5"
+        >
+          {/* Username Field */}
+          <FormField
+            control={form.control}
+            name="username"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Username:</FormLabel>
+                <FormControl>
+                  <Input
+                    {...field}
+                    className="border-black rounded-lg"
+                    placeholder="Enter username"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {/* Security Question 1 Field */}
+          <FormField
+            control={form.control}
+            name="securityQuestion1"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>What is your mother's maiden name?</FormLabel>
+                <FormControl>
+                  <Input
+                    {...field}
+                    className="border-black rounded-lg"
+                    placeholder="Answer to question 1"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {/* Security Question 2 Field */}
+          <FormField
+            control={form.control}
+            name="securityQuestion2"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>What was the name of your first pet?</FormLabel>
+                <FormControl>
+                  <Input
+                    {...field}
+                    className="border-black rounded-lg"
+                    placeholder="Answer to question 2"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {/* Security Question 3 Field */}
+          <FormField
+            control={form.control}
+            name="securityQuestion3"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>What city were you born in?</FormLabel>
+                <FormControl>
+                  <Input
+                    {...field}
+                    className="border-black rounded-lg"
+                    placeholder="Answer to question 3"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+        </form>
+      </Form>
+    </div>
+  );
+};
+
+export default ForgetPasswordForm;
