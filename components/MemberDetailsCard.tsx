@@ -5,13 +5,42 @@ import Bargraph from "./BarGraph";
 import { getAllUsers } from "@/lib/actions/user.actions";
 import { IUser } from "@/lib/database/models/user.model";
 import { Users } from "lucide-react";
+import { useState } from "react";
 
 type MemberDetailsCardProps = {
     user: IUser;
+    startDate: Date;
+    endDate: Date;
 }
 
 
-const MemberDetailsCard = ({user}: MemberDetailsCardProps) => {
+const MemberDetailsCard = ({user, startDate, endDate}: MemberDetailsCardProps) => {
+
+    const calculateDayDifference = (start: Date, end: Date): number => {
+        const oneDay = 24 * 60 * 60 * 1000; // hours * minutes * seconds * milliseconds
+        return Math.round(Math.abs((end.getTime() - start.getTime()) / oneDay));
+      };
+    
+    let dayDifference = calculateDayDifference(startDate, endDate);
+
+    if (dayDifference == 0) {
+        dayDifference = 1;
+    }
+
+    const [hoursWorkedInDateRange, setHoursWorkedInDateRange] = useState<number>(0);
+
+    useEffect(() => {
+        if(user.hoursLogged.length > 0) {
+            const hoursInRange = user.hoursLogged.reduce((a, b, index) => {
+                if(new Date(user.dateOfWork[index]) >= startDate && new Date(user.dateOfWork[index]) <= endDate) {
+                    console.log(user.dateOfWork[index]);
+                    return a + b;
+                }
+                return a;
+            }, 0);
+            setHoursWorkedInDateRange(hoursInRange);
+        }
+    }, [startDate, endDate, user, hoursWorkedInDateRange])
 
     const totalHours = user.hoursLogged.reduce((a, b) => a + b, 0);
 
@@ -32,7 +61,7 @@ const MemberDetailsCard = ({user}: MemberDetailsCardProps) => {
                         <p className="text-3xl font-bold">Member Name: {user.name}</p>
                         <p>Email: {user.email}</p>
                         <p>Total Hours Worked: {totalHours}</p>
-                        <p>Average Hours Worked: placeholder</p>
+                        <p>Average Hours Worked: {hoursWorkedInDateRange/dayDifference} </p>
                         {/* TODO: finish this, need logic */}
                     </div>
 

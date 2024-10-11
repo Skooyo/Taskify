@@ -2,6 +2,7 @@ import React from 'react'; // Make sure to import React
 import MemberDetailsCard from "@/components/MemberDetailsCard";
 import { getAllUsers } from '@/lib/actions/user.actions';
 import { IUser } from '@/lib/database/models/user.model';
+import AdminTeamBoard from '@/components/AdminTeamBoard';
 
 // Correct the function definition and export
 const TeamView = async () => {
@@ -9,13 +10,9 @@ const TeamView = async () => {
     const users = await getAllUsers()
 
     return (
-        <div className="flex-col h-full overflow-y-auto w-full gap-8 flex">
-            {users.map((user: IUser) => {
-                return(
-                    <MemberDetailsCard user={user} key={user._id}/>
-                )
-            })}
-        </div>
+        <>  
+            <AdminTeamBoard users={users}/>
+        </>
     );
 }
 
