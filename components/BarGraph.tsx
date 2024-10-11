@@ -1,5 +1,6 @@
 "use client";
 
+import { IUser } from "@/lib/database/models/user.model";
 import { Bar } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -13,7 +14,7 @@ import {
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-const BarGraph = () => {
+const BarGraph = ({user}: {user: IUser}) => {
   const data = {
     labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
     datasets: [

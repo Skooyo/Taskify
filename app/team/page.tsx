@@ -8,8 +8,6 @@ const TeamView = async () => {
 
     const users = await getAllUsers()
 
-    console.log(users)
-
     return (
         <div className="flex-col h-full overflow-y-auto w-full gap-8 flex">
             {users.map((user: IUser) => {

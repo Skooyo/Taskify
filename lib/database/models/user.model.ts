@@ -6,6 +6,9 @@ export interface IUser {
   email: string;
   isAdmin: boolean;
   password: string;
+  hoursLogged: number[];
+  workDescriptions: string[];
+  dateOfWork: Date[];
 }
 
 const UserSchema = new Schema<IUser>(
@@ -28,6 +31,18 @@ const UserSchema = new Schema<IUser>(
       type: String,
       required: true,
     },
+    hoursLogged: {
+      type: [Number],
+      required: true,
+    },
+    workDescriptions: {
+      type: [String],
+      required: true,
+    },
+    dateOfWork: {
+      type: [Date],
+      required: true,
+    }
   },
   { collection: "users" },
 );

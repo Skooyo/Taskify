@@ -38,6 +38,7 @@ import { updateProductBacklogItemHours } from "@/lib/actions/product_backlog_ite
 import { set } from "mongoose";
 import DatePicker from "react-datepicker";
 import { FaRegCalendarAlt } from "react-icons/fa";
+import { logUserHours } from "@/lib/actions/user.actions";
 
 type ModalProps = {
   isOpen: boolean;
@@ -107,6 +108,14 @@ const LogHours = ({ isOpen, setIsOpen, pbItem, focusTaskIsOpen, setFocusTaskIsOp
       workDescription: values.description ?? "",
       pathname,
     });
+
+    const user = await logUserHours({
+      userName: pbItem.assignee.name,
+      workDescription: values.description || "",
+      hoursLogged: values.hoursWorked,
+      dateWorked: values.dateWorked,
+    })
+
     handleClose();
   }
 

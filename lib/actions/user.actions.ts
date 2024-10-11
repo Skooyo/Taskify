@@ -1,6 +1,6 @@
 "use server";
 
-import { CreateUserParams, deleteUserByIdParams, UpdateUserParams } from "@/types";
+import { CreateUserParams, deleteUserByIdParams, logUserHoursParams, UpdateUserParams } from "@/types";
 import { connectToDatabase } from "../database";
 import User from "../database/models/user.model";
 import { handleError } from "../utils";
@@ -115,5 +115,31 @@ export async function verifyUser({
   } catch (error) {
     handleError(error);
     return false;
+  }
+}
+
+export async function logUserHours({
+  userName,
+  workDescription,
+  hoursLogged,
+  dateWorked,
+}: logUserHoursParams) {
+  try {
+    await connectToDatabase();
+
+    const user = await getUserByName({ name: userName });
+
+    const updatedUser = await User.findByIdAndUpdate(
+      user._id,
+      {
+        $push: { hoursLogged: hoursLogged, workDescriptions: workDescription, dateOfWork: dateWorked },
+      },
+      { new: true },
+    );
+
+    if (updatedUser) revalidatePath("/admin");
+    return JSON.parse(JSON.stringify(updatedUser));
+  } catch (error) {
+    handleError(error);
   }
 }
