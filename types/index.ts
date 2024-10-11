@@ -153,7 +153,10 @@ export type CreateUserParams = {
     name: string;
     email: string;
     password: string;
-    isAdmin: boolean
+    isAdmin: boolean;
+    hoursLogged: number[];
+    workDescriptions: string[];
+    dateOfWork: Date[];
   }
 };
 
@@ -188,3 +191,10 @@ export type Tag = {
   _id: string;
   name: string;
 };
+
+export type logUserHoursParams = {
+  userName: string;
+  workDescription: string;
+  hoursLogged: number;
+  dateWorked: Date;
+}

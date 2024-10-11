@@ -18,19 +18,21 @@ const StartSprint = ({ sprint, startedSprint }: { sprint: ISprint, startedSprint
     }
   };
 
+  console.log(startedSprint);
+
   //Start sprint button
   //Deadpool:#FFE97F
   //Ocean: #E1DDC5
   //Nature:#C6A280
   //Default:#A7B6B3
-
+ // ${startedSprint ? 'bg-gray-500 pointer-events-none cursor-not-allowed' : 'bg-yellow'}
   return (
     <>
       <StartSprintModal isOpen={isOpen} setIsOpen={setIsOpen} sprint={sprint} />
       <div className="bg-button rounded-lg drop-shadow-xl mx-4">
         <button
           type="button"
-          className={`p-2 rounded-lg border-solid ${startedSprint ? 'bg-gray-500 pointer-events-none cursor-not-allowed' : 'bg-yellow'} text-base font-semibold px-3 flex items-center justify-center gap-2`}
+          className={`p-2 rounded-lg border-solid bg-yellow text-base font-semibold px-3 flex items-center justify-center gap-2`}
           onClick={handleClick}
         >
           <p>Start Sprint</p>

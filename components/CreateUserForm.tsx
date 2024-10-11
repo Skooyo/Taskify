@@ -53,6 +53,9 @@ const CreateUserForm = ({isOpen, setIsOpen}: ModalProps) => {
           email: values.email,
           password: values.password,
           isAdmin: false,
+          hoursLogged: [],
+          workDescriptions: [],
+          dateOfWork: [],
         }
       });
       handleCloseModal(); // Close the modal after submission
