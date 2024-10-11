@@ -9,6 +9,10 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from 'next/link';
 
+interface LoginFormProps {
+  onForgetPassword: () => void; 
+}
+
 const formSchema = z.object({
   username: z.string().min(1, { message: "Username is required" }),
   password: z.string().min(6, { message: "Password must be at least 6 characters" }),
@@ -16,7 +20,7 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-const LoginForm: React.FC = () => {
+const LoginForm: React.FC<LoginFormProps> = ({ onForgetPassword }) => {
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -89,9 +93,12 @@ const LoginForm: React.FC = () => {
           {/* Forgot your password link */}
           <p>
             Forgot your password?{' '}
-            <Link href="/reset-password">
-              Reset your password
-            </Link>
+            <Button 
+              onClick={onForgetPassword} 
+              className="bg-white text-black border-none shadow-none hover:bg-white"
+            >
+            Reset Password
+            </Button>
           </p>
         </form>
       </Form>
