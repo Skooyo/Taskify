@@ -119,6 +119,21 @@ const ForgetPasswordForm: React.FC = () => {
             )}
           />
 
+          {/* Submit Button */}
+          <Button
+            type="submit"
+            className="text-black font-semibold px-16 w-full text-lg bg-[#FFD400] rounded-lg drop-shadow-xl hover:bg-[#c2a136]"
+          >
+            Submit
+          </Button>
+
+          {/* Link back to login */}
+          <p>
+            Remembered your password?{' '}
+            <Link href="/login">
+              Go back to Login
+            </Link>
+          </p>
         </form>
       </Form>
     </div>
