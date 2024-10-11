@@ -29,4 +29,8 @@ const ForgetPasswordForm: React.FC = () => {
     },
   });
 
+  const onSubmit = (data: FormValues) => {
+    console.log("Form Data Submitted:", data);
+  };
+
 }
