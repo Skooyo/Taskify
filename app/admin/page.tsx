@@ -19,7 +19,7 @@ export default async function AdminView() {
         <h1 className="text-4xl font-semibold ml-10 text-text">Users</h1>
         <CreateUserButton />
       </div>
-      <div className="flex flex-col gap-2 overflow-y-auto pb-24">
+      <div className="flex flex-col gap-4 overflow-y-auto pb-24">
         {users.map((user: IUser) => {
           return <UserCard key={user._id} user={user} />;
         })}
