@@ -42,7 +42,7 @@ const BarGraph = ({user}: {user: IUser}) => {
   const data = {
     labels: Array.from({ length: 7 }, (_, i) => {
       const date = new Date();
-      date.setDate(date.getDate() - (6 - i));
+      date.setDate(date.getDate() - (7 - i));
       return date.toLocaleDateString('en-GB'); // 'en-GB' locale for DD/MM/YY format
     }),
     datasets: [
