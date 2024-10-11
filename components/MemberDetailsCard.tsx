@@ -1,5 +1,17 @@
+"use client"
+
+import { useEffect } from "react";
 import Bargraph from "./BarGraph";
-const MemberDetailsCard = () => {
+import { getAllUsers } from "@/lib/actions/user.actions";
+import { IUser } from "@/lib/database/models/user.model";
+
+type MemberDetailsCardProps = {
+    user: IUser;
+}
+
+
+const MemberDetailsCard = ({user}: MemberDetailsCardProps) => {
+
     return (
         <div className="flex justify-center items-center min-h-screen p-10"> 
             <div className="shadow-lg rounded-xl bg-white max-w-9xl min-h-[50vh] mx-auto"> 
@@ -14,9 +26,9 @@ const MemberDetailsCard = () => {
                     </div>
 
                     <div className="col-span-5 row-span-2 flex flex-col justify-center">
-                        <p className="text-3xl font-bold">Member Name</p>
-                        <p>Email: member@student.monash.edu</p>
-                        <p>Total Hours Worked: 80 hours</p>
+                        <p className="text-3xl font-bold">Member Name: {user.name}</p>
+                        <p>Email: {user.email}</p>
+                        <p>Total Hours Worked: placeholder</p>
                     </div>
 
                     <div className="col-span-4 row-span-3 flex justify-center items-center"> 
