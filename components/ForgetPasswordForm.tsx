@@ -1,5 +1,4 @@
 "use client";
-
 import React from 'react';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -7,61 +6,58 @@ import { useForm } from 'react-hook-form';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import Link from 'next/link';
 
 const formSchema = z.object({
-  username: z.string().min(1, { message: "Username is required" }),
   securityQuestion1: z.string().min(1, { message: "Answer is required" }),
   securityQuestion2: z.string().min(1, { message: "Answer is required" }),
   securityQuestion3: z.string().min(1, { message: "Answer is required" }),
 });
 
+interface ForgetPasswordFormProps {
+  onLoginClick: () => void;
+  onCorrectAnswer: () => void; 
+}
+
 type FormValues = z.infer<typeof formSchema>;
 
-const ForgetPasswordForm: React.FC = () => {
+const ForgetPasswordForm: React.FC<ForgetPasswordFormProps> = ({ onLoginClick, onCorrectAnswer }) => {
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
       securityQuestion1: "",
       securityQuestion2: "",
       securityQuestion3: "",
     },
   });
 
-  const onSubmit = (data: FormValues) => {
+  const onSubmit = async (data: FormValues) => {
     console.log("Form Data Submitted:", data);
+    let correctAnswers = 0;
+    if (data.securityQuestion1 === "Amy"){
+      correctAnswers++;
+    }
+    if (data.securityQuestion2 === "Buddy"){
+      correctAnswers++;
+    }
+    if (data.securityQuestion3 === "Subang Jaya"){
+      correctAnswers++;
+    }
+
+    if (correctAnswers === 3){
+      onCorrectAnswer();
+    }
   };
 
-    return (
+  return (
     <div className="w-full p-4 px-8 min-h-fit bg-[#ffffff] flex flex-col gap-6 text-black rounded-2xl pb-10">
       <div className="items-center justify-center flex">
-        <p className="font-semibold text-2xl mt-4">Reset Your Password</p>
+        <p className="font-semibold text-2xl mt-4">Reset Your Admin Password</p>
       </div>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
           className="bg-[#ffffff] h-full flex flex-col gap-5"
         >
-          {/* Username Field */}
-          <FormField
-            control={form.control}
-            name="username"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Username:</FormLabel>
-                <FormControl>
-                  <Input
-                    {...field}
-                    className="border-black rounded-lg"
-                    placeholder="Enter username"
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
           {/* Security Question 1 Field */}
           <FormField
             control={form.control}
@@ -80,7 +76,6 @@ const ForgetPasswordForm: React.FC = () => {
               </FormItem>
             )}
           />
-
           {/* Security Question 2 Field */}
           <FormField
             control={form.control}
@@ -99,7 +94,6 @@ const ForgetPasswordForm: React.FC = () => {
               </FormItem>
             )}
           />
-
           {/* Security Question 3 Field */}
           <FormField
             control={form.control}
@@ -126,13 +120,16 @@ const ForgetPasswordForm: React.FC = () => {
           >
             Submit
           </Button>
-
           {/* Link back to login */}
           <p>
             Remembered your password?{' '}
-            <Link href="/login">
-              Go back to Login
-            </Link>
+            <button 
+              onClick={onLoginClick} 
+              className="bg-white text-blue-400 hover:opacity-70 border-none shadow-none hover:bg-white"
+              type="button"
+            >
+              Back to login
+            </button>
           </p>
         </form>
       </Form>

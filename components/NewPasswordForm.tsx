@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { changeAdminPassword } from '@/lib/actions/user.actions';
 
 const formSchema = z.object({
   newPassword: z.string().min(6, { message: "Password must be at least 6 characters" }),
@@ -18,7 +19,11 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-const NewPasswordForm: React.FC = () => {
+type NewPasswordFormParams = {
+  onPassChange: () => void;
+}
+
+const NewPasswordForm: React.FC<NewPasswordFormParams> = ({ onPassChange }) => {
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -27,9 +32,10 @@ const NewPasswordForm: React.FC = () => {
     },
   });
 
-  const onSubmit = (data: FormValues) => {
+  const onSubmit = async (data: FormValues) => {
     console.log("New Password Data Submitted:", data);
-    // Here you can handle the new password submission logic (e.g., API call)
+    await changeAdminPassword({ newPassword: data.newPassword });
+    onPassChange();
   };
 
   return (
