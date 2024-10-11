@@ -17,3 +17,16 @@ const formSchema = z.object({
 });
 
 type FormValues = z.infer<typeof formSchema>;
+
+const ForgetPasswordForm: React.FC = () => {
+  const form = useForm<FormValues>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      username: "",
+      securityQuestion1: "",
+      securityQuestion2: "",
+      securityQuestion3: "",
+    },
+  });
+
+}
