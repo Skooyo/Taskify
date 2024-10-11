@@ -32,7 +32,7 @@ const LoginForm: React.FC = () => {
   return (
     <div className="w-full p-4 px-8 min-h-fit bg-[#ffffff] flex flex-col gap-6 text-black rounded-2xl pb-10">
       <div className="items-center justify-center flex">
-        <p className="font-semibold text-2xl mt-4">Login</p>
+        <p className="font-semibold text-2xl mt-4">Welcome Back!</p>
       </div>
       <Form {...form}>
         <form
