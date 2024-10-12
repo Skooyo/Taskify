@@ -49,18 +49,28 @@ const AdminTeamBoard = ({ users }: { users: IUser[] }) => {
         setEndDate={setEndDate}
       />
 
-      <div className="flex-col h-full overflow-y-auto w-full gap-8 flex">
-        {users.map((user: IUser) => {
-          return (
-            <MemberDetailsCard
-              user={user}
-              key={user._id}
-              startDate={startDate}
-              endDate={endDate}
-            />
-          );
-        })}
-      </div>
+      {userIsAdmin === "true" ? (
+        <div className="flex-col h-full overflow-y-auto w-full gap-8 flex">
+          {users.map((user: IUser) => {
+            return (
+              <MemberDetailsCard
+                userId={user._id}
+                key={user._id}
+                startDate={startDate}
+                endDate={endDate}
+              />
+            );
+          })}
+        </div>
+      ) : (
+        <div className="flex-col h-full overflow-y-auto w-full gap-8 flex">
+          <MemberDetailsCard
+            userId={userId!}
+            startDate={startDate}
+            endDate={endDate}
+          />
+        </div>
+      )}
     </>
   );
 };

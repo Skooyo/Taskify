@@ -2,11 +2,18 @@
 
 import Link from "next/link";
 import { links } from "@/constants/nav-links";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import ThemeToggler from "./ThemeToggler";
 
 const NavBar = () => {
   const pathname = usePathname();
+  const router = useRouter();
+
+  const handleLogout = () => {
+    sessionStorage.removeItem("userId");
+    sessionStorage.removeItem("userIsAdmin");
+    router.push("/");
+  };
   return (
     <>
       {pathname === "/" ? null : (
@@ -14,6 +21,12 @@ const NavBar = () => {
           <div className="h-full flex flex-col gap-4">
             <NavLinks />
             <ThemeToggler />
+            <button
+              onClick={handleLogout}
+              className="bg-button rounded-lg drop-shadow-xl p-2 border-solid bg-yellow text-base font-semibold px-3 flex items-center justify-center gap-2"
+            >
+              Logout
+            </button>
           </div>
         </nav>
       )}
