@@ -6,6 +6,7 @@ import React, { useMemo } from "react";
 import SprintStatus from "./SprintStatus";
 import StartSprint from "./StartSprint";
 import StopSprint from "./StopSprint";
+import BurndownButton from "./BurndownButton";
 import { useState } from "react";
 import { FaRegTrashAlt } from "react-icons/fa";
 import SprintDeleteModal from "./SprintDeleteModal";
@@ -91,6 +92,7 @@ const SprintCard = ({
             </div>
 
             <div className="flex w-full h-full items-center justify-end gap-6">
+              <BurndownButton sprintStatus={sprint.status} />
               {sprint.status == "Not Started" && (
                 <StartSprint startedSprint={startedSprint} sprint={sprint} />
               )}
