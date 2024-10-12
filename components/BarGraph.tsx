@@ -1,7 +1,7 @@
 "use client";
 
 import { IUser } from "@/lib/database/models/user.model";
-import { Bar } from 'react-chartjs-2';
+import { Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -10,24 +10,32 @@ import {
   Title,
   Tooltip,
   Legend,
-} from 'chart.js';
+} from "chart.js";
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+);
 
-const BarGraph = ({user}: {user: IUser}) => {
+const BarGraph = ({ user }: { user: IUser }) => {
+  // const BarGraph = ({userId}: {userId: string}) => {
 
   let hoursInfo: number[] = [];
 
-  function getHoursInfo(){
-    for(let i= 7; i>=1; i--){
+  function getHoursInfo() {
+    for (let i = 7; i >= 1; i--) {
       const hours = user.hoursLogged.reduce((a, b, index) => {
         const yesterday = new Date();
         yesterday.setDate(yesterday.getDate() - i); // Adjust the date by 'i' days
         yesterday.setHours(0, 0, 0, 0);
-        
+
         const workDate = new Date(user.dateOfWork[index]);
         workDate.setHours(0, 0, 0, 0);
-        
+
         if (workDate.getTime() === yesterday.getTime()) {
           return a + b;
         }
@@ -35,7 +43,7 @@ const BarGraph = ({user}: {user: IUser}) => {
       }, 0);
       hoursInfo.push(hours); // Move this line inside the loop
     }
-  } 
+  }
 
   getHoursInfo();
 
@@ -43,13 +51,13 @@ const BarGraph = ({user}: {user: IUser}) => {
     labels: Array.from({ length: 7 }, (_, i) => {
       const date = new Date();
       date.setDate(date.getDate() - (7 - i));
-      return date.toLocaleDateString('en-GB'); // 'en-GB' locale for DD/MM/YY format
+      return date.toLocaleDateString("en-GB"); // 'en-GB' locale for DD/MM/YY format
     }),
     datasets: [
       {
-        label: 'Hours Worked',
+        label: "Hours Worked",
         data: hoursInfo,
-        backgroundColor: 'rgba(164, 24, 24, 0.7)', 
+        backgroundColor: "rgba(164, 24, 24, 0.7)",
       },
     ],
   };
@@ -58,29 +66,29 @@ const BarGraph = ({user}: {user: IUser}) => {
     responsive: true,
     plugins: {
       legend: {
-        position: 'top' as const,
+        position: "top" as const,
         labels: {
-          color: 'black' 
-        }
+          color: "black",
+        },
       },
       title: {
         display: true,
-        text: 'Hours Worked Over the Week',
-        color: 'black' 
+        text: "Hours Worked Over the Week",
+        color: "black",
       },
     },
     scales: {
       x: {
         ticks: {
-          color: 'black', 
+          color: "black",
         },
       },
       y: {
         ticks: {
-          color: 'black', 
+          color: "black",
         },
-      }
-    }
+      },
+    },
   };
 
   return (

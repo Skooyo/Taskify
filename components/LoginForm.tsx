@@ -1,29 +1,41 @@
 "use client";
 
-import React from 'react';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import React from "react";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { verifyUser } from '@/lib/actions/user.actions';
-import { useState } from 'react';
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { verifyUser } from "@/lib/actions/user.actions";
+import { useState } from "react";
+import { IUser } from "@/lib/database/models/user.model";
 
 interface LoginFormProps {
-  onForgetPassword: () => void; 
+  onForgetPassword: () => void;
 }
 
 const formSchema = z.object({
   username: z.string().min(1, { message: "Username is required" }),
-  password: z.string().min(6, { message: "Password must be at least 6 characters" }),
+  password: z
+    .string()
+    .min(6, { message: "Password must be at least 6 characters" }),
 });
 
 type FormValues = z.infer<typeof formSchema>;
 
 const LoginForm: React.FC<LoginFormProps> = ({ onForgetPassword }) => {
+  const router = useRouter();
+
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -34,11 +46,15 @@ const LoginForm: React.FC<LoginFormProps> = ({ onForgetPassword }) => {
 
   const onSubmit = async (data: FormValues) => {
     console.log("Form Data Submitted:", data);
-    const user = await verifyUser({
+    const user: IUser = await verifyUser({
       name: data.username,
       password: data.password,
     });
-    console.log(user)
+
+    sessionStorage.setItem("userIsAdmin", user.isAdmin.toString());
+    sessionStorage.setItem("userId", user._id);
+    router.push("/productbacklog");
+    console.log(user);
   };
 
   return (
@@ -100,13 +116,13 @@ const LoginForm: React.FC<LoginFormProps> = ({ onForgetPassword }) => {
 
           {/* Forgot your password link */}
           <p>
-            Forgot your password?{' '}
-            <button 
-              onClick={onForgetPassword} 
+            Forgot your password?{" "}
+            <button
+              onClick={onForgetPassword}
               className="bg-white text-blue-400 hover:opacity-70 border-none shadow-none hover:bg-white"
               type="button"
             >
-            Reset Password
+              Reset Password
             </button>
           </p>
         </form>

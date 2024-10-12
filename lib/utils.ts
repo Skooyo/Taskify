@@ -5,6 +5,11 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+export const isLoggedIn = (): boolean => {
+  const user = sessionStorage.getItem("user");
+  return user !== null;
+};
+
 export const handleError = (error: any) => {
   console.error(error);
   throw new Error(typeof error === "string" ? error : JSON.stringify(error));
