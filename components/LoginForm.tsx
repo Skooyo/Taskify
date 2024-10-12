@@ -15,9 +15,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { verifyUser } from "@/lib/actions/user.actions";
 import { useState } from "react";
+import { IUser } from "@/lib/database/models/user.model";
 
 interface LoginFormProps {
   onForgetPassword: () => void;
@@ -33,6 +34,8 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 const LoginForm: React.FC<LoginFormProps> = ({ onForgetPassword }) => {
+  const router = useRouter();
+
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -43,11 +46,14 @@ const LoginForm: React.FC<LoginFormProps> = ({ onForgetPassword }) => {
 
   const onSubmit = async (data: FormValues) => {
     console.log("Form Data Submitted:", data);
-    const user = await verifyUser({
+    const user: IUser = await verifyUser({
       name: data.username,
       password: data.password,
     });
-    sessionStorage.setItem("userLoggedIn", user);
+
+    sessionStorage.setItem("userIsAdmin", user.isAdmin.toString());
+    sessionStorage.setItem("userId", user._id);
+    router.push("/productbacklog");
     console.log(user);
   };
 

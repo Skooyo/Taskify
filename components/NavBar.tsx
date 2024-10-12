@@ -6,13 +6,18 @@ import { usePathname } from "next/navigation";
 import ThemeToggler from "./ThemeToggler";
 
 const NavBar = () => {
+  const pathname = usePathname();
   return (
-    <nav className="h-dvh w-1/6 rounded-xl p-5 bg-primary drop-shadow-2xl flex flex-col">
-      <div className="h-full flex flex-col gap-4">
-        <NavLinks />
-        <ThemeToggler />
-      </div>
-    </nav>
+    <>
+      {pathname === "/" ? null : (
+        <nav className="h-dvh w-1/6 rounded-xl p-5 bg-primary drop-shadow-2xl flex flex-col">
+          <div className="h-full flex flex-col gap-4">
+            <NavLinks />
+            <ThemeToggler />
+          </div>
+        </nav>
+      )}
+    </>
   );
 };
 //Navbar Colour:

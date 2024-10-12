@@ -5,22 +5,22 @@ import { RiAdminLine } from "react-icons/ri";
 export const links = [
   {
     name: "Product Backlog",
-    href: "/",
-    icon: BiTask
+    href: "/productbacklog",
+    icon: BiTask,
   },
   {
     name: "Sprint Board",
     href: "/sprints",
-    icon: BiSolidDashboard 
+    icon: BiSolidDashboard,
   },
   {
-    name: "Team Dashboard",
+    name: "Team Board",
     href: "/team",
-    icon: AiOutlineTeam  
+    icon: AiOutlineTeam,
   },
-  {
-    name: "Admin Dashboard",
-    href: "/admin",
-    icon: RiAdminLine
-  },
+  // {
+  //   name: "Admin Dashboard",
+  //   href: "/admin",
+  //   icon: RiAdminLine,
+  // },
 ];
