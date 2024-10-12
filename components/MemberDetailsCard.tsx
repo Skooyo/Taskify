@@ -28,6 +28,7 @@ const MemberDetailsCard = ({
     workDescriptions: [],
     dateOfWork: [],
   });
+  const [totalHours, setTotalHours] = useState(0);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -52,7 +53,6 @@ const MemberDetailsCard = ({
   const [hoursWorkedInDateRange, setHoursWorkedInDateRange] =
     useState<number>(0);
 
-  let totalHours = 0;
   useEffect(() => {
     if (user) {
       if (user.hoursLogged.length > 0) {
@@ -68,11 +68,13 @@ const MemberDetailsCard = ({
         }, 0);
         setHoursWorkedInDateRange(hoursInRange);
       }
-      totalHours = user.hoursLogged.reduce((a, b) => a + b, 0);
     }
   }, [startDate, endDate, user, hoursWorkedInDateRange]);
 
-  // const totalHours = user.hoursLogged.reduce((a, b) => a + b, 0);
+  useEffect(() => {
+    const hours = user.hoursLogged.reduce((a, b) => a + b, 0);
+    setTotalHours(hours);
+  }, [user]);
 
   return (
     <div className="flex justify-center items-center min-h-screen p-10 min-w-ful">
