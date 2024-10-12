@@ -1,11 +1,12 @@
 "use server";
 
-import { CreateUserParams, deleteUserByIdParams, logUserHoursParams, UpdateUserParams } from "@/types";
+import { changeAdminPasswordParams, CreateUserParams, deleteUserByIdParams, logUserHoursParams, UpdateUserParams } from "@/types";
 import { connectToDatabase } from "../database";
 import User from "../database/models/user.model";
 import { handleError } from "../utils";
 import { revalidatePath } from "next/cache";
 import { IUser } from "../database/models/user.model";
+import { Router } from "lucide-react";
 
 export const createUser = async ({ user }: CreateUserParams) => {
   try {
@@ -111,7 +112,7 @@ export async function verifyUser({
 
     if (user.password === password) return JSON.parse(JSON.stringify(user));
 
-    return null;
+    return user;
   } catch (error) {
     handleError(error);
     return false;
@@ -137,6 +138,28 @@ export async function logUserHours({
       { new: true },
     );
 
+    if (updatedUser) revalidatePath("/admin");
+    return JSON.parse(JSON.stringify(updatedUser));
+  } catch (error) {
+    handleError(error);
+  }
+}
+
+export async function changeAdminPassword({
+  newPassword
+}: changeAdminPasswordParams) {
+  try {
+
+    await connectToDatabase();
+    
+    const user = await getUserByName({ name: "admin" });
+    
+    const updatedUser = await User.findByIdAndUpdate(
+      user._id,
+      { password: newPassword },
+      { new: true },
+    );
+    
     if (updatedUser) revalidatePath("/admin");
     return JSON.parse(JSON.stringify(updatedUser));
   } catch (error) {

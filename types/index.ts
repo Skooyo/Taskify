@@ -198,3 +198,7 @@ export type logUserHoursParams = {
   hoursLogged: number;
   dateWorked: Date;
 }
+
+export type changeAdminPasswordParams = {
+  newPassword: string;
+}

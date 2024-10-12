@@ -8,6 +8,9 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { verifyUser } from '@/lib/actions/user.actions';
+import { useState } from 'react';
 
 interface LoginFormProps {
   onForgetPassword: () => void; 
@@ -29,8 +32,13 @@ const LoginForm: React.FC<LoginFormProps> = ({ onForgetPassword }) => {
     },
   });
 
-  const onSubmit = (data: FormValues) => {
+  const onSubmit = async (data: FormValues) => {
     console.log("Form Data Submitted:", data);
+    const user = await verifyUser({
+      name: data.username,
+      password: data.password,
+    });
+    console.log(user)
   };
 
   return (
@@ -93,12 +101,13 @@ const LoginForm: React.FC<LoginFormProps> = ({ onForgetPassword }) => {
           {/* Forgot your password link */}
           <p>
             Forgot your password?{' '}
-            <Button 
+            <button 
               onClick={onForgetPassword} 
-              className="bg-white text-black border-none shadow-none hover:bg-white"
+              className="bg-white text-blue-400 hover:opacity-70 border-none shadow-none hover:bg-white"
+              type="button"
             >
             Reset Password
-            </Button>
+            </button>
           </p>
         </form>
       </Form>
