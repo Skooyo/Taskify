@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
 import { Styles } from "react-modal";
@@ -11,6 +13,8 @@ import { IProductBacklogItem } from "@/lib/database/models/product_backlog_item.
 import DeleteModal from "./DeleteModal";
 import UpdateForm from "./UpdateForm";
 import LogHours from "./LogHours";
+import { IUser } from "@/lib/database/models/user.model";
+import { getUserById } from "@/lib/actions/user.actions";
 
 type ModalProps = {
   isFocusedTaskOpen: boolean;
@@ -30,6 +34,18 @@ const KanbanFocused = ({
   const [isDeleteModalOpen, setDeleteModalIsOpen] = useState<boolean>(false);
   const [isUpdateFormOpen, setIsUpdateFormOpen] = useState<boolean>(false);
   const [isLogHoursOpen, setIsLogHoursOpen] = useState<boolean>(false);
+  const [user, setUser] = useState<IUser>({} as IUser);
+
+  const userId = sessionStorage.getItem("userId");
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const user = await getUserById(userId!);
+      setUser(user);
+    };
+
+    fetchUser();
+  }, [userId])
 
   const customStyles = {
     overlay: {
@@ -181,8 +197,8 @@ const KanbanFocused = ({
                   {/* TODO: add logic for adding log hours */}
                   <button
                     type="button"
-                    className="items-center justify-center py-2 px-6 bg-[#FFD400] rounded-lg drop-shadow-xl
-                                    text-background flex gap-2 text-black font-semibold opacity-80"
+                    className={`items-center justify-center py-2 px-6 ${pbItem.status == "In Progress" && user._id == pbItem.assignee._id ? "bg-[#FFD400]" : "bg-gray-500 pointer-events-none"} 
+                    rounded-lg drop-shadow-xl text-background flex gap-2 text-black font-semibold opacity-80`}
                     onClick={() => setIsLogHoursOpen(true)}
                   >
                     <p>Log Hours</p>
