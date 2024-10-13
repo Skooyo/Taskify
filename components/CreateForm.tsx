@@ -115,6 +115,7 @@ const CreateForm = ({ isOpen, setIsOpen }: ModalProps) => {
         loggedHours: [],
         taskType: values.taskType,
         createdAt: new Date(),
+        dateCompleted: null,
       },
       tags: values.tagIds,
       userId: values.assigneeId,

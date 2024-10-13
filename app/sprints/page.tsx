@@ -6,17 +6,15 @@ import {
   getAllSprints,
   updateSprintTasks,
 } from "@/lib/actions/sprints.actions";
-import {
-  getProductBacklogItemById,
-  updateProductBacklogItemStatus,
-} from "@/lib/actions/product_backlog_item.actions";
 
 export default async function SprintView() {
   const sprints = await getAllSprints();
 
   const sprintWithTasks = sprints.find(
     (sprint: ISprint) =>
-      sprint.notStartedTasks.length > 0 || sprint.inProgressTasks.length > 0 || sprint.status == "Active",
+      sprint.notStartedTasks.length > 0 ||
+      sprint.inProgressTasks.length > 0 ||
+      sprint.status == "Active",
   );
 
   //Title colour
@@ -29,7 +27,7 @@ export default async function SprintView() {
     <div className="flex flex-col mt-[70px] mx-4 gap-6 h-screen sprints">
       <div className="flex w-full gap-8 items-center">
         <h1 className="text-4xl font-semibold ml-10 text-text">Sprints</h1>
-        <SprintButton allSprints={sprints}/>
+        <SprintButton allSprints={sprints} />
       </div>
       <div className="flex flex-col gap-10 overflow-y-auto pb-24">
         {sprints.map((sprint: ISprint) => {

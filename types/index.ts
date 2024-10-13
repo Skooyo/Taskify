@@ -58,6 +58,7 @@ export type CreateProductBacklogItemProps = {
     loggedHours?: string[];
     taskType?: string;
     createdAt?: Date;
+    dateCompleted?: Date | null;
   };
   tags: string[];
   userId: string;
@@ -99,6 +100,7 @@ export type UpdateProductBacklogItemStatusParams = {
     createdAt: Date;
   };
   status?: string;
+  dateCompleted?: Date | null;
 };
 
 export type UpdateProductBacklogItemParams = {
@@ -149,7 +151,7 @@ export const defaultProductBacklogItemState = {
 
 // User Params
 export type CreateUserParams = {
-  user : {
+  user: {
     name: string;
     email: string;
     password: string;
@@ -157,7 +159,7 @@ export type CreateUserParams = {
     hoursLogged: number[];
     workDescriptions: string[];
     dateOfWork: Date[];
-  }
+  };
 };
 
 export type UpdateUserParams = {
@@ -172,7 +174,7 @@ export type UpdateUserParams = {
 
 export type deleteUserByIdParams = {
   _id: string;
-}
+};
 
 export type User = {
   _id: string;
@@ -197,8 +199,8 @@ export type logUserHoursParams = {
   workDescription: string;
   hoursLogged: number;
   dateWorked: Date;
-}
+};
 
 export type changeAdminPasswordParams = {
   newPassword: string;
-}
+};

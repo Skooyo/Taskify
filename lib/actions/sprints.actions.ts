@@ -13,7 +13,7 @@ import User from "../database/models/user.model";
 import Tag from "../database/models/tag.model";
 import {
   getProductBacklogItemById,
-  updateProductBacklogItemStatus,
+  updateProductBacklogItemStatusAndCompleted,
 } from "./product_backlog_item.actions";
 
 export const getAllSprints = async () => {
@@ -25,7 +25,7 @@ export const getAllSprints = async () => {
         path: "notStartedTasks",
         model: ProductBacklogItem,
         select:
-          "_id title description priority storyPoints status developmentPhase totalLoggedHours loggedHours taskType createdAt assignee tags",
+          "_id title description priority storyPoints status developmentPhase totalLoggedHours loggedHours taskType createdAt dateCompleted assignee tags",
         populate: [
           { path: "assignee", model: User, select: "_id name isAdmin" },
           { path: "tags", model: Tag, select: "_id name" },
@@ -35,7 +35,7 @@ export const getAllSprints = async () => {
         path: "inProgressTasks",
         model: ProductBacklogItem,
         select:
-          "_id title description priority storyPoints status developmentPhase totalLoggedHours loggedHours taskType createdAt assignee tags",
+          "_id title description priority storyPoints status developmentPhase totalLoggedHours loggedHours taskType createdAt dateCompleted assignee tags",
         populate: [
           { path: "assignee", model: User, select: "_id name isAdmin" },
           { path: "tags", model: Tag, select: "_id name" },
@@ -45,7 +45,7 @@ export const getAllSprints = async () => {
         path: "completedTasks",
         model: ProductBacklogItem,
         select:
-          "_id title description priority storyPoints status developmentPhase totalLoggedHours loggedHours taskType createdAt assignee tags",
+          "_id title description priority storyPoints status developmentPhase totalLoggedHours loggedHours taskType createdAt dateCompleted assignee tags",
         populate: [
           { path: "assignee", model: User, select: "_id name isAdmin" },
           { path: "tags", model: Tag, select: "_id name" },
@@ -212,7 +212,7 @@ export const stopSprint = async ({ sprint }: { sprint: ISprint }) => {
 
     await Promise.all(
       populatedSprint.inProgressTasks.map((task: IProductBacklogItem) =>
-        updateProductBacklogItemStatus({
+        updateProductBacklogItemStatusAndCompleted({
           productBacklogItem: task,
           status: "Not Started",
         }),
@@ -251,7 +251,7 @@ export const updateSprint = async ({ sprint }: { sprint: ISprint }) => {
 
     const updatedSprint = await Sprint.findByIdAndUpdate(
       sprint._id,
-      {...sprint},
+      { ...sprint },
       { new: true },
     );
 
@@ -261,4 +261,4 @@ export const updateSprint = async ({ sprint }: { sprint: ISprint }) => {
     console.error("Error updating sprint:", error);
     handleError(error);
   }
-}
+};

@@ -93,16 +93,17 @@ export const deleteProductBacklogItemById = async ({
   }
 };
 
-export const updateProductBacklogItemStatus = async ({
+export const updateProductBacklogItemStatusAndCompleted = async ({
   productBacklogItem,
   status,
+  dateCompleted,
 }: UpdateProductBacklogItemStatusParams) => {
   try {
     await connectToDatabase();
 
     const updatedItem = await ProductBacklogItem.findByIdAndUpdate(
       productBacklogItem._id,
-      { ...productBacklogItem, status },
+      { ...productBacklogItem, status, dateCompleted },
       { new: true },
     );
 
@@ -147,8 +148,19 @@ export const updateProductBacklogItemHours = async ({
 
     const updatedItem = await ProductBacklogItem.findByIdAndUpdate(
       productBacklogItem._id,
-      {...productBacklogItem, totalLoggedHours: productBacklogItem.totalLoggedHours ? productBacklogItem.totalLoggedHours + hoursWorked : hoursWorked,
-        loggedHours: productBacklogItem.loggedHours ? [...productBacklogItem.loggedHours, hoursWorked, dateWorked, workDescription] : [hoursWorked, dateWorked, workDescription]
+      {
+        ...productBacklogItem,
+        totalLoggedHours: productBacklogItem.totalLoggedHours
+          ? productBacklogItem.totalLoggedHours + hoursWorked
+          : hoursWorked,
+        loggedHours: productBacklogItem.loggedHours
+          ? [
+              ...productBacklogItem.loggedHours,
+              hoursWorked,
+              dateWorked,
+              workDescription,
+            ]
+          : [hoursWorked, dateWorked, workDescription],
       },
       { new: true },
     );

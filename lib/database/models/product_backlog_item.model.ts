@@ -12,6 +12,7 @@ export interface IProductBacklogItem {
   loggedHours?: string[];
   taskType?: string;
   createdAt: Date;
+  dateCompleted?: Date | null;
   assignee: {
     _id: string;
     name: string;
@@ -70,6 +71,10 @@ const ProductBacklogItemSchema = new Schema<IProductBacklogItem>(
     createdAt: {
       type: Date,
       default: Date.now,
+    },
+    dateCompleted: {
+      type: Date || String,
+      default: null,
     },
     assignee: {
       type: Schema.Types.ObjectId,

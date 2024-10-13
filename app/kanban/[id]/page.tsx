@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import {
   getAllProductBacklogItems,
   getProductBacklogItemById,
-  updateProductBacklogItemStatus,
+  updateProductBacklogItemStatusAndCompleted,
 } from "@/lib/actions/product_backlog_item.actions";
 import { IProductBacklogItem } from "@/lib/database/models/product_backlog_item.model";
 import KanbanTaskList from "@/components/KanbanTaskList";
@@ -145,12 +145,13 @@ export default function KanbanView({ params: { id } }: { params: Params }) {
       }
 
       const updateTask = async () => {
-        const res = await updateProductBacklogItemStatus({
+        const res = await updateProductBacklogItemStatusAndCompleted({
           productBacklogItem: {
             ...removed,
             totalLoggedHours: removed.totalLoggedHours || 0,
           },
           status: removed.status,
+          dateCompleted: removed.status === "Completed" ? new Date() : null,
         });
       };
 
