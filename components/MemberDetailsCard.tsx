@@ -52,6 +52,8 @@ const MemberDetailsCard = ({
   const [hoursWorkedInDateRange, setHoursWorkedInDateRange] =
     useState<number>(0);
 
+  const [showWorkDetail, setShowWorkDetail] = useState<boolean>(false);
+
   let totalHours = 0;
   useEffect(() => {
     if (user) {
@@ -100,9 +102,18 @@ const MemberDetailsCard = ({
             <p>
               Average Hours Worked: {hoursWorkedInDateRange / dayDifference}{" "}
             </p>
-            {/* TODO: finish this, need logic */}
           </div>
 
+          {!showWorkDetail && <div className="w-full h-full col-span-8 items-center justify-center flex">
+            <button
+              className="text-black font-semibold px-16 py-2 w-1/4 text-lg bg-[#FFD400] rounded-lg drop-shadow-xl hover:bg-[#c2a136]"
+              onClick={() => setShowWorkDetail(true)}
+            >
+              Show Work Details
+            </button>
+          </div>}
+
+          {showWorkDetail && <>
           <div className="col-span-4 row-span-3 flex justify-center items-center">
             <Bargraph user={user} />
           </div>
@@ -122,6 +133,7 @@ const MemberDetailsCard = ({
               );
             })}
           </div>
+            </>}
         </div>
       </div>
     </div>
