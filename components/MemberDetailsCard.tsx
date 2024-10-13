@@ -53,6 +53,8 @@ const MemberDetailsCard = ({
   const [hoursWorkedInDateRange, setHoursWorkedInDateRange] =
     useState<number>(0);
 
+  const [showWorkDetail, setShowWorkDetail] = useState<boolean>(false);
+
   useEffect(() => {
     if (user) {
       if (user.hoursLogged.length > 0) {
@@ -102,28 +104,42 @@ const MemberDetailsCard = ({
             <p>
               Average Hours Worked: {hoursWorkedInDateRange / dayDifference}{" "}
             </p>
-            {/* TODO: finish this, need logic */}
           </div>
 
-          <div className="col-span-4 row-span-3 flex justify-center items-center">
-            <Bargraph user={user} />
-          </div>
+          {!showWorkDetail && (
+            <div className="w-full h-full col-span-8 items-center justify-center flex">
+              <button
+                className="text-black font-semibold px-16 py-2 w-1/4 text-lg bg-[#FFD400] rounded-lg drop-shadow-xl hover:bg-[#c2a136]"
+                onClick={() => setShowWorkDetail(true)}
+              >
+                Show Work Details
+              </button>
+            </div>
+          )}
 
-          <div className="col-span-3 row-span-3 flex flex-col justify-start max-h-[350px] overflow-y-auto">
-            {" "}
-            {/* Add max height and overflow for scroll */}
-            <h1 className="text-xl font-bold mb-2">Work Description</h1>
-            {user?.workDescriptions.map((workDescription, index) => {
-              return (
-                <div key={index}>
-                  <p>
-                    {new Date(user.dateOfWork[index]).toUTCString()}:{" "}
-                    {workDescription} ({user.hoursLogged[index]} hours)
-                  </p>
-                </div>
-              );
-            })}
-          </div>
+          {showWorkDetail && (
+            <>
+              <div className="col-span-4 row-span-3 flex justify-center items-center">
+                <Bargraph user={user} />
+              </div>
+
+              <div className="col-span-3 row-span-3 flex flex-col justify-start max-h-[350px] overflow-y-auto">
+                {" "}
+                {/* Add max height and overflow for scroll */}
+                <h1 className="text-xl font-bold mb-2">Work Description</h1>
+                {user?.workDescriptions.map((workDescription, index) => {
+                  return (
+                    <div key={index}>
+                      <p>
+                        {new Date(user.dateOfWork[index]).toUTCString()}:{" "}
+                        {workDescription} ({user.hoursLogged[index]} hours)
+                      </p>
+                    </div>
+                  );
+                })}
+              </div>
+            </>
+          )}
         </div>
       </div>
     </div>
