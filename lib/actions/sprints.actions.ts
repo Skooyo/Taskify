@@ -165,10 +165,18 @@ export const startSprint = async ({ sprint }: { sprint: ISprint }) => {
   try {
     await connectToDatabase();
 
+    const populatedSprint = await getSprintById(sprint._id);
+    const totalStoryPoints = populatedSprint.notStartedTasks.reduce(
+      (acc: number, task: IProductBacklogItem) => acc + (task.storyPoints || 0),
+      0,
+    );
+
     const updatedSprint = await Sprint.findByIdAndUpdate(
       sprint._id,
       {
         status: "Active",
+        startDate: new Date(),
+        totalStoryPoints: totalStoryPoints,
       },
       { new: true },
     );
@@ -202,13 +210,12 @@ export const stopSprint = async ({ sprint }: { sprint: ISprint }) => {
       sprint._id,
       {
         status: "Completed",
+        endDate: new Date(),
       },
       { new: true },
     );
 
     const populatedSprint = await getSprintById(sprint._id);
-
-    console.log("populatedSprint", populatedSprint);
 
     await Promise.all(
       populatedSprint.inProgressTasks.map((task: IProductBacklogItem) =>

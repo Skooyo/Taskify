@@ -8,6 +8,7 @@ export interface ISprint {
   startDate: Date;
   endDate: Date;
   createdAt: Date;
+  totalStoryPoints: number;
   notStartedTasks: {
     _id: string;
     title?: string;
@@ -20,6 +21,7 @@ export interface ISprint {
     loggedHours?: string[];
     taskType?: string;
     createdAt: Date;
+    dateCompleted?: Date | null;
     assignee: {
       _id: string;
       name: string;
@@ -41,6 +43,7 @@ export interface ISprint {
     loggedHours?: string[];
     taskType?: string;
     createdAt: Date;
+    dateCompleted?: Date | null;
     assignee: {
       _id: string;
       name: string;
@@ -62,6 +65,7 @@ export interface ISprint {
     loggedHours?: string[];
     taskType?: string;
     createdAt: Date;
+    dateCompleted?: Date | null;
     assignee: {
       _id: string;
       name: string;
@@ -89,6 +93,10 @@ const SprintSchema = new Schema<ISprint>(
     },
     endDate: {
       type: Date,
+      required: true,
+    },
+    totalStoryPoints: {
+      type: Number,
       required: true,
     },
     notStartedTasks: [

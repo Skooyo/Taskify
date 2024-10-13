@@ -20,26 +20,27 @@ import { FaRegCalendarAlt } from "react-icons/fa";
 import { createSprint } from "@/lib/actions/sprints.actions";
 
 // Define the schema for the form
-const formSchema = z.object({
-  title: z.string().nonempty("Title is required"),
-  startDate: z.date({
-    required_error: "Start date is required",
-  }),
-  endDate: z.date({
-    required_error: "End date is required",
-  }),
-}).refine((data) => data.endDate > data.startDate, {
-  message: "End date must be after start date",
-  path: ["endDate"],
-});
+const formSchema = z
+  .object({
+    title: z.string().nonempty("Title is required"),
+    startDate: z.date({
+      required_error: "Start date is required",
+    }),
+    endDate: z.date({
+      required_error: "End date is required",
+    }),
+  })
+  .refine((data) => data.endDate > data.startDate, {
+    message: "End date must be after start date",
+    path: ["endDate"],
+  });
 
 type ModalProps = {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const CreateSprintForm = ({isOpen, setIsOpen}: ModalProps) => {
-
+const CreateSprintForm = ({ isOpen, setIsOpen }: ModalProps) => {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -63,13 +64,14 @@ const CreateSprintForm = ({isOpen, setIsOpen}: ModalProps) => {
         endDate: values.endDate,
         status: "Not Started",
         createdAt: new Date(),
+        totalStoryPoints: 0,
         notStartedTasks: [],
         inProgressTasks: [],
         completedTasks: [],
-      }
-    })
+      },
+    });
     handleCloseModal(); // Close the modal after submission
-  };
+  }
 
   const customStyles = {
     overlay: {
@@ -128,54 +130,58 @@ const CreateSprintForm = ({isOpen, setIsOpen}: ModalProps) => {
               )}
             />
 
-        <div className="flex flex-col gap-5 md:flex-row">
-          <FormField
-            control={form.control}
-            name="startDate"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormControl className="h-72">
-                  <div className="items-center flex h-[50px] w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2">
-                    <FaRegCalendarAlt size={24}/>
-                    <p className="ml-3 whitespace-nowrap text-gray-600">Start Date:</p>
-                    <DatePicker
-                      selected={field.value}
-                      onChange={(date) => field.onChange(date as Date)}
-                      showTimeSelect
-                      timeInputLabel="Time: "
-                      dateFormat="dd/MM/yyyy hh:mm aa"
-                      wrapperClassName="datePicker"
-                    />
-                  </div>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+            <div className="flex flex-col gap-5 md:flex-row">
+              <FormField
+                control={form.control}
+                name="startDate"
+                render={({ field }) => (
+                  <FormItem className="w-full">
+                    <FormControl className="h-72">
+                      <div className="items-center flex h-[50px] w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2">
+                        <FaRegCalendarAlt size={24} />
+                        <p className="ml-3 whitespace-nowrap text-gray-600">
+                          Start Date:
+                        </p>
+                        <DatePicker
+                          selected={field.value}
+                          onChange={(date) => field.onChange(date as Date)}
+                          showTimeSelect
+                          timeInputLabel="Time: "
+                          dateFormat="dd/MM/yyyy hh:mm aa"
+                          wrapperClassName="datePicker"
+                        />
+                      </div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-          <FormField
-            control={form.control}
-            name="endDate"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormControl className="h-72">
-                  <div className="items-center gap-8 flex h-[50px] w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2">
-                    <p className="ml-3 whitespace-nowrap text-gray-600">End Date:</p>
-                    <DatePicker
-                      selected={field.value}
-                      onChange={(date) => field.onChange(date as Date)}
-                      showTimeSelect
-                      timeInputLabel="Time: "
-                      dateFormat="dd/MM/yyyy hh:mm aa"
-                      wrapperClassName="datePicker"
-                    />
-                  </div>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
+              <FormField
+                control={form.control}
+                name="endDate"
+                render={({ field }) => (
+                  <FormItem className="w-full">
+                    <FormControl className="h-72">
+                      <div className="items-center gap-8 flex h-[50px] w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2">
+                        <p className="ml-3 whitespace-nowrap text-gray-600">
+                          End Date:
+                        </p>
+                        <DatePicker
+                          selected={field.value}
+                          onChange={(date) => field.onChange(date as Date)}
+                          showTimeSelect
+                          timeInputLabel="Time: "
+                          dateFormat="dd/MM/yyyy hh:mm aa"
+                          wrapperClassName="datePicker"
+                        />
+                      </div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
 
             {/* Submit Button */}
             <Button

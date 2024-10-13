@@ -32,6 +32,7 @@ export type CreateSprintParams = {
     startDate: Date;
     endDate: Date;
     createdAt: Date;
+    totalStoryPoints: number;
     notStartedTasks: IProductBacklogItem[];
     inProgressTasks: IProductBacklogItem[];
     completedTasks: IProductBacklogItem[];
