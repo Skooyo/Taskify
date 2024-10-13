@@ -91,7 +91,7 @@ const SprintCard = ({
               </div>
             </div>
 
-            <div className="flex w-full h-full items-center justify-end gap-6">
+            <div className="flex w-full h-full items-center justify-end gap-3">
               <BurndownButton sprintStatus={sprint.status} />
               {sprint.status == "Not Started" && (
                 <StartSprint startedSprint={startedSprint} sprint={sprint} />

@@ -20,7 +20,7 @@ const BurndownButton = ({ sprintStatus }: { sprintStatus: string }) => {
       <div className="bg-button rounded-lg drop-shadow-xl">
         <button
           type="button"
-          className="p-2 rounded-lg border-solid text-base font-semibold px-3 flex items-center justify-center gap-2"
+          className="p-2 rounded-lg border-solid text-base font-semibold px-3 flex items-center justify-center"
           style={{ backgroundColor: "#6B6F72", color: "#FFFFFF" }} 
           onClick={handleClick}
         >

@@ -185,7 +185,7 @@ const TeamBoardDateSelect = ({
             className="text-black font-semibold px-16 w-1/4 text-lg bg-[#FFD400] rounded-lg drop-shadow-xl hover:bg-[#c2a136]"
             onClick={form.handleSubmit(onSubmit)}
           >
-            Log Work Hours
+            Select Date
           </Button>
         </div>
       </Modal>
