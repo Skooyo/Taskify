@@ -91,7 +91,7 @@ const AdminChooseBoard = ({
                 </div>
               </div>
               <Link
-                href={"/admin"}
+                href={"/adminlogin"}
                 className="font-semibold text-2xl text-primary flex-1 flex-grow p-6"
                 onClick={() => setIsOpen(false)}
               >
