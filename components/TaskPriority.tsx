@@ -21,7 +21,7 @@ const TaskPriority = ({ priority }: { priority: string }) => {
       <div
         className={`flex ${bgColor()} w-[95%] px-2 h-fit py-2 rounded-md drop-shadow-xl justify-center items-center text-white gap-2`}
       >
-        {priority == " " || ("" && "")}
+        {priority == " " || ""}
         {priority == "Urgent" && <TbAlertHexagon size={24} />}
         {priority == "High" && <LuAlertTriangle size={24} />}
         {priority == "Medium" && <TbTriangle size={24} />}
