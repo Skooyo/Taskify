@@ -8,7 +8,6 @@ import {
   updateProductBacklogItemStatusAndCompleted,
 } from "@/lib/actions/product_backlog_item.actions";
 import { IProductBacklogItem } from "@/lib/database/models/product_backlog_item.model";
-import KanbanTaskList from "@/components/KanbanTaskList";
 import {
   getSprintById,
   updateSprintTasks,
