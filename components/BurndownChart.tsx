@@ -1,45 +1,46 @@
 "use client";
-import React from 'react';
-import { Line } from 'react-chartjs-2';
-import 'chart.js/auto';
-import { ChartOptions } from 'chart.js';
-import 'chartjs-adapter-date-fns';
+import React from "react";
+import { Line } from "react-chartjs-2";
+import "chart.js/auto";
+import { ChartOptions } from "chart.js";
+import "chartjs-adapter-date-fns";
 
 interface BurndownChartProps {
   totalStoryPoints: number;
-  dates: string[]; 
-  actualData: number[]; 
-  sprintStatus: string; 
+  dates: string[];
+  actualData: number[];
+  sprintStatus: string;
 }
 
-const BurndownChart: React.FC<BurndownChartProps> = ({ 
-  totalStoryPoints, 
-  dates, 
-  actualData, 
-  sprintStatus 
+const BurndownChart: React.FC<BurndownChartProps> = ({
+  totalStoryPoints,
+  dates,
+  actualData,
+  sprintStatus,
 }) => {
-  const idealBurndown = totalStoryPoints / dates.length;
-  const idealData = Array.from({ length: dates.length }, (_, index) =>
-    totalStoryPoints - idealBurndown * index
+  const idealBurndown = totalStoryPoints / (dates.length - 1);
+  const idealData = Array.from(
+    { length: dates.length },
+    (_, index) => totalStoryPoints - idealBurndown * index,
   );
 
   const data = {
     labels: dates,
     datasets: [
       {
-        label: 'Ideal Burndown',
+        label: "Ideal Burndown",
         data: idealData,
-        borderColor: 'rgba(18, 116, 47, 1)',
-        backgroundColor: 'rgba(18, 116, 47, 1)',
+        borderColor: "rgba(18, 116, 47, 1)",
+        backgroundColor: "rgba(18, 116, 47, 1)",
         fill: false,
       },
       ...(sprintStatus === "Active" || sprintStatus === "Completed"
         ? [
             {
-              label: 'Actual Burndown',
+              label: "Actual Burndown",
               data: actualData,
-              borderColor: 'rgba(222, 16, 16, 1)',
-              backgroundColor: 'rgba(222, 16, 16, 1)',
+              borderColor: "rgba(222, 16, 16, 1)",
+              backgroundColor: "rgba(222, 16, 16, 1)",
               fill: false,
             },
           ]
@@ -47,24 +48,24 @@ const BurndownChart: React.FC<BurndownChartProps> = ({
     ],
   };
 
-  const options: ChartOptions<'line'> = {
+  const options: ChartOptions<"line"> = {
     responsive: true,
     scales: {
       x: {
-        type: 'time',
+        type: "time",
         time: {
-          unit: 'day',
-          tooltipFormat: 'MMM dd',
+          unit: "day",
+          tooltipFormat: "MMM dd",
         },
         title: {
           display: true,
-          text: 'Date',
+          text: "Date",
         },
       },
       y: {
         title: {
           display: true,
-          text: 'Story Points Remaining',
+          text: "Story Points Remaining",
         },
       },
     },

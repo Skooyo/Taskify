@@ -1,27 +1,40 @@
 "use client";
 
-import React from 'react';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import React from "react";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { changeAdminPassword } from '@/lib/actions/user.actions';
+import { changeAdminPassword } from "@/lib/actions/user.actions";
 
-const formSchema = z.object({
-  newPassword: z.string().min(6, { message: "Password must be at least 6 characters" }),
-  confirmPassword: z.string().min(6, { message: "Confirmation password is required" }),
-}).refine((data) => data.newPassword === data.confirmPassword, {
-  message: "Passwords must match",
-  path: ["confirmPassword"], // This will set the error on the confirmPassword field
-});
+const formSchema = z
+  .object({
+    newPassword: z
+      .string()
+      .min(6, { message: "Password must be at least 6 characters" }),
+    confirmPassword: z
+      .string()
+      .min(6, { message: "Confirmation password is required" }),
+  })
+  .refine((data) => data.newPassword === data.confirmPassword, {
+    message: "Passwords must match",
+    path: ["confirmPassword"], // This will set the error on the confirmPassword field
+  });
 
 type FormValues = z.infer<typeof formSchema>;
 
 type NewPasswordFormParams = {
   onPassChange: () => void;
-}
+};
 
 const NewPasswordForm: React.FC<NewPasswordFormParams> = ({ onPassChange }) => {
   const form = useForm<FormValues>({
@@ -39,7 +52,7 @@ const NewPasswordForm: React.FC<NewPasswordFormParams> = ({ onPassChange }) => {
   };
 
   return (
-    <div className="w-full p-4 px-8 min-h-fit bg-[#ffffff] flex flex-col gap-6 text-black rounded-2xl pb-10">
+    <div className="w-1/2 p-4 px-8 min-h-fit bg-[#ffffff] flex flex-col gap-6 text-black rounded-2xl pb-10">
       <div className="items-center justify-center flex">
         <p className="font-semibold text-2xl mt-4">Set Your New Password</p>
       </div>

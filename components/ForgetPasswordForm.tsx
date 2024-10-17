@@ -1,9 +1,16 @@
 "use client";
-import React from 'react';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import React from "react";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
@@ -15,12 +22,15 @@ const formSchema = z.object({
 
 interface ForgetPasswordFormProps {
   onLoginClick: () => void;
-  onCorrectAnswer: () => void; 
+  onCorrectAnswer: () => void;
 }
 
 type FormValues = z.infer<typeof formSchema>;
 
-const ForgetPasswordForm: React.FC<ForgetPasswordFormProps> = ({ onLoginClick, onCorrectAnswer }) => {
+const ForgetPasswordForm: React.FC<ForgetPasswordFormProps> = ({
+  onLoginClick,
+  onCorrectAnswer,
+}) => {
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -33,23 +43,23 @@ const ForgetPasswordForm: React.FC<ForgetPasswordFormProps> = ({ onLoginClick, o
   const onSubmit = async (data: FormValues) => {
     console.log("Form Data Submitted:", data);
     let correctAnswers = 0;
-    if (data.securityQuestion1 === "Amy"){
+    if (data.securityQuestion1 === "Amy") {
       correctAnswers++;
     }
-    if (data.securityQuestion2 === "Buddy"){
+    if (data.securityQuestion2 === "Buddy") {
       correctAnswers++;
     }
-    if (data.securityQuestion3 === "Subang Jaya"){
+    if (data.securityQuestion3 === "Subang Jaya") {
       correctAnswers++;
     }
 
-    if (correctAnswers === 3){
+    if (correctAnswers === 3) {
       onCorrectAnswer();
     }
   };
 
   return (
-    <div className="w-full p-4 px-8 min-h-fit bg-[#ffffff] flex flex-col gap-6 text-black rounded-2xl pb-10">
+    <div className="w-1/2 p-4 px-8 min-h-fit bg-[#ffffff] flex flex-col gap-6 text-black rounded-2xl pb-10">
       <div className="items-center justify-center flex">
         <p className="font-semibold text-2xl mt-4">Reset Your Admin Password</p>
       </div>
@@ -122,9 +132,9 @@ const ForgetPasswordForm: React.FC<ForgetPasswordFormProps> = ({ onLoginClick, o
           </Button>
           {/* Link back to login */}
           <p>
-            Remembered your password?{' '}
-            <button 
-              onClick={onLoginClick} 
+            Remembered your password?{" "}
+            <button
+              onClick={onLoginClick}
               className="bg-white text-blue-400 hover:opacity-70 border-none shadow-none hover:bg-white"
               type="button"
             >

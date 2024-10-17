@@ -5,6 +5,7 @@ import Bargraph from "./BarGraph";
 import { getAllUsers, getUserById } from "@/lib/actions/user.actions";
 import { IUser } from "@/lib/database/models/user.model";
 import { useState } from "react";
+import { formatDateTime } from "@/lib/utils";
 
 type MemberDetailsCardProps = {
   // user: IUser;
@@ -102,7 +103,12 @@ const MemberDetailsCard = ({
             <p>Email: {user?.email}</p>
             <p>Total Hours Worked: {totalHours}</p>
             <p>
-              Average Hours Worked: {hoursWorkedInDateRange / dayDifference}{" "}
+              Average Hours Worked: {hoursWorkedInDateRange / dayDifference}
+              {"  "}
+              <span className="text-black opacity-50">
+                ({formatDateTime(startDate).dateOnly} -{" "}
+                {formatDateTime(endDate).dateOnly})
+              </span>
             </p>
           </div>
 
