@@ -70,6 +70,7 @@ const SprintUpdateForm = ({isOpen, setIsOpen, sprint}: ModalProps) => {
         notStartedTasks: sprint.notStartedTasks,
         inProgressTasks: sprint.inProgressTasks,
         completedTasks: sprint.completedTasks,
+        totalStoryPoints: sprint.totalStoryPoints,
       }
     })
     handleCloseModal(); // Close the modal after submission
